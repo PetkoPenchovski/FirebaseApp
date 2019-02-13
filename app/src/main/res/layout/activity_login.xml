@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    //Missing this line in linearLayout   ->tools:context="net.simplifiedlearning.firebaseauth.SignUpActivity"
-
-    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+            android:id="@+id/img_vw_login"
             android:layout_width="85dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
@@ -35,17 +36,17 @@
             android:paddingRight="15dp">
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/edt_txt_nickname_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:hint="email"
-                android:inputType="textEmailAddress"
+                android:hint="nickname"
+                android:inputType="text"
                 android:paddingBottom="15dp"
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/edt_txt_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -55,7 +56,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <Button
-                android:id="@+id/buttonSignUp"
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -66,7 +67,7 @@
                 android:textColor="@color/colorAccent" />
 
             <Button
-                android:id="@+id/buttonCreateRegistration"
+                android:id="@+id/btn_create_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

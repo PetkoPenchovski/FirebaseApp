@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    //Missing this line in linearLayout   ->tools:context="net.simplifiedlearning.firebaseauth.SignUpActivity
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,6 +10,7 @@
         android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/img_vw_reg"
             android:layout_width="85dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
@@ -35,7 +35,7 @@
             android:paddingRight="15dp">
 
             <EditText
-                android:id="@+id/editNickname"
+                android:id="@+id/edt_txt_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -45,7 +45,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/edt_txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -55,7 +55,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/edt_txt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -65,7 +65,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/editTextConfirmPassword"
+                android:id="@+id/edt_txt_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -75,7 +75,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <Button
-                android:id="@+id/buttonLogin"
+                android:id="@+id/btn_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
