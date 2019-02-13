@@ -65,14 +65,15 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent" />
 
-            <TextView
-                android:id="@+id/textViewLogin"
+            <Button
+                android:id="@+id/buttonCreateRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Already have an account? Login"
-                android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_gravity="center"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="Create Registration"
+                android:textAllCaps="false"
                 android:textColor="@color/colorAccent" />
 
 

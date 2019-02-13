@@ -1,7 +1,0 @@
-package com.example.laptop_acer.firebaseapp;
-
-
-import android.support.v7.app.AppCompatActivity;
-
-public class SignUpActivity extends AppCompatActivity {
-}
