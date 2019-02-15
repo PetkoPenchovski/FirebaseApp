@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.firebase.ui.auth.data.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -66,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (password.length() <= 6) {
+        if (password.length() < 6) {
             editTextPasswordLogin.setError("Minimum 6 symbols");
             editTextPasswordLogin.requestFocus();
             return;
