@@ -140,49 +140,6 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser() {
-        String nickname = editTextNickname.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
-        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
-
-        if (nickname.isEmpty()) {
-            editTextNickname.setError("Nickname is required");
-            editTextNickname.requestFocus();
-            return;
-        }
-        if (email.isEmpty()) {
-            editTextEmail.setError("Email is required");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please enter a valid email");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            editTextPassword.setError("Password is required");
-            editTextPassword.requestFocus();
-            return;
-        }
-
-        if (password.length() < 6) {
-            editTextPassword.setError("Minimum length of password should be 6");
-            editTextPassword.requestFocus();
-            return;
-        }
-
-        if (confirmPassword == password) {
-            editTextConfirmPassword.setError("The password not match");
-            editTextConfirmPassword.requestFocus();
-            return;
-        }
-
-    }
-
 }
 
 
