@@ -1,19 +1,30 @@
 package com.example.laptop_acer.firebaseapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class LoginActivity extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
     private ImageView imageViewLogin;
+    private ProgressDialog progressDialog;
     private EditText editTextPasswordLogin;
-    private EditText editTextNicknameLogin;
+    private EditText editTextEmailLogin;
     private Button buttonLogin;
     private Button buttonCreateRegistration;
 
@@ -24,9 +35,13 @@ public class LoginActivity extends AppCompatActivity {
 
         imageViewLogin = findViewById(R.id.img_vw_login);
         editTextPasswordLogin = findViewById(R.id.edt_txt_password_login);
-        editTextNicknameLogin = findViewById(R.id.edt_txt_nickname_login);
+        editTextEmailLogin = findViewById(R.id.edt_txt_email_login);
         buttonLogin = findViewById(R.id.btn_login);
         buttonCreateRegistration = findViewById(R.id.btn_create_registration);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+
 
         buttonCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                 openRegistrationActivity();
             }
         });
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,19 +57,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
     private void openRegistrationActivity() {
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
     }
 
     private void onLoginSuccess() {
-        String nickname = editTextNicknameLogin.getText().toString().trim();
-        String password = editTextPasswordLogin.getText().toString().trim();
+        final String email = editTextEmailLogin.getText().toString().trim();
+        final String password = editTextPasswordLogin.getText().toString().trim();
 
-        if (nickname.isEmpty()) {
-            editTextNicknameLogin.setError("Nickname is required or wrong");
-            editTextNicknameLogin.requestFocus();
+        if (email.isEmpty()) {
+            editTextEmailLogin.setError("Email is required or wrong");
+            editTextEmailLogin.requestFocus();
             return;
         }
 
@@ -70,10 +83,33 @@ public class LoginActivity extends AppCompatActivity {
             editTextPasswordLogin.requestFocus();
             return;
         }
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-
+                        if (!task.isSuccessful()) {
+                            // there was an error
+                            if (password.length() < 6) {
+                                editTextPasswordLogin.setError(getString(R.string.minimum_password));
+                            } else {
+                                Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
     }
-
 }
+
+
+
+
+
+
+
+
+

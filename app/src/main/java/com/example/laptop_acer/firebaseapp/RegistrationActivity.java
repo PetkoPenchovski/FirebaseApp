@@ -32,7 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private ProgressBar progressBar;
+//    private ProgressBar progressBar;
     private ImageView imageViewReg;
     private EditText editTextNickname;
     private EditText editTextEmail;
@@ -118,10 +118,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(RegistrationActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+//                        progressBar.setVisibility(View.GONE);
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(RegistrationActivity.this, "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
