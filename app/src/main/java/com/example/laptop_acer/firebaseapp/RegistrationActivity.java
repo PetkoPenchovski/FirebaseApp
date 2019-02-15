@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private ImageView imageViewReg;
     private EditText editTextNickname;
     private EditText editTextEmail;
@@ -50,6 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
         buttonRegistration = findViewById(R.id.btn_registration);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
 
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (password.length() <= 6) {
+                if (password.length() < 6) {
                     editTextPassword.setError("Minimum 6 symbols");
                     editTextPassword.requestFocus();
                     return;
@@ -112,34 +117,23 @@ public class RegistrationActivity extends AppCompatActivity {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            String uid = user.getUid();
-                            databaseReference = FirebaseDatabase.getInstance().getReference().
-                                    child("Users").child(uid);
-
-                            HashMap<String, String> userMap = new HashMap<>();
-                            userMap.put("nickname", nickname);
-                            userMap.put("email", email);
-                            userMap.put("password", password);
-                            userMap.put("confirm", confirmPassword);
-
-                            databaseReference.setValue(userMap).addOnSuccessListener
-                                    (new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            progressDialog.dismiss();
-                                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
+                        Toast.makeText(RegistrationActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(RegistrationActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                            finish();
                         }
                     }
                 });
             }
         });
     }
-
 }
 
 
