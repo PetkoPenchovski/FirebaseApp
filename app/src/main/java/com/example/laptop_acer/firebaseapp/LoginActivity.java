@@ -33,10 +33,22 @@ public class LoginActivity extends AppCompatActivity {
                 openRegistrationActivity();
             }
         });
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
     }
 
     private void openRegistrationActivity() {
-        Intent intent = new Intent(this, RegistrationActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intent);
+    }
+
+    private void openMainActivity(){
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
     }
 }

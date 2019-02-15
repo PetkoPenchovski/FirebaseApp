@@ -85,7 +85,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
                 android:background="@drawable/rounded_button_transparent"
-                android:text="@string/create_registration"
+                android:text="@string/registration"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 app:rippleColor="@color/colorRipple" />

@@ -2,5 +2,5 @@
     <string name="app_name">FirebaseApp</string>
     <string name="sign_in">Sign in</string>
     <string name="create_registration">Create Registration!</string>
-
+    <string name="registration">Registration!</string>
 </resources>

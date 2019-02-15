@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,10 +55,45 @@ public class RegistrationActivity extends AppCompatActivity {
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nickname = editTextNickname.getText().toString();  //is not like the video- miss getEditText
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
-                String confirmPassword = editTextConfirmPassword.getText().toString();
+                String nickname = editTextNickname.getText().toString().trim();
+                String email = editTextEmail.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
+                String confirmPassword = editTextConfirmPassword.getText().toString().trim();
+
+                if (nickname.isEmpty()) {
+                    editTextNickname.setError("Nickname is required");
+                    editTextNickname.requestFocus();
+                    return;
+                }
+                if (email.isEmpty()) {
+                    editTextEmail.setError("Email is required");
+                    editTextEmail.requestFocus();
+                    return;
+                }
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editTextEmail.setError("Please enter a valid email");
+                    editTextEmail.requestFocus();
+                    return;
+                }
+
+                if (password.isEmpty()) {
+                    editTextPassword.setError("Password is required");
+                    editTextPassword.requestFocus();
+                    return;
+                }
+
+                if (password.length() <= 6) {
+                    editTextPassword.setError("Minimum 6 symbols");
+                    editTextPassword.requestFocus();
+                    return;
+                }
+
+                if (!confirmPassword.equals(password)) {
+                    editTextConfirmPassword.setError("The password not match");
+                    editTextConfirmPassword.requestFocus();
+                    return;
+                }
 
                 if (!TextUtils.isEmpty(nickname) && !TextUtils.isEmpty(email)
                         && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmPassword)) {
@@ -66,7 +102,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
                     register(nickname, email, password, confirmPassword);
+
                 }
+
             }
 
             private void register(final String nickname, final String email, final String password,
@@ -100,6 +138,49 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void registerUser() {
+        String nickname = editTextNickname.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
+
+        if (nickname.isEmpty()) {
+            editTextNickname.setError("Nickname is required");
+            editTextNickname.requestFocus();
+            return;
+        }
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            editTextPassword.setError("Minimum length of password should be 6");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        if (confirmPassword == password) {
+            editTextConfirmPassword.setError("The password not match");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+
     }
 
 }
