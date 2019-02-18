@@ -39,11 +39,11 @@
             android:paddingRight="15dp">
 
             <EditText
-                android:id="@+id/edt_txt_nickname"
+                android:id="@+id/edt_txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:hint="nickname"
+                android:hint="name"
                 android:inputType="text"
                 android:paddingBottom="15dp"
                 android:textColorHint="@color/colorAccent" />
@@ -55,6 +55,16 @@
                 android:fontFamily="sans-serif"
                 android:hint="email"
                 android:inputType="textEmailAddress"
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/edt_txt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="phone number"
+                android:inputType="phone"
                 android:paddingBottom="15dp"
                 android:textColorHint="@color/colorAccent" />
 

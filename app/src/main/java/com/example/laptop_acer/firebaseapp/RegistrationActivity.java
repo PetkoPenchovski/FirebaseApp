@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.laptop_acer.firebaseapp.user.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.ProviderQueryResult;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -26,10 +28,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private ImageView imageViewReg;
-    private EditText inputTextNickname;
+    private EditText inputTextName;
     private EditText inputTextEmail;
     private EditText inputTextPassword;
     private EditText inputTextConfirmPassword;
+    private EditText inputPhoneNumber;
     private Button buttonRegistration;
 
 
@@ -39,10 +42,12 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         imageViewReg = findViewById(R.id.img_vw_reg);
-        inputTextNickname = findViewById(R.id.edt_txt_nickname);
+        inputTextName = findViewById(R.id.edt_txt_name);
         inputTextEmail = findViewById(R.id.edt_txt_email);
+        inputPhoneNumber = findViewById(R.id.edt_txt_phone);
         inputTextPassword = findViewById(R.id.edt_txt_password);
         inputTextConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
         buttonRegistration = findViewById(R.id.btn_registration);
@@ -51,14 +56,15 @@ public class RegistrationActivity extends AppCompatActivity {
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nickname = inputTextNickname.getText().toString().trim();
+                String name = inputTextName.getText().toString().trim();
                 String email = inputTextEmail.getText().toString().trim();
+                String phone = inputPhoneNumber.getText().toString().trim();
                 String password = inputTextPassword.getText().toString().trim();
                 String confirmPassword = inputTextConfirmPassword.getText().toString().trim();
 
-                if (nickname.isEmpty()) {
-                    inputTextNickname.setError("Nickname is required");
-                    inputTextNickname.requestFocus();
+                if (name.isEmpty()) {
+                    inputTextName.setError("Nickname is required");
+                    inputTextName.requestFocus();
                     return;
                 }
                 if (email.isEmpty()) {
@@ -70,6 +76,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     inputTextEmail.setError("Please enter a valid email");
                     inputTextEmail.requestFocus();
+                    return;
+                }
+
+                if (phone.isEmpty()) {
+                    inputPhoneNumber.setError("Phone number is required");
+                    inputPhoneNumber.requestFocus();
                     return;
                 }
 
@@ -91,14 +103,14 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (!TextUtils.isEmpty(nickname) && !TextUtils.isEmpty(email)
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(phone)
                         && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirmPassword)) {
-                    register(nickname, email, password, confirmPassword);
+                    register(name, email, phone, password, confirmPassword);
                 }
-
+                addUsers();
             }
 
-            private void register(final String nickname, final String email, final String password,
+            private void register(final String name, final String email, final String phone, final String password,
                                   final String confirmPassword) {
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -141,6 +153,21 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void addUsers() {
+        String nameUser = inputTextName.getText().toString().trim();
+        String phoneUser = inputPhoneNumber.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(nameUser)) {
+
+            String id = databaseReference.push().getKey();
+            User user = new User(id, nameUser, phoneUser);
+            databaseReference.child(id).setValue(user);
+
+//        } else {
+//            Toast.makeText(this, "You should enter a name", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
