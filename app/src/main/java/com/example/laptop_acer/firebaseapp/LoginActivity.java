@@ -1,10 +1,10 @@
 package com.example.laptop_acer.firebaseapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private ImageView imageViewLogin;
-    private ProgressDialog progressDialog;
-    private EditText editTextPasswordLogin;
-    private EditText editTextEmailLogin;
+    private EditText inputTextPasswordLogin;
+    private EditText inputTextEmailLogin;
     private Button buttonLogin;
     private Button buttonCreateRegistration;
 
@@ -34,14 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         imageViewLogin = findViewById(R.id.img_vw_login);
-        editTextPasswordLogin = findViewById(R.id.edt_txt_password_login);
-        editTextEmailLogin = findViewById(R.id.edt_txt_email_login);
+        inputTextPasswordLogin = findViewById(R.id.edt_txt_password_login);
+        inputTextEmailLogin = findViewById(R.id.edt_txt_email_login);
         buttonLogin = findViewById(R.id.btn_login);
         buttonCreateRegistration = findViewById(R.id.btn_create_registration);
+        progressBar = findViewById(R.id.progressbar_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
-
 
         buttonCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,35 +62,44 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess() {
-        final String email = editTextEmailLogin.getText().toString().trim();
-        final String password = editTextPasswordLogin.getText().toString().trim();
+        final String email = inputTextEmailLogin.getText().toString().trim();
+        final String password = inputTextPasswordLogin.getText().toString().trim();
 
         if (email.isEmpty()) {
-            editTextEmailLogin.setError("Email is required or wrong");
-            editTextEmailLogin.requestFocus();
+            inputTextEmailLogin.setError("Email is required or wrong");
+            inputTextEmailLogin.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            editTextPasswordLogin.setError("Password is required or wrong");
-            editTextPasswordLogin.requestFocus();
+            inputTextPasswordLogin.setError("Password is required or wrong");
+            inputTextPasswordLogin.requestFocus();
             return;
         }
 
         if (password.length() < 6) {
-            editTextPasswordLogin.setError("Minimum 6 symbols");
-            editTextPasswordLogin.requestFocus();
+            inputTextPasswordLogin.setError("Minimum 6 symbols");
+            inputTextPasswordLogin.requestFocus();
             return;
         }
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            register(email, password);
+
+        }
+    }
+
+    private void register(final String email, final String password) {
+        progressBar.setVisibility(View.VISIBLE);
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
 
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
-                                editTextPasswordLogin.setError(getString(R.string.minimum_password));
+                                inputTextPasswordLogin.setError(getString(R.string.minimum_password));
                             } else {
                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
@@ -103,7 +111,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+    }
 }
+
 
 
 
