@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp.user;
+package com.example.laptop_acer.firebaseapp.users;
 
 public class User {
 

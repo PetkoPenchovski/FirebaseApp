@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorAccent">
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btn_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_button_transparent"
+        android:text="@string/sign_out"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        app:rippleColor="@color/colorRipple"/>
+</RelativeLayout>
