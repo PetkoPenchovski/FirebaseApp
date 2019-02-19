@@ -44,4 +44,5 @@ public class DescriptionFragment extends Fragment {
         });
         return view;
     }
+
 }

@@ -3,16 +3,19 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
+        android:iconTint="@color/colorAccent"
         android:title="Home" />
 
     <item
         android:id="@+id/nav_description"
         android:icon="@drawable/ic_description_black_24dp"
+        android:iconTint="@color/colorAccent"
         android:title="Description" />
 
     <item
         android:id="@+id/nav_account"
         android:icon="@drawable/ic_account_box_black_24dp"
+        android:iconTint="@color/colorAccent"
         android:title="Account" />
 
 </menu>
