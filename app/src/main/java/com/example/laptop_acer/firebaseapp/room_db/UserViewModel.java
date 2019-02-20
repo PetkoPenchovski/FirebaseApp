@@ -19,7 +19,7 @@ public class UserViewModel extends AndroidViewModel{
         liveData = mRepository.getAllUserRoomDB();
     }
 
-    public LiveData<List<UserRoomDB>> getAllTowns() {
+    public LiveData<List<UserRoomDB>> getAllUsers() {
         return liveData;
     }
 

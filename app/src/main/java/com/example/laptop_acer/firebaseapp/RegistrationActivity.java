@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext()
                 , AppDatabase.class, "production").allowMainThreadQueries()
                 .build();
-           //
+        //
 
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,9 +118,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
                 addUsers();
                 //Room
-                appDatabase.mUserDAO().insert(new UserRoomDB("Petko"
-                        , "petkopenchovski@gmail.com", "+359895047511"
-                        , "123456", "123456"));
+                UserRoomDB userRoomDB = new UserRoomDB(inputTextName.getText().toString(), inputTextEmail.getText().toString()
+                        , inputPhoneNumber.getText().toString(), inputTextPassword.getText().toString()
+                        , inputTextConfirmPassword.getText().toString());
+                appDatabase.mUserDAO().insert(userRoomDB);
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 //
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.laptop_acer.firebaseapp.LoginActivity">
 
@@ -11,8 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorAccent">
 
         <ImageView
             android:id="@+id/img_vw_login"
@@ -69,7 +69,7 @@
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                app:rippleColor="@color/colorRipple"/>
+                app:rippleColor="@color/colorRipple" />
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/btn_create_registration"
@@ -81,7 +81,7 @@
                 android:text="@string/create_registration"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                app:rippleColor="@color/colorRipple"/>
+                app:rippleColor="@color/colorRipple" />
 
 
         </LinearLayout>
