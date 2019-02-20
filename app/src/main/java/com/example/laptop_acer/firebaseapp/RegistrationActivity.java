@@ -1,5 +1,6 @@
 package com.example.laptop_acer.firebaseapp;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.laptop_acer.firebaseapp.users.User;
+import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.user.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -52,6 +55,12 @@ public class RegistrationActivity extends AppCompatActivity {
         inputTextConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
         buttonRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
+
+        //Room
+        final AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext()
+                , AppDatabase.class, "production").allowMainThreadQueries()
+                .build();
+           //
 
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +117,12 @@ public class RegistrationActivity extends AppCompatActivity {
                     register(name, email, phone, password, confirmPassword);
                 }
                 addUsers();
+                //Room
+                appDatabase.mUserDAO().insert(new UserRoomDB("Petko"
+                        , "petkopenchovski@gmail.com", "+359895047511"
+                        , "123456", "123456"));
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                //
             }
 
             private void register(final String name, final String email, final String phone, final String password,
@@ -167,6 +182,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         }
     }
+
 }
 
 
