@@ -42,6 +42,11 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+
         buttonCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

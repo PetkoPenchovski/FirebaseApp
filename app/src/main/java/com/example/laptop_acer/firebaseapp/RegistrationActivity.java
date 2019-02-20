@@ -165,8 +165,6 @@ public class RegistrationActivity extends AppCompatActivity {
             User user = new User(id, nameUser, phoneUser);
             databaseReference.child(id).setValue(user);
 
-//        } else {
-//            Toast.makeText(this, "You should enter a name", Toast.LENGTH_SHORT).show();
         }
     }
 }

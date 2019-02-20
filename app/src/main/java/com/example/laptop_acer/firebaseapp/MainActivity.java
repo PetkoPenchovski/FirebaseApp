@@ -1,12 +1,10 @@
 package com.example.laptop_acer.firebaseapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
@@ -26,9 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    private ViewPager viewPager;
+
     private Toolbar toolbar;
-    //    private PagerAdapter PagerAdapter;
     private BottomNavigationView bottomNavigationView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authListener;
@@ -39,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-//        viewPager = findViewById(R.id.view_pager);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         toolbar = findViewById(R.id.toolbar);
@@ -54,29 +44,23 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
 
-//        PagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-//        viewPager.setAdapter(PagerAdapter);
-//
-//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//
-//    }
-//
+        firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        authListener =new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -123,6 +107,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 }
