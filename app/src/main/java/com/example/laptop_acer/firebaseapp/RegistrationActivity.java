@@ -1,6 +1,6 @@
 package com.example.laptop_acer.firebaseapp;
 
-import android.arch.persistence.room.Room;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
 import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 import com.example.laptop_acer.firebaseapp.user.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,12 +31,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private ImageView imageViewReg;
-    private EditText inputTextName;
+    private EditText edtTextName;   // promeni poletata po konvenciq
     private EditText inputTextEmail;
     private EditText inputTextPassword;
     private EditText inputTextConfirmPassword;
     private EditText inputPhoneNumber;
     private Button buttonRegistration;
+    private UserViewModel userViewModel;
 
 
     @Override
@@ -48,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         imageViewReg = findViewById(R.id.img_vw_reg);
-        inputTextName = findViewById(R.id.edt_txt_name);
+        edtTextName = findViewById(R.id.edt_txt_name);
         inputTextEmail = findViewById(R.id.edt_txt_email);
         inputPhoneNumber = findViewById(R.id.edt_txt_phone);
         inputTextPassword = findViewById(R.id.edt_txt_password);
@@ -56,24 +57,19 @@ public class RegistrationActivity extends AppCompatActivity {
         buttonRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
 
-        //Room
-        final AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext()
-                , AppDatabase.class, "production").allowMainThreadQueries()
-                .build();
-        //
 
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = inputTextName.getText().toString().trim();
+                String name = edtTextName.getText().toString().trim();
                 String email = inputTextEmail.getText().toString().trim();
                 String phone = inputPhoneNumber.getText().toString().trim();
                 String password = inputTextPassword.getText().toString().trim();
                 String confirmPassword = inputTextConfirmPassword.getText().toString().trim();
 
                 if (name.isEmpty()) {
-                    inputTextName.setError("Nickname is required");
-                    inputTextName.requestFocus();
+                    edtTextName.setError("Nickname is required");
+                    edtTextName.requestFocus();
                     return;
                 }
                 if (email.isEmpty()) {
@@ -117,13 +113,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     register(name, email, phone, password, confirmPassword);
                 }
                 addUsers();
-                //Room
-                UserRoomDB userRoomDB = new UserRoomDB(inputTextName.getText().toString(), inputTextEmail.getText().toString()
-                        , inputPhoneNumber.getText().toString(), inputTextPassword.getText().toString()
-                        , inputTextConfirmPassword.getText().toString());
-                appDatabase.mUserDAO().insert(userRoomDB);
-                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                //
+
             }
 
             private void register(final String name, final String email, final String phone, final String password,
@@ -136,8 +126,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
                             checkEmailAlreadyExist();
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         } else {
-                            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                             Toast.makeText(getApplicationContext(), "Congratulations, you  have new registration!", Toast.LENGTH_SHORT).show();
                             finish();
                         }
@@ -172,16 +163,25 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void addUsers() {
-        String nameUser = inputTextName.getText().toString().trim();
+        String nameUser = edtTextName.getText().toString().trim();
+        String emailUser = inputTextEmail.getText().toString().trim();
         String phoneUser = inputPhoneNumber.getText().toString().trim();
+        String passUser = inputTextPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(nameUser)) {
 
             String id = databaseReference.push().getKey();
-            User user = new User(id, nameUser, phoneUser);
+            User user = new User(id, nameUser, emailUser, phoneUser, passUser);
             databaseReference.child(id).setValue(user);
 
+
         }
+
+    }
+
+    private void addRoomUser() {
+        userViewModel.getAllUsers();
+
     }
 
 }

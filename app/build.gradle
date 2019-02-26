@@ -1,9 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    dataBinding {
-        enabled = true
-    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.laptop_acer.firebaseapp"
@@ -33,7 +31,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
 
-    //Firebase Auth   com.google.firebase:firebase-auth:16.1.0
+    //Firebase Auth
     implementation 'com.google.firebase:firebase-auth:9.2.0'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
 
@@ -41,7 +39,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
-
 
 }
 //Disable `cause ->implementation 'com.google.firebase:firebase-auth:16.1.0'

@@ -60,17 +60,6 @@
                 android:paddingBottom="15dp"
                 android:textColorHint="@color/colorAccent" />
 
-            <EditText
-                android:id="@+id/edt_txt_confirm_password_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:hint="confirm password"
-                android:inputType="textPassword"
-                android:paddingBottom="15dp"
-                android:textColorHint="@color/colorAccent" />
-
-
 
         </LinearLayout>
 
@@ -110,5 +99,3 @@
 
 
 </LinearLayout>
-
-

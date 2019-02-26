@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private FirebaseAuth firebaseAuth;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         toolbar = findViewById(R.id.toolbar);
@@ -47,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        authListener =new FirebaseAuth.AuthStateListener(){
+
+        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth){
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // user auth state is changed - user is null
@@ -106,4 +105,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

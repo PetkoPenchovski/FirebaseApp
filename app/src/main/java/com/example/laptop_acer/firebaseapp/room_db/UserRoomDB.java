@@ -23,16 +23,12 @@ public class UserRoomDB {
     @ColumnInfo(name = "pass")
     private String password;
 
-    @ColumnInfo(name = "confirm_pass")
-    private String confirmPassword;
-
     public UserRoomDB(@NonNull String userName,@NonNull String email,@NonNull String phoneNumber,
-                      @NonNull String password, @NonNull String confirmPassword) {
+                      @NonNull String password) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public String getUserName() {
@@ -51,7 +47,5 @@ public class UserRoomDB {
         return password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
+
 }
