@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
-
+        userViewModel = new UserViewModel(getApplication());
         imageViewReg = findViewById(R.id.img_vw_reg);
         edtTextName = findViewById(R.id.edt_txt_name);
         inputTextEmail = findViewById(R.id.edt_txt_email);
@@ -179,12 +180,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    private void addRoomUser() {
-        userViewModel.getAllUsers();
 
-    }
 
 }
+
+
 
 
 
