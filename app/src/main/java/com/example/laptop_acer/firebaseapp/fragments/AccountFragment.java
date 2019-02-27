@@ -12,10 +12,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 
 public class AccountFragment extends Fragment {
 
-
+    private UserViewModel userViewModel;
+    private UserRoomDB userRoomDB;
     private ProgressBar progressBarAccount;
     private EditText editTextNameAccount;
     private EditText editTextEmailAccount;
@@ -39,6 +42,8 @@ public class AccountFragment extends Fragment {
         editTextPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
         floatButton = view.findViewById(R.id.float_btn);
         checkButton = view.findViewById(R.id.check_btn);
+
+        showUserRoomDB();
 
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,18 @@ public class AccountFragment extends Fragment {
         isEdited = !isEdited;
     }
 
+    private void showUserRoomDB() {
+        String strUserName = editTextNameAccount.getText().toString().trim();
+        String strEmail = editTextEmailAccount.getText().toString().trim();
+        String strPhoneUser = editPhoneNumberAccount.getText().toString().trim();
+        String strPassword = editTextPasswordAccount.getText().toString().trim();
+        UserRoomDB userRoomDB = new UserRoomDB(strUserName, strEmail, strPhoneUser, strPassword);
+        userRoomDB.getUserName();
+        userRoomDB.getEmail();
+        userRoomDB.getPhoneNumber();
+        userRoomDB.getPhoneNumber();
+        userViewModel.insert(userRoomDB);
+    }
 
 }
 

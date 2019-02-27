@@ -39,6 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText inputPhoneNumber;
     private Button buttonRegistration;
     private UserViewModel userViewModel;
+    private UserRoomDB userRoomDB;
 
 
     @Override
@@ -114,7 +115,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     register(name, email, phone, password, confirmPassword);
                 }
                 addUsers();
-
+                addUserRoomDB();
             }
 
             private void register(final String name, final String email, final String phone, final String password,
@@ -180,6 +181,18 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    private void addUserRoomDB() {
+        String strUserName = edtTextName.getText().toString().trim();
+        String strEmail = inputTextEmail.getText().toString().trim();
+        String strPhoneUser = inputPhoneNumber.getText().toString().trim();
+        String strPassword = inputTextPassword.getText().toString().trim();
+        UserRoomDB userRoomDB = new UserRoomDB(strUserName, strEmail, strPhoneUser, strPassword);
+        userRoomDB.getUserName();
+        userRoomDB.getEmail();
+        userRoomDB.getPhoneNumber();
+        userRoomDB.getPassword();
+        userViewModel.insert(userRoomDB);
+    }
 
 
 }
