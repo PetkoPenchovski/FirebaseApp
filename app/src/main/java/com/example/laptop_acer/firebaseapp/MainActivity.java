@@ -12,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
 import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,12 +29,19 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authListener;
+    private UserRoomDB userRoomDB;
+
+    private TextView editTextNameAccount;
+    private TextView editTextEmailAccount;
+    private TextView editPhoneNumberAccount;
+    private TextView editTextPasswordAccount;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         toolbar = findViewById(R.id.toolbar);
@@ -104,6 +114,23 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    public void showUserInfo(){
+
+        userRoomDB = (UserRoomDB) getIntent().getSerializableExtra("User");
+
+        editTextNameAccount = findViewById(R.id.edt_txt_name_account);
+        editTextEmailAccount = findViewById(R.id.edt_txt_email_account);
+        editPhoneNumberAccount = findViewById(R.id.edt_txt_phone_account);
+        editTextPasswordAccount = findViewById(R.id.edt_txt_password_account);
+
+        if (userRoomDB != null) {
+            editTextNameAccount.setText(userRoomDB.getUserName());
+            editTextEmailAccount.setText(userRoomDB.getEmail());
+            editPhoneNumberAccount.setText(userRoomDB.getPhoneNumber());
+            editTextPasswordAccount.setText(userRoomDB.getPassword());
+        }
     }
 
 }

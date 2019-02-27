@@ -1,5 +1,6 @@
 package com.example.laptop_acer.firebaseapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +12,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.example.laptop_acer.firebaseapp.MainActivity;
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
-import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 
 public class AccountFragment extends Fragment {
 
-    private UserViewModel userViewModel;
     private UserRoomDB userRoomDB;
     private ProgressBar progressBarAccount;
     private EditText editTextNameAccount;
@@ -34,7 +34,6 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-
         progressBarAccount = view.findViewById(R.id.progressbar_account);
         editTextNameAccount = view.findViewById(R.id.edt_txt_name_account);
         editTextEmailAccount = view.findViewById(R.id.edt_txt_email_account);
@@ -43,7 +42,6 @@ public class AccountFragment extends Fragment {
         floatButton = view.findViewById(R.id.float_btn);
         checkButton = view.findViewById(R.id.check_btn);
 
-        showUserRoomDB();
 
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,18 +73,6 @@ public class AccountFragment extends Fragment {
         isEdited = !isEdited;
     }
 
-    private void showUserRoomDB() {
-        String strUserName = editTextNameAccount.getText().toString().trim();
-        String strEmail = editTextEmailAccount.getText().toString().trim();
-        String strPhoneUser = editPhoneNumberAccount.getText().toString().trim();
-        String strPassword = editTextPasswordAccount.getText().toString().trim();
-        UserRoomDB userRoomDB = new UserRoomDB(strUserName, strEmail, strPhoneUser, strPassword);
-        userRoomDB.getUserName();
-        userRoomDB.getEmail();
-        userRoomDB.getPhoneNumber();
-        userRoomDB.getPhoneNumber();
-        userViewModel.insert(userRoomDB);
-    }
 
 }
 
