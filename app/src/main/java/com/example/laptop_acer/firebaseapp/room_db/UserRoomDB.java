@@ -16,15 +16,13 @@ public class UserRoomDB implements Serializable {
     private String email;
     private String phoneNumber;
     private String password;
-    private String confirmPassword;
 
     public UserRoomDB(String userName, String email, String phoneNumber,
-                      String password, String confirmPassword) {
+                      String password) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     @NonNull
@@ -67,14 +65,6 @@ public class UserRoomDB implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     @Override

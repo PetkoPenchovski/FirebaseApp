@@ -86,8 +86,10 @@ public class LoginActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    UserRoomDB userRoomDB = userDAO.getUserRoomDB(edtTxtEmailLogin.getText().toString()
-                            , edtTxtPasswordLogin.getText().toString());
+                    UserRoomDB userRoomDB = new UserRoomDB(edtTxtEmailLogin.getText().toString(),
+                            edtTxtPasswordLogin.getText().toString(), "", "");
+                    userDAO.insert(userRoomDB);// tova e symnitelno
+
                     if (userRoomDB != null) {
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.putExtra("User", userRoomDB);

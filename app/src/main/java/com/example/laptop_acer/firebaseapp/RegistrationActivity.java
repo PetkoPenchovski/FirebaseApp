@@ -83,8 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             UserRoomDB userRoomDB = new UserRoomDB(edtTxtName.getText().toString(),
                                     edtTxtEmail.getText().toString(),
                                     edtTxtPhoneNumber.getText().toString(),
-                                    edtTxtPassword.getText().toString(),
-                                    edtTxtConfirmPassword.getText().toString());
+                                    edtTxtPassword.getText().toString());
                             userDAO.insert(userRoomDB);
 //                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         }
