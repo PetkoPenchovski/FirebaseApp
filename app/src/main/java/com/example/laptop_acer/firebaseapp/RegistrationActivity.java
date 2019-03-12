@@ -85,7 +85,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     edtTxtPhoneNumber.getText().toString(),
                                     edtTxtPassword.getText().toString());
                             userDAO.insert(userRoomDB);
-//                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                         }
                     }, 1000);
 

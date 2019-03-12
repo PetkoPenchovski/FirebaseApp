@@ -11,7 +11,7 @@ public class UserRoomDB implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    int id;
+    private int id;
     private String userName;
     private String email;
     private String phoneNumber;

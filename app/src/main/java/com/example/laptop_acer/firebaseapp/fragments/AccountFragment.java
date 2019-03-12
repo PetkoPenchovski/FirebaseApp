@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.example.laptop_acer.firebaseapp.MainActivity;
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 
@@ -40,14 +42,28 @@ public class AccountFragment extends Fragment {
         floatButton = view.findViewById(R.id.float_btn);
         checkButton = view.findViewById(R.id.check_btn);
 
-
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onPenCLicked();
+
             }
         });
 
+        userRoomDB = (UserRoomDB) getActivity().getIntent().getSerializableExtra("UserRoomDB");
+
+        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
+
+        if (userRoomDB != null) {
+            edtTxtNameAccount.setText(userRoomDB.getUserName().toString());
+            edtTxtEmailAccount.setText(userRoomDB.getEmail().toString());
+            edtTxtPhoneNumberAccount.setText(userRoomDB.getPhoneNumber().toString());
+            edtTxtPasswordAccount.setText(userRoomDB.getPassword().toString());
+
+        }
 
         return view;
     }
