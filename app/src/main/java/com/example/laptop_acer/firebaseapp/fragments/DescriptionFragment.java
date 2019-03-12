@@ -18,7 +18,7 @@ public class DescriptionFragment extends Fragment {
 
     private EditText inputTask;
     private EditText inputTaskDescription;
-    private Button buttonCamera;
+    private Button btnCamera;
 
     @Nullable
     @Override
@@ -27,9 +27,9 @@ public class DescriptionFragment extends Fragment {
 
         inputTask = view.findViewById(R.id.edt_txt_task);
         inputTaskDescription = view.findViewById(R.id.edt_txt_task_description);
-        buttonCamera = view.findViewById(R.id.btn_camera);
+        btnCamera = view.findViewById(R.id.btn_camera);
 
-        buttonCamera.setOnClickListener(new View.OnClickListener() {
+        btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {

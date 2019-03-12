@@ -34,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private ImageView imageViewReg;
-    private EditText edtTxtName;   // promeni poletata po konvenciq
+    private EditText edtTxtName;
     private EditText edtTxtEmail;
     private EditText edtTxtPassword;
     private EditText edtTxtConfirmPassword;
