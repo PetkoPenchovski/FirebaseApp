@@ -22,22 +22,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
-    private ImageView imageViewLogin;
-    private EditText inputTextPasswordLogin;
-    private EditText inputTextEmailLogin;
-    private Button buttonLogin;
-    private Button buttonCreateRegistration;
+    private ImageView imgViewLogin;
+    private EditText edtTxtPasswordLogin;
+    private EditText edtTxtEmailLogin;
+    private Button btnLogin;
+    private Button btnCreateRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        imageViewLogin = findViewById(R.id.img_vw_login);
-        inputTextPasswordLogin = findViewById(R.id.edt_txt_password_login);
-        inputTextEmailLogin = findViewById(R.id.edt_txt_email_login);
-        buttonLogin = findViewById(R.id.btn_login);
-        buttonCreateRegistration = findViewById(R.id.btn_create_registration);
+        imgViewLogin = findViewById(R.id.img_vw_login);
+        edtTxtPasswordLogin = findViewById(R.id.edt_txt_password_login);
+        edtTxtEmailLogin = findViewById(R.id.edt_txt_email_login);
+        btnLogin = findViewById(R.id.btn_login);
+        btnCreateRegistration = findViewById(R.id.btn_create_registration);
         progressBar = findViewById(R.id.progressbar_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -47,13 +47,13 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        buttonCreateRegistration.setOnClickListener(new View.OnClickListener() {
+        btnCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRegistrationActivity();
             }
         });
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onLoginSuccess();
@@ -67,24 +67,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess() {
-        final String email = inputTextEmailLogin.getText().toString().trim();
-        final String password = inputTextPasswordLogin.getText().toString().trim();
+        final String email = edtTxtEmailLogin.getText().toString().trim();
+        final String password = edtTxtPasswordLogin.getText().toString().trim();
 
         if (email.isEmpty()) {
-            inputTextEmailLogin.setError("Email is required or wrong");
-            inputTextEmailLogin.requestFocus();
+            edtTxtEmailLogin.setError("Email is required or wrong");
+            edtTxtEmailLogin.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            inputTextPasswordLogin.setError("Password is required or wrong");
-            inputTextPasswordLogin.requestFocus();
+            edtTxtPasswordLogin.setError("Password is required or wrong");
+            edtTxtPasswordLogin.requestFocus();
             return;
         }
 
         if (password.length() < 6) {
-            inputTextPasswordLogin.setError("Minimum 6 symbols");
-            inputTextPasswordLogin.requestFocus();
+            edtTxtPasswordLogin.setError("Minimum 6 symbols");
+            edtTxtPasswordLogin.requestFocus();
             return;
         }
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
-                                inputTextPasswordLogin.setError(getString(R.string.minimum_password));
+                                edtTxtPasswordLogin.setError(getString(R.string.minimum_password));
                             } else {
                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }

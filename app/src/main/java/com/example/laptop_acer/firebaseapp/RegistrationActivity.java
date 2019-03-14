@@ -1,12 +1,10 @@
 package com.example.laptop_acer.firebaseapp;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
-import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 import com.example.laptop_acer.firebaseapp.user.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,14 +27,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
-    private ImageView imageViewReg;
-    private EditText edtTextName;   // promeni poletata po konvenciq
-    private EditText inputTextEmail;
-    private EditText inputTextPassword;
-    private EditText inputTextConfirmPassword;
-    private EditText inputPhoneNumber;
-    private Button buttonRegistration;
-    private UserViewModel userViewModel;
+    private ImageView imgViewReg;
+    private EditText edtTxtName;
+    private EditText edtTxtEmail;
+    private EditText edtTxtPassword;
+    private EditText edtTxtConfirmPassword;
+    private EditText edtTxtPhoneNumber;
+    private Button btnRegistration;
 
 
     @Override
@@ -48,64 +43,64 @@ public class RegistrationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        userViewModel = new UserViewModel(getApplication());
-        imageViewReg = findViewById(R.id.img_vw_reg);
-        edtTextName = findViewById(R.id.edt_txt_name);
-        inputTextEmail = findViewById(R.id.edt_txt_email);
-        inputPhoneNumber = findViewById(R.id.edt_txt_phone);
-        inputTextPassword = findViewById(R.id.edt_txt_password);
-        inputTextConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
-        buttonRegistration = findViewById(R.id.btn_registration);
+
+        imgViewReg = findViewById(R.id.img_vw_reg);
+        edtTxtName = findViewById(R.id.edt_txt_name);
+        edtTxtEmail = findViewById(R.id.edt_txt_email);
+        edtTxtPhoneNumber = findViewById(R.id.edt_txt_phone);
+        edtTxtPassword = findViewById(R.id.edt_txt_password);
+        edtTxtConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
+        btnRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
 
 
-        buttonRegistration.setOnClickListener(new View.OnClickListener() {
+        btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edtTextName.getText().toString().trim();
-                String email = inputTextEmail.getText().toString().trim();
-                String phone = inputPhoneNumber.getText().toString().trim();
-                String password = inputTextPassword.getText().toString().trim();
-                String confirmPassword = inputTextConfirmPassword.getText().toString().trim();
+                String name = edtTxtName.getText().toString().trim();
+                String email = edtTxtEmail.getText().toString().trim();
+                String phone = edtTxtPhoneNumber.getText().toString().trim();
+                String password = edtTxtPassword.getText().toString().trim();
+                String confirmPassword = edtTxtConfirmPassword.getText().toString().trim();
 
                 if (name.isEmpty()) {
-                    edtTextName.setError("Nickname is required");
-                    edtTextName.requestFocus();
+                    edtTxtName.setError("Nickname is required");
+                    edtTxtName.requestFocus();
                     return;
                 }
                 if (email.isEmpty()) {
-                    inputTextEmail.setError("Email is required");
-                    inputTextEmail.requestFocus();
+                    edtTxtEmail.setError("Email is required");
+                    edtTxtEmail.requestFocus();
                     return;
                 }
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    inputTextEmail.setError("Please enter a valid email");
-                    inputTextEmail.requestFocus();
+                    edtTxtEmail.setError("Please enter a valid email");
+                    edtTxtEmail.requestFocus();
                     return;
                 }
 
                 if (phone.isEmpty()) {
-                    inputPhoneNumber.setError("Phone number is required");
-                    inputPhoneNumber.requestFocus();
+                    edtTxtPhoneNumber.setError("Phone number is required");
+                    edtTxtPhoneNumber.requestFocus();
                     return;
                 }
 
                 if (password.isEmpty()) {
-                    inputTextPassword.setError("Password is required");
-                    inputTextPassword.requestFocus();
+                    edtTxtPassword.setError("Password is required");
+                    edtTxtPassword.requestFocus();
                     return;
                 }
 
                 if (password.length() < 6) {
-                    inputTextPassword.setError("Minimum 6 symbols");
-                    inputTextPassword.requestFocus();
+                    edtTxtPassword.setError("Minimum 6 symbols");
+                    edtTxtPassword.requestFocus();
                     return;
                 }
 
                 if (!confirmPassword.equals(password)) {
-                    inputTextConfirmPassword.setError("The password not match");
-                    inputTextConfirmPassword.requestFocus();
+                    edtTxtConfirmPassword.setError("The password not match");
+                    edtTxtConfirmPassword.requestFocus();
                     return;
                 }
 
@@ -140,7 +135,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void checkEmailAlreadyExist() {
-        firebaseAuth.fetchProvidersForEmail(inputTextEmail.getText().toString())
+        firebaseAuth.fetchProvidersForEmail(edtTxtEmail.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
                     @Override
                     public void onComplete(@NonNull Task<ProviderQueryResult> task) {
@@ -164,10 +159,10 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void addUsers() {
-        String nameUser = edtTextName.getText().toString().trim();
-        String emailUser = inputTextEmail.getText().toString().trim();
-        String phoneUser = inputPhoneNumber.getText().toString().trim();
-        String passUser = inputTextPassword.getText().toString().trim();
+        String nameUser = edtTxtName.getText().toString().trim();
+        String emailUser = edtTxtEmail.getText().toString().trim();
+        String phoneUser = edtTxtPhoneNumber.getText().toString().trim();
+        String passUser = edtTxtPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(nameUser)) {
 
@@ -179,8 +174,6 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 }
 
