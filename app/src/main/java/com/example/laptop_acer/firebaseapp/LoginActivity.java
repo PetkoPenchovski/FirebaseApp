@@ -27,11 +27,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
-    private ImageView imageViewLogin;
+    private ImageView imgViewLogin;
     private EditText edtTxtPasswordLogin;
     private EditText edtTxtEmailLogin;
-    private Button buttonLogin;
-    private Button buttonCreateRegistration;
+    private Button btnLogin;
+    private Button btnCreateRegistration;
 
     private AppDatabase appDatabase;
     private UserDAO userDAO;
@@ -41,17 +41,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "mi-database.db")
                 .allowMainThreadQueries()
                 .build();
 
         userDAO = appDatabase.getUserDAO();
 
-        imageViewLogin = findViewById(R.id.img_vw_login);
+
+
+        imgViewLogin = findViewById(R.id.img_vw_login);
         edtTxtPasswordLogin = findViewById(R.id.edt_txt_password_login);
         edtTxtEmailLogin = findViewById(R.id.edt_txt_email_login);
-        buttonLogin = findViewById(R.id.btn_login);
-        buttonCreateRegistration = findViewById(R.id.btn_create_registration);
+        btnLogin = findViewById(R.id.btn_login);
+        btnCreateRegistration = findViewById(R.id.btn_create_registration);
         progressBar = findViewById(R.id.progressbar_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -61,13 +64,13 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        buttonCreateRegistration.setOnClickListener(new View.OnClickListener() {
+        btnCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRegistrationActivity();
             }
         });
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onLoginSuccess();
@@ -81,30 +84,31 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess() {
-        if (!emptyValidation()) {
+        final String email = edtTxtEmailLogin.getText().toString().trim();
+        final String password = edtTxtPasswordLogin.getText().toString().trim();
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    UserRoomDB userRoomDB = userDAO.getUserRoomDB(edtTxtEmailLogin.getText().toString(),
-                            edtTxtPasswordLogin.getText().toString());
-                    if (userRoomDB != null) {
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        i.putExtra("User", userRoomDB);
-                        startActivity(i);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Unregistered user, or incorrect", Toast.LENGTH_SHORT).show();
-                    }
+        if (email.isEmpty()) {
+            edtTxtEmailLogin.setError("Email is required or wrong");
+            edtTxtEmailLogin.requestFocus();
+            return;
+        }
 
-                }
-            }, 1000);
+        if (password.isEmpty()) {
+            edtTxtPasswordLogin.setError("Password is required or wrong");
+            edtTxtPasswordLogin.requestFocus();
+            return;
+        }
 
-        } else {
-            Toast.makeText(LoginActivity.this, "Empty Fields", Toast.LENGTH_SHORT).show();
+        if (password.length() < 6) {
+            edtTxtPasswordLogin.setError("Minimum 6 symbols");
+            edtTxtPasswordLogin.requestFocus();
+            return;
+        }
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            register(email, password);
+
         }
     }
-
 
     private void register(final String email, final String password) {
         progressBar.setVisibility(View.VISIBLE);
@@ -135,44 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
-
-    private boolean emptyValidation() {
-        final String email = edtTxtEmailLogin.getText().toString().trim();
-        final String password = edtTxtPasswordLogin.getText().toString().trim();
-
-        if (TextUtils.isEmpty(edtTxtEmailLogin.getText().toString())
-                || TextUtils.isEmpty(edtTxtPasswordLogin.getText().toString())) {
-
-            if (email.isEmpty()) {
-                edtTxtEmailLogin.setError("Email is required or wrong");
-                edtTxtEmailLogin.requestFocus();
-                return true;
-            }
-
-            if (password.isEmpty()) {
-                edtTxtPasswordLogin.setError("Password is required or wrong");
-                edtTxtPasswordLogin.requestFocus();
-                return true;
-            }
-
-            if (password.length() < 6) {
-                edtTxtPasswordLogin.setError("Minimum 6 symbols");
-                edtTxtPasswordLogin.requestFocus();
-                return true;
-            }
-            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                register(email, password);
-
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
-
-
-
 
 
 

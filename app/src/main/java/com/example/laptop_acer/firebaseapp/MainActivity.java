@@ -28,19 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authListener;
-    private UserRoomDB userRoomDB;
-
-    private TextView edtTxtNameAccount;
-    private TextView edtTxtEmailAccount;
-    private TextView edtTxtPhoneNumberAccount;
-    private TextView edtTxtPasswordAccount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         toolbar = findViewById(R.id.toolbar);
@@ -113,23 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
-    }
-
-    public void showUserInfo(){
-
-        userRoomDB = (UserRoomDB) getIntent().getSerializableExtra("User");
-
-        edtTxtNameAccount = findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = findViewById(R.id.edt_txt_password_account);
-
-        if (userRoomDB != null) {
-            edtTxtNameAccount.setText(userRoomDB.getUserName());
-            edtTxtEmailAccount.setText(userRoomDB.getEmail());
-            edtTxtPhoneNumberAccount.setText(userRoomDB.getPhoneNumber());
-            edtTxtPasswordAccount.setText(userRoomDB.getPassword());
-        }
     }
 
 }
