@@ -52,7 +52,6 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
 
-
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +167,6 @@ public class RegistrationActivity extends AppCompatActivity {
             String id = databaseReference.push().getKey();
             User user = new User(id, nameUser, emailUser, phoneUser, passUser);
             databaseReference.child(id).setValue(user);
-
 
         }
 

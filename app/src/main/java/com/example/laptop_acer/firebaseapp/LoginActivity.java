@@ -3,7 +3,6 @@ package com.example.laptop_acer.firebaseapp;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
 import com.example.laptop_acer.firebaseapp.room_db.UserDAO;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -41,14 +39,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "mi-database.db")
                 .allowMainThreadQueries()
                 .build();
 
         userDAO = appDatabase.getUserDAO();
-
-
 
         imgViewLogin = findViewById(R.id.img_vw_login);
         edtTxtPasswordLogin = findViewById(R.id.edt_txt_password_login);

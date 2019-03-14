@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.example.laptop_acer.firebaseapp.MainActivity;
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 
@@ -27,7 +25,6 @@ public class AccountFragment extends Fragment {
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
     private boolean isEdited;
-
 
     @Nullable
     @Override
@@ -65,9 +62,13 @@ public class AccountFragment extends Fragment {
 
         }
 
+        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
+
         return view;
     }
-
 
     private void onPenCLicked() {
         if (isEdited) {
@@ -81,7 +82,6 @@ public class AccountFragment extends Fragment {
             edtTxtEmailAccount.setFocusableInTouchMode(false);
             edtTxtPhoneNumberAccount.setFocusableInTouchMode(false);
             edtTxtPasswordAccount.setFocusableInTouchMode(false);
-
 
         }
         isEdited = !isEdited;
