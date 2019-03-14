@@ -35,7 +35,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText edtTxtPhoneNumber;
     private Button btnRegistration;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,6 @@ public class RegistrationActivity extends AppCompatActivity {
         edtTxtConfirmPassword = findViewById(R.id.edt_txt_confirm_password);
         btnRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
-
 
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,13 +168,11 @@ public class RegistrationActivity extends AppCompatActivity {
             User user = new User(id, nameUser, emailUser, phoneUser, passUser);
             databaseReference.child(id).setValue(user);
 
-
         }
 
     }
 
 }
-
 
 
 

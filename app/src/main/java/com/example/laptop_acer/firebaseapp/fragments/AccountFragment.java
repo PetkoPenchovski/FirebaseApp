@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 
 public class AccountFragment extends Fragment {
 
+    private UserRoomDB userRoomDB;
     private ProgressBar progressBarAccount;
     private EditText edtTxtNameAccount;
     private EditText edtTxtEmailAccount;
@@ -23,7 +25,6 @@ public class AccountFragment extends Fragment {
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
     private boolean isEdited;
-
 
     @Nullable
     @Override
@@ -46,15 +47,28 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        userRoomDB = (UserRoomDB) getActivity().getIntent().getSerializableExtra("UserRoomDB");
 
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
         edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
         edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
 
-              return view;
-    }
+        if (userRoomDB != null) {
+            edtTxtNameAccount.setText(userRoomDB.getUserName().toString());
+            edtTxtEmailAccount.setText(userRoomDB.getEmail().toString());
+            edtTxtPhoneNumberAccount.setText(userRoomDB.getPhoneNumber().toString());
+            edtTxtPasswordAccount.setText(userRoomDB.getPassword().toString());
 
+        }
+
+        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
+
+        return view;
+    }
 
     private void onPenCLicked() {
         if (isEdited) {
@@ -69,11 +83,9 @@ public class AccountFragment extends Fragment {
             edtTxtPhoneNumberAccount.setFocusableInTouchMode(false);
             edtTxtPasswordAccount.setFocusableInTouchMode(false);
 
-
         }
         isEdited = !isEdited;
     }
-
 
 }
 
