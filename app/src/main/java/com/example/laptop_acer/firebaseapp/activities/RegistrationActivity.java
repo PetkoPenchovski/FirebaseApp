@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp;
+package com.example.laptop_acer.firebaseapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.laptop_acer.firebaseapp.user.User;
+import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.model.User;
+import com.example.laptop_acer.firebaseapp.usecases.RegistrationUsecase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +24,7 @@ import com.google.firebase.auth.ProviderQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements RegistrationUsecase.ViewListener {
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;

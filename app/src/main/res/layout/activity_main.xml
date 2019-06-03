@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context="com.example.laptop_acer.firebaseapp.MainActivity">
+    tools:context="com.example.laptop_acer.firebaseapp.activities.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

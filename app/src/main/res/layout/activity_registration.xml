@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.example.laptop_acer.firebaseapp.RegistrationActivity">
+    tools:context="com.example.laptop_acer.firebaseapp.activities.RegistrationActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp;
+package com.example.laptop_acer.firebaseapp.activities;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
@@ -13,15 +13,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
 import com.example.laptop_acer.firebaseapp.room_db.UserDAO;
+import com.example.laptop_acer.firebaseapp.usecases.LoginUsecase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginUsecase.ViewListener {
 
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;

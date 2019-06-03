@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp;
+package com.example.laptop_acer.firebaseapp.activities;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -12,17 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
 import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements MainUsecase.ViewListener{
 
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_main;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
