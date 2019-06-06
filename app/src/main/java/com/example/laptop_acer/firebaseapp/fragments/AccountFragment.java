@@ -1,16 +1,12 @@
 package com.example.laptop_acer.firebaseapp.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
 import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
 
 public class AccountFragment extends BaseFragment {
@@ -25,10 +21,21 @@ public class AccountFragment extends BaseFragment {
     private FloatingActionButton checkButton;
     private boolean isEdited;
 
-    @Nullable
+    private static final String TAG = "AccountFragment";
+    private MainActivity activity;
+
+
+    public static AccountFragment newInstance() {
+        return new AccountFragment();
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
+    protected int getLayoutRes() {
+        return R.layout.fragment_account;
+    }
+
+    @Override
+    protected void onViewCreated(){
 
         progressBarAccount = view.findViewById(R.id.progressbar_account);
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
@@ -66,7 +73,7 @@ public class AccountFragment extends BaseFragment {
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
         edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
 
-        return view;
+
     }
 
     private void onPenCLicked() {

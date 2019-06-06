@@ -1,13 +1,8 @@
 package com.example.laptop_acer.firebaseapp.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,11 +14,14 @@ public class DescriptionFragment extends BaseFragment {
     private EditText inputTaskDescription;
     private Button btnCamera;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_description, container, false);
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_description;
+    }
+
+    @Override
+    protected void onViewCreated() {
         inputTask = view.findViewById(R.id.edt_txt_task);
         inputTaskDescription = view.findViewById(R.id.edt_txt_task_description);
         btnCamera = view.findViewById(R.id.btn_camera);
@@ -41,7 +39,7 @@ public class DescriptionFragment extends BaseFragment {
                 }
             }
         });
-        return view;
+
     }
 
 }
