@@ -1,8 +1,11 @@
 package com.example.laptop_acer.firebaseapp.remote;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
+import com.example.laptop_acer.firebaseapp.activities.RegistrationActivity;
 import com.example.laptop_acer.firebaseapp.usecases.UserAuthRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,7 +24,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
     private FirebaseAuth.AuthStateListener authListener;
     private SignInListener signInListener;
     private SignUpListener signUpListener;
-
 
 
     @Override

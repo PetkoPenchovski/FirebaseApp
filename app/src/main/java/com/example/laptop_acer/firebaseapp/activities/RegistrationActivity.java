@@ -1,5 +1,6 @@
 package com.example.laptop_acer.firebaseapp.activities;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.usecases.RegistrationUsecase;
+import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationUsecase.ViewListener {
 
@@ -48,6 +50,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
 
                 registrationUsecase.validateNewUserData(email, password, username, phoneNumber,
                 confirmPassword);
+
             }
         });
     }
@@ -63,6 +66,12 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         String userEmail = edtTxtEmail.getText().toString().trim();
         String userPhone = edtTxtPhoneNumber.getText().toString().trim();
         registrationUsecase.addUser(username, userPhone, userEmail);
+        openMainActivity();
+    }
+
+    private void openMainActivity(){
+        Intent intent = new Intent(RegistrationActivity.this,MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
