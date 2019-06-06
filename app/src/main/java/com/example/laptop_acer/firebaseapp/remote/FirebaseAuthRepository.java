@@ -80,24 +80,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
                 });
     }
 
-//               public void checkEmailAlreadyExist() {
-//                firebaseAuth.fetchProvidersForEmail(edtTxtEmail.getText().toString())
-//                        .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-//
-//                                boolean check = !task.getResult().getProviders().isEmpty();
-//
-//                                if (!check) {
-//                                    Toast.makeText(getApplicationContext(), "Email already exist", Toast.LENGTH_SHORT).show();
-//
-//                                } else {
-//                                    Toast.makeText(getApplicationContext(), "Email already exist", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//            }
-
     @Override
     public void addSignInListener(SignInListener signInListener) {
         this.signInListener = signInListener;

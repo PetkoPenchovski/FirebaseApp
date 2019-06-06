@@ -61,14 +61,14 @@ public class LoginUsecase {
             public void onSignInError() {
                 Log.e(TAG, "onSignInError: ");
                 viewListener.hideProgress();
-                viewListener.showLoginFailed();
+                viewListener.showInvalidEmail();
             }
 
             @Override
             public void showInvalidPasswordError() {
                 Log.e(TAG, "showInvalidPasswordError:");
                 viewListener.hideProgress();
-                viewListener.showInvalidPasswordLengthError();
+                viewListener.showInvalidPassword();
             }
         };
     }
@@ -137,7 +137,7 @@ public class LoginUsecase {
 
         void showProgress();
 
-        void showInvalidPasswordLengthError();
+//        void showInvalidPasswordLengthError();
 
         void showLoginFailed();
 

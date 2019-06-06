@@ -91,32 +91,6 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         startActivity(intent);
     }
 
-//    private void register(final String email, final String password) {
-//        progressBar.setVisibility(View.VISIBLE);
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        progressBar.setVisibility(View.GONE);
-//
-//                        if (!task.isSuccessful()) {
-//                            // there was an error
-//                            if (password.length() < 6) {
-//                                edtTxtPasswordLogin.setError(getString(R.string.minimum_password));
-//                            } else {
-//                                Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-//                            }
-//                        } else {
-//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    }
-//                });
-//    }
-
-
-
     //MVP
     @Override
     protected int getLayoutRes() {
@@ -139,26 +113,27 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void showInvalidPasswordLengthError() {
-
-    }
+//    @Override
+//    public void showInvalidPasswordLengthError() {
+//        Toast.makeText(this, (getString(R.string.minimum_password)),
+//                Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     public void showLoginFailed() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.wrong_pass)),
+        Toast.makeText(this, (getString(R.string.wrong_pass)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInvalidEmail() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.wrong_email)),
+        Toast.makeText(this, (getString(R.string.wrong_email)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInvalidPassword() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.minimum_password)),
+        Toast.makeText(this, (getString(R.string.invalid_pass)),
                 Toast.LENGTH_SHORT).show();
     }
 
