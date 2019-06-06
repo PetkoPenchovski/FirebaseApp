@@ -137,8 +137,6 @@ public class LoginUsecase {
 
         void showProgress();
 
-//        void showInvalidPasswordLengthError();
-
         void showLoginFailed();
 
         void showInvalidEmail();

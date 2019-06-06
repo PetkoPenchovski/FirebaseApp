@@ -2,8 +2,6 @@ package com.example.laptop_acer.firebaseapp.remote;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.laptop_acer.firebaseapp.usecases.UserAuthRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,9 +21,7 @@ public class FirebaseAuthRepository implements UserAuthRepository {
     private FirebaseAuth.AuthStateListener authListener;
     private SignInListener signInListener;
     private SignUpListener signUpListener;
-    private ImageView imgViewLogin;
-    private EditText edtTxtPasswordLogin;
-    private EditText edtTxtEmailLogin;
+
 
 
     @Override
@@ -92,10 +88,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
         firebaseAuth.addAuthStateListener(authListener);
     }
 
-    @Override
-    public void removeSignInListener() {
-
-    }
 
     @Override
     public void addCheckUserListener(CheckUserListener checkUserListener) {

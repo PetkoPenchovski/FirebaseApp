@@ -76,21 +76,24 @@ public class RegistrationUsecase {
         userDataRepository.addUser(username, userPhone, userEmail);
     }
 
-    public void validateNewUserData(String email, String password, String username, String phoneNumber) {
-        if (ValidatorUtils.validateEmail(email) && ValidatorUtils.validatePassword(password)
-                && ValidatorUtils.validateName(username) && ValidatorUtils.validatePhone(phoneNumber)) {
-            register(email, password, username, phoneNumber);
-        } else if (!ValidatorUtils.validateText(username)) {
-            viewListener.showInvalidRegUsername();
-        } else if (!ValidatorUtils.validateEmail(email)) {
-            viewListener.showInvalidRegEmail();
-        } else if (!ValidatorUtils.validatePhone(phoneNumber)) {
-            viewListener.showInvalidRegPhoneNumber();
-        } else if (!ValidatorUtils.validatePassword(password)) {
-            viewListener.showInvalidRegPassword();
-
+    public void validateNewUserData(String email, String password, String username,
+                                    String phoneNumber, String confirmPassword) {
+        if (password.equals(confirmPassword)) {
+            if (ValidatorUtils.validateEmail(email) && ValidatorUtils.validatePassword(password)
+                    && ValidatorUtils.validateName(username) && ValidatorUtils.validatePhone(phoneNumber)) {
+                register(email, password, username, phoneNumber);
+            } else if (!ValidatorUtils.validateText(username)) {
+                viewListener.showInvalidRegUsername();
+            } else if (!ValidatorUtils.validateEmail(email)) {
+                viewListener.showInvalidRegEmail();
+            } else if (!ValidatorUtils.validatePhone(phoneNumber)) {
+                viewListener.showInvalidRegPhoneNumber();
+            } else if (!ValidatorUtils.validatePassword(password)) {
+                viewListener.showInvalidRegPassword();
+            }
+        } else {
+            viewListener.showPasswordMismatch();
         }
-
     }
 
     public interface ViewListener {
@@ -114,5 +117,7 @@ public class RegistrationUsecase {
         void showInvalidRegPhoneNumber();
 
         void showMainScreen(String username);
+
+        void showPasswordMismatch();
     }
 }

@@ -44,8 +44,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
                 String email = edtTxtEmail.getText().toString().trim();
                 String phoneNumber = edtTxtPhoneNumber.getText().toString().trim();
                 String password = edtTxtPassword.getText().toString().trim();
+                String confirmPassword = edtTxtConfirmPassword.getText().toString().trim();
 
-                registrationUsecase.validateNewUserData(email, password, username, phoneNumber);
+                registrationUsecase.validateNewUserData(email, password, username, phoneNumber,
+                confirmPassword);
             }
         });
     }
@@ -85,31 +87,37 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
 
     @Override
     public void showInvalidRegEmail() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.invalid_email)),
+        Toast.makeText(this, (getString(R.string.invalid_email)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInvalidRegPassword() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.invalid_pass)),
+        Toast.makeText(this, (getString(R.string.invalid_pass)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInvalidRegUsername() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.invalid_username)),
+        Toast.makeText(this, (getString(R.string.invalid_username)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInvalidRegPhoneNumber() {
-        Toast.makeText(getApplicationContext(), (getString(R.string.invalid_phone_number)),
+        Toast.makeText(this, (getString(R.string.invalid_phone_number)),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showMainScreen(String username) {
-        Toast.makeText(getApplicationContext(), (getString(R.string.you_are_registered)),
+        Toast.makeText(this, (getString(R.string.you_are_registered)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showPasswordMismatch() {
+        Toast.makeText(this, (getString(R.string.mismatch_pass)),
                 Toast.LENGTH_SHORT).show();
     }
 }

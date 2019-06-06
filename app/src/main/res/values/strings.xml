@@ -9,6 +9,7 @@
     <string name="wrong_email">Wrong email!</string>
     <string name="invalid_email">Invalid email!</string>
     <string name="invalid_pass">Invalid password!</string>
+    <string name="mismatch_pass">Mismatch Password!</string>
     <string name="invalid_username">Invalid username!</string>
     <string name="invalid_phone_number">Invalid phone number!</string>
     <string name="wrong_pass">Wrong password!</string>

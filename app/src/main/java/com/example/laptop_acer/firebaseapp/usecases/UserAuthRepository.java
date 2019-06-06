@@ -12,7 +12,6 @@ public interface UserAuthRepository {
 
     void addSignUpListener(SignUpListener signUpListener);
 
-    void removeSignInListener();
 
     void getCurrentUser(SignOutListener signOutListener);
 

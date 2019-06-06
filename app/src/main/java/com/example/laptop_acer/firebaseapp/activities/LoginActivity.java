@@ -58,14 +58,6 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
 
         userDAO = appDatabase.getUserDAO();
 
-//
-//        firebaseAuth = FirebaseAuth.getInstance();
-//
-//        if (firebaseAuth.getCurrentUser() != null) {
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-//        }
-
         btnCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,12 +104,6 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
-
-//    @Override
-//    public void showInvalidPasswordLengthError() {
-//        Toast.makeText(this, (getString(R.string.minimum_password)),
-//                Toast.LENGTH_SHORT).show();
-//    }
 
     @Override
     public void showLoginFailed() {
