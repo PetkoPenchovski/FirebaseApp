@@ -27,8 +27,8 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     private Button btnLogin;
     private Button btnCreateRegistration;
 
-//    private UserRoomDatabase userRoomDatabase;
-//    private UserRoomDBDAO userRoomDBDAO;
+    private UserRoomDatabase userRoomDatabase;
+    private UserRoomDBDAO userRoomDBDAO;
 
     private LoginUsecase loginUsecase;
 
@@ -47,11 +47,11 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         btnCreateRegistration = findViewById(R.id.btn_create_registration);
         progressBar = findViewById(R.id.progressbar_login);
 
-//        userRoomDatabase = Room.databaseBuilder(this, UserRoomDatabase.class, "user_database")
-//                .allowMainThreadQueries()
-//                .build();
-//
-//        userRoomDBDAO = userRoomDatabase.userRoomDBDAO();
+        userRoomDatabase = Room.databaseBuilder(this, UserRoomDatabase.class, "user_database")
+                .allowMainThreadQueries()
+                .build();
+
+        userRoomDBDAO = userRoomDatabase.userRoomDBDAO();
 
         btnCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,9 @@ package com.example.laptop_acer.firebaseapp.usecases;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 
+import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.room_db.UserDB;
 
 public class MainUsecase {
 
@@ -14,7 +16,8 @@ public class MainUsecase {
     private ViewListener viewListener;
     private UserAuthRepository userAuthRepository;
 
-    public MainUsecase(){
+
+    public MainUsecase() {
         userAuthRepository = FirebaseAuthRepository.getInstance();
     }
 

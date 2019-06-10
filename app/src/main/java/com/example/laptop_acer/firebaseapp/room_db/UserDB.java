@@ -5,24 +5,27 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity (tableName = "user_table")
+@Entity(tableName = "user_table")
 public class UserDB {
 
-    @PrimaryKey
     @NonNull
-
+    @PrimaryKey
     @ColumnInfo(name = "id")
-    private int id;
+    private String id;
+
     @ColumnInfo(name = "username")
     private String userName;
+
     @ColumnInfo(name = "email")
     private String email;
+
     @ColumnInfo(name = "phoneNumber")
     private String phoneNumber;
+
     @ColumnInfo(name = "password")
     private String password;
 
-    public UserDB(int id, String userName, String email, String phoneNumber, String password) {
+    public UserDB(String id, String userName, String email, String phoneNumber, String password) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -30,11 +33,11 @@ public class UserDB {
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

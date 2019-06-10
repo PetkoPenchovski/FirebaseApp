@@ -10,7 +10,7 @@ import com.example.laptop_acer.firebaseapp.room_db.UserDB;
 
 public class AccountFragment extends BaseFragment {
 
-    private UserDB userDB;
+//    private UserDB userDB;
     private ProgressBar progressBarAccount;
     private EditText edtTxtNameAccount;
     private EditText edtTxtEmailAccount;
@@ -48,25 +48,25 @@ public class AccountFragment extends BaseFragment {
             }
         });
 
-        userDB = (UserDB) getActivity().getIntent().getSerializableExtra("UserDB");
-
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
-
-        if (userDB != null) {
-            edtTxtNameAccount.setText(userDB.getUserName().toString().trim());
-            edtTxtEmailAccount.setText(userDB.getEmail().toString().trim());
-            edtTxtPhoneNumberAccount.setText(userDB.getPhoneNumber().toString().trim());
-            edtTxtPasswordAccount.setText(userDB.getPassword().toString().trim());
-
-        }
-
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
+//        userDB = (UserDB) getActivity().getIntent().getSerializableExtra("UserDB");
+//
+//        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+//        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+//        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+//        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
+//
+//        if (userDB != null) {
+//            edtTxtNameAccount.setText(userDB.getUserName().toString().trim());
+//            edtTxtEmailAccount.setText(userDB.getEmail().toString().trim());
+//            edtTxtPhoneNumberAccount.setText(userDB.getPhoneNumber().toString().trim());
+//            edtTxtPasswordAccount.setText(userDB.getPassword().toString().trim());
+//
+//        }
+//
+//        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+//        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+//        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+//        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
 
 
     }

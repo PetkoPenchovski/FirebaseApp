@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
 import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
+import com.example.laptop_acer.firebaseapp.room_db.UserDB;
 import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,11 +27,25 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private BottomNavigationView bottomNavigationView;
     private MainUsecase mainUsecase = new MainUsecase();
 
+    private EditText edtTxtNameAccount;
+    private EditText edtTxtEmailAccount;
+    private EditText edtTxtPhoneNumberAccount;
+    private EditText edtTxtPasswordAccount;
+    private UserDB userDB;
+
     @Override
     protected void onViewCreated() {
         mainUsecase.setViewListener(this);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         toolbar = findViewById(R.id.toolbar);
+
+        edtTxtNameAccount = findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = findViewById(R.id.edt_txt_phone_account);
+        edtTxtPasswordAccount = findViewById(R.id.edt_txt_password_account);
+
+        userDB = (UserDB) getActivity().getIntent().getSerializableExtra("UserDB");
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getColor(R.color.colorPrimaryDark)));
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -84,6 +100,16 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
+    }
+
+    public void setDataInRoom(){//??
+        if (userDB != null){
+
+            edtTxtNameAccount.setText(userDB.getUserName().toString().trim());
+            edtTxtEmailAccount.setText(userDB.getEmail().toString().trim());
+            edtTxtPhoneNumberAccount.setText(userDB.getPhoneNumber().toString().trim());
+            edtTxtPasswordAccount.setText(userDB.getPassword().toString().trim());
+        }
     }
 
 }
