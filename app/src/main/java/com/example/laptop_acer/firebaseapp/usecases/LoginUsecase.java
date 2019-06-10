@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
-import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
-import com.example.laptop_acer.firebaseapp.room_db.UserDAO;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDBDAO;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDatabase;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,9 +25,6 @@ public class LoginUsecase {
     private EditText edtTxtEmailLogin;
     private Button btnLogin;
     private Button btnCreateRegistration;
-
-    private AppDatabase appDatabase;
-    private UserDAO userDAO;
     private ViewListener viewListener;
 
     public LoginUsecase() {
@@ -88,36 +85,6 @@ public class LoginUsecase {
         });
     }
 
-
-//    public void register(final String email, final String password) {
-//        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Log.e(TAG, "onComplete: login");
-//                        if (!task.isSuccessful()) {
-//                            if (password.length() < 6) {
-//                                signInListener.showInvalidPasswordError();
-//                            } else {
-//                                signInListener.onSignInError();
-//                            }
-//                        } else {
-//                            signInListener.onSignInSuccessful(
-//                                    firebaseAuth.getCurrentUser().getUid());
-//                        }
-//                    }
-//                });
-//
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.e(TAG, "onFailure: login");
-//                        signInListener.onSignInError();
-//                    }
-//                });
-//    }
-
     public void validateUserData(String email, String password) {
         if (ValidatorUtils.validateEmail(email) && ValidatorUtils.validatePassword(password)) {
             signIn(email, password);
@@ -129,7 +96,6 @@ public class LoginUsecase {
         }
 
     }
-
 
     public interface ViewListener {
 

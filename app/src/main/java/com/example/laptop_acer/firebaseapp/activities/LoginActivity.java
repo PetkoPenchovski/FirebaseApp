@@ -2,7 +2,6 @@ package com.example.laptop_acer.firebaseapp.activities;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.room_db.AppDatabase;
-import com.example.laptop_acer.firebaseapp.room_db.UserDAO;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDBDAO;
+import com.example.laptop_acer.firebaseapp.room_db.UserRoomDatabase;
 import com.example.laptop_acer.firebaseapp.usecases.LoginUsecase;
 import com.example.laptop_acer.firebaseapp.usecases.UserAuthRepository;
-import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -32,8 +27,8 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     private Button btnLogin;
     private Button btnCreateRegistration;
 
-    private AppDatabase appDatabase;
-    private UserDAO userDAO;
+//    private UserRoomDatabase userRoomDatabase;
+//    private UserRoomDBDAO userRoomDBDAO;
 
     private LoginUsecase loginUsecase;
 
@@ -52,11 +47,11 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         btnCreateRegistration = findViewById(R.id.btn_create_registration);
         progressBar = findViewById(R.id.progressbar_login);
 
-        appDatabase = Room.databaseBuilder(this, AppDatabase.class, "mi-database.db")
-                .allowMainThreadQueries()
-                .build();
-
-        userDAO = appDatabase.getUserDAO();
+//        userRoomDatabase = Room.databaseBuilder(this, UserRoomDatabase.class, "user_database")
+//                .allowMainThreadQueries()
+//                .build();
+//
+//        userRoomDBDAO = userRoomDatabase.userRoomDBDAO();
 
         btnCreateRegistration.setOnClickListener(new View.OnClickListener() {
             @Override

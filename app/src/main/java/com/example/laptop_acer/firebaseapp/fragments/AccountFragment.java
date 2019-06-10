@@ -6,12 +6,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.activities.MainActivity;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserDB;
 
 public class AccountFragment extends BaseFragment {
 
-    private UserRoomDB userRoomDB;
+    private UserDB userDB;
     private ProgressBar progressBarAccount;
     private EditText edtTxtNameAccount;
     private EditText edtTxtEmailAccount;
@@ -20,10 +19,6 @@ public class AccountFragment extends BaseFragment {
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
     private boolean isEdited;
-
-    private static final String TAG = "AccountFragment";
-    private MainActivity activity;
-
 
     public static AccountFragment newInstance() {
         return new AccountFragment();
@@ -53,18 +48,18 @@ public class AccountFragment extends BaseFragment {
             }
         });
 
-        userRoomDB = (UserRoomDB) getActivity().getIntent().getSerializableExtra("UserRoomDB");
+        userDB = (UserDB) getActivity().getIntent().getSerializableExtra("UserDB");
 
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
         edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
         edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
 
-        if (userRoomDB != null) {
-            edtTxtNameAccount.setText(userRoomDB.getUserName().toString());
-            edtTxtEmailAccount.setText(userRoomDB.getEmail().toString());
-            edtTxtPhoneNumberAccount.setText(userRoomDB.getPhoneNumber().toString());
-            edtTxtPasswordAccount.setText(userRoomDB.getPassword().toString());
+        if (userDB != null) {
+            edtTxtNameAccount.setText(userDB.getUserName().toString().trim());
+            edtTxtEmailAccount.setText(userDB.getEmail().toString().trim());
+            edtTxtPhoneNumberAccount.setText(userDB.getPhoneNumber().toString().trim());
+            edtTxtPasswordAccount.setText(userDB.getPassword().toString().trim());
 
         }
 

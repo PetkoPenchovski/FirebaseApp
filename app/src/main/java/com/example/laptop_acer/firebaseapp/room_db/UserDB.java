@@ -1,37 +1,40 @@
 package com.example.laptop_acer.firebaseapp.room_db;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
+@Entity (tableName = "user_table")
+public class UserDB {
 
-@Entity
-public class UserRoomDB implements Serializable {
-
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
+
+    @ColumnInfo(name = "id")
     private int id;
+    @ColumnInfo(name = "username")
     private String userName;
+    @ColumnInfo(name = "email")
     private String email;
+    @ColumnInfo(name = "phoneNumber")
     private String phoneNumber;
+    @ColumnInfo(name = "password")
     private String password;
 
-    public UserRoomDB(String userName, String email, String phoneNumber,
-                      String password) {
+    public UserDB(int id, String userName, String email, String phoneNumber, String password) {
+        this.id = id;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
-    @NonNull
     public int getId() {
         return id;
     }
 
-
-    public void setId(@NonNull int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,15 +70,15 @@ public class UserRoomDB implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + userName + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phone='" + phoneNumber + '\'' +
+//                ", password='" + password + '\'' +
+//                '}';
+//    }
 
 }
