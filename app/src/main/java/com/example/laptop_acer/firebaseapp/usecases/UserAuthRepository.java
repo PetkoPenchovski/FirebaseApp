@@ -12,7 +12,6 @@ public interface UserAuthRepository {
 
     void addSignUpListener(SignUpListener signUpListener);
 
-
     void getCurrentUser(SignOutListener signOutListener);
 
     void signOut();
@@ -24,6 +23,8 @@ public interface UserAuthRepository {
     void addCheckUserListener(CheckUserListener checkUserListener);
 
     void checkForLoggedUser(CheckUserListener listener);
+
+    void getUserId(UserListener userListener);
 
     interface SignOutListener {
         void onUserInstanceReceived(FirebaseAuth mAuth);
@@ -58,5 +59,8 @@ public interface UserAuthRepository {
         void userLoggedError();
     }
 
+    interface UserListener {
+        void onUserIdReceived(String id);
+    }
 
 }

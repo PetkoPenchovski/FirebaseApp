@@ -22,22 +22,19 @@ public class UserDB {
     @ColumnInfo(name = "phoneNumber")
     private String phoneNumber;
 
-    @ColumnInfo(name = "password")
-    private String password;
-
-    public UserDB(String id, String userName, String email, String phoneNumber, String password) {
+    public UserDB(@NonNull String id, String userName, String email, String phoneNumber) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -64,24 +61,5 @@ public class UserDB {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", username='" + userName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phone='" + phoneNumber + '\'' +
-//                ", password='" + password + '\'' +
-//                '}';
-//    }
 
 }

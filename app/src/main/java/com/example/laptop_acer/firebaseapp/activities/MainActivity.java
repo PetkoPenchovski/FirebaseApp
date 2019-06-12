@@ -102,14 +102,4 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         return R.layout.activity_main;
     }
 
-    public void setDataInRoom(){//??
-        if (userDB != null){
-
-            edtTxtNameAccount.setText(userDB.getUserName().toString().trim());
-            edtTxtEmailAccount.setText(userDB.getEmail().toString().trim());
-            edtTxtPhoneNumberAccount.setText(userDB.getPhoneNumber().toString().trim());
-            edtTxtPasswordAccount.setText(userDB.getPassword().toString().trim());
-        }
-    }
-
 }

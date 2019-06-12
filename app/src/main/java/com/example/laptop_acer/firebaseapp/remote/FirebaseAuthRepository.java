@@ -16,12 +16,12 @@ import static com.firebase.ui.auth.ui.email.CheckEmailFragment.TAG;
 
 public class FirebaseAuthRepository implements UserAuthRepository {
 
+    private static final String USERS_TABLE = "users";
     private static FirebaseAuthRepository instance;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authListener;
     private SignInListener signInListener;
     private SignUpListener signUpListener;
-
 
     @Override
     public void registerUser(String email, String password, String username, String phoneNumber) {
@@ -87,10 +87,8 @@ public class FirebaseAuthRepository implements UserAuthRepository {
         firebaseAuth.addAuthStateListener(authListener);
     }
 
-
     @Override
     public void addCheckUserListener(CheckUserListener checkUserListener) {
-
     }
 
     public static FirebaseAuthRepository getInstance() {
@@ -140,7 +138,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
 
     @Override
     public void addResetPasswordListener(ResetPasswordListener resetPasswordListener) {
-
     }
 
     @Override
@@ -151,6 +148,12 @@ public class FirebaseAuthRepository implements UserAuthRepository {
             listener.userLoggedError();
         }
     }
+
+    @Override
+    public void getUserId(UserListener userListener) {
+        userListener.onUserIdReceived(firebaseAuth.getCurrentUser().getUid());
+    }
+
 
 }
 

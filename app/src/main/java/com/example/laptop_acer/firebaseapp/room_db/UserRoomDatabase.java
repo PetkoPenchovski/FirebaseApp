@@ -10,7 +10,7 @@ public abstract class UserRoomDatabase extends RoomDatabase {
 
     public abstract UserRoomDBDAO userRoomDBDAO();
 
-    private static volatile UserRoomDatabase INSTANCE;
+    private static UserRoomDatabase INSTANCE;
 
     static UserRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

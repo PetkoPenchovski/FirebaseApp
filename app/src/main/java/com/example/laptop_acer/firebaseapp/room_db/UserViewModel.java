@@ -20,7 +20,7 @@ public class UserViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<UserDB>> getmAllUsers() {
+    public LiveData<List<UserDB>> getAllUsers() {
         return mAllUsers;
     }
 

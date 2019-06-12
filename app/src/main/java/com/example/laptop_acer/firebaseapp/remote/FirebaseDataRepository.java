@@ -13,8 +13,8 @@ public class FirebaseDataRepository implements UserDataRepository {
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
     }
     @Override
-    public void addUser(String username, String phone, String email) {
-        String id = databaseUsers.push().getKey();
+    public void addUser(String id, String username, String phone, String email) {
+
         User user = new User(id, username, phone, email);
         databaseUsers.child(id).setValue(user);
 

@@ -2,23 +2,29 @@ package com.example.laptop_acer.firebaseapp.usecases;
 
 import android.util.Log;
 
+import com.example.laptop_acer.firebaseapp.model.User;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
+import com.example.laptop_acer.firebaseapp.room_db.UserDB;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
+import com.google.firebase.database.DatabaseReference;
 
 public class RegistrationUsecase {
 
     private static final String TAG = "LoginUsecase";
 
+    private DatabaseReference databaseReference;
     private UserAuthRepository userAuthRepository;
     private UserDataRepository userDataRepository;
     private ViewListener viewListener;
     private String username;
+    private User user;
 
 
     public RegistrationUsecase() {
         userAuthRepository = FirebaseAuthRepository.getInstance();
         userDataRepository = new FirebaseDataRepository();
+        this.user = new User();
     }
 
     public void setViewListener(ViewListener viewListener) {
@@ -31,15 +37,25 @@ public class RegistrationUsecase {
         viewListener.showProgress();
         userAuthRepository.addSignUpListener(getSignUpListener());
         userAuthRepository.registerUser(email, password, username, phoneNumber);
-
+        buildUser(email, username, phoneNumber);
         this.username = username;
         userDataRepository.addUserDataListener(getUserDataListener());
     }
+
+    private void buildUser(String email, String username, String phoneNumber) {
+        user.setUserEmail(email);
+        user.setUserName(username);
+        user.setUserPhoneNumber(phoneNumber);
+    }
+
 
     private UserDataRepository.UserDataListener getUserDataListener() {
         return new UserDataRepository.UserDataListener() {
             @Override
             public void saveSuccess() {
+                UserDB userDB = new UserDB(user.getUserId(), user.getUserName(), user.getUserEmail(),
+                        user.getUserPhoneNumber());
+                viewListener.addUserToLocalDb(userDB);
                 viewListener.showMainScreen(username);
             }
         };
@@ -52,7 +68,8 @@ public class RegistrationUsecase {
 
                 Log.e(TAG, "onSignUpSuccessful:");
                 viewListener.hideProgress();
-                viewListener.showSingUpSuccess();
+                user.setUserId(userId);
+                addUser(user);
             }
 
             @Override
@@ -72,8 +89,9 @@ public class RegistrationUsecase {
         };
     }
 
-    public void addUser(String username, String userPhone, String userEmail) {
-        userDataRepository.addUser(username, userPhone, userEmail);
+    public void addUser(User user) {
+        userDataRepository.addUser(user.getUserId(), user.getUserName(), user.getUserPhoneNumber(),
+                user.getUserEmail());
     }
 
     public void validateNewUserData(String email, String password, String username,
@@ -96,9 +114,8 @@ public class RegistrationUsecase {
         }
     }
 
-    public interface ViewListener {
 
-        void showSingUpSuccess();
+    public interface ViewListener {
 
         void showSingUpFailed();
 
@@ -119,5 +136,10 @@ public class RegistrationUsecase {
         void showMainScreen(String username);
 
         void showPasswordMismatch();
+
+        void addUserToLocalDb(UserDB userDB);
+
+        void onUserIdReceived(String id);
+
     }
 }

@@ -1,6 +1,10 @@
 package com.example.laptop_acer.firebaseapp.activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,8 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.model.User;
+import com.example.laptop_acer.firebaseapp.room_db.UserDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 import com.example.laptop_acer.firebaseapp.usecases.RegistrationUsecase;
-import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
+
+import java.util.List;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationUsecase.ViewListener {
 
@@ -22,6 +30,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     private EditText edtTxtConfirmPassword;
     private EditText edtTxtPhoneNumber;
     private Button btnRegistration;
+    private UserViewModel userViewModel;
+    private User userId;
+    private UserDB userDBId;
+    private MainActivity mainActivity;
 
     private RegistrationUsecase registrationUsecase;
 
@@ -39,18 +51,53 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         btnRegistration = findViewById(R.id.btn_registration);
         progressBar = findViewById(R.id.progressbar);
 
+        initiateUserViewModel();
+
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = edtTxtName.getText().toString().trim();
-                String email = edtTxtEmail.getText().toString().trim();
-                String phoneNumber = edtTxtPhoneNumber.getText().toString().trim();
-                String password = edtTxtPassword.getText().toString().trim();
-                String confirmPassword = edtTxtConfirmPassword.getText().toString().trim();
+                setupOnClick();
 
-                registrationUsecase.validateNewUserData(email, password, username, phoneNumber,
+            }
+        });
+    }
+
+
+    private void initiateUserViewModel() {
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+    }
+
+    private boolean isEmpty() { //Room method!
+        if (TextUtils.isEmpty(edtTxtName.getText().toString()) ||
+                TextUtils.isEmpty(edtTxtEmail.getText().toString()) ||
+                TextUtils.isEmpty(edtTxtPhoneNumber.getText().toString()) ||
+                TextUtils.isEmpty(edtTxtPassword.getText().toString()) ||
+                TextUtils.isEmpty(edtTxtConfirmPassword.getText().toString())
+                ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void setupOnClick() {
+        String username = edtTxtName.getText().toString().trim();
+        String email = edtTxtEmail.getText().toString().trim();
+        String phoneNumber = edtTxtPhoneNumber.getText().toString().trim();
+        String password = edtTxtPassword.getText().toString().trim();
+        String confirmPassword = edtTxtConfirmPassword.getText().toString().trim();
+
+        registrationUsecase.validateNewUserData(email, password, username, phoneNumber,
                 confirmPassword);
+    }
 
+
+    private void addInRoom(UserDB userDB) {
+        userViewModel.insert(userDB);
+        userViewModel.getAllUsers().observe(this, new Observer<List<UserDB>>() {
+            @Override
+            public void onChanged(@Nullable final List<UserDB> userDB) {
+                startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
             }
         });
     }
@@ -60,17 +107,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         return R.layout.activity_registration;
     }
 
-    @Override
-    public void showSingUpSuccess() {
-        String username = edtTxtName.getText().toString().trim();
-        String userEmail = edtTxtEmail.getText().toString().trim();
-        String userPhone = edtTxtPhoneNumber.getText().toString().trim();
-        registrationUsecase.addUser(username, userPhone, userEmail);
-        openMainActivity();
-    }
-
-    private void openMainActivity(){
-        Intent intent = new Intent(RegistrationActivity.this,MainActivity.class);
+    private void openMainActivity() {
+        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -122,12 +160,23 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     public void showMainScreen(String username) {
         Toast.makeText(this, (getString(R.string.you_are_registered)),
                 Toast.LENGTH_SHORT).show();
+        openMainActivity();
     }
 
     @Override
     public void showPasswordMismatch() {
         Toast.makeText(this, (getString(R.string.mismatch_pass)),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addUserToLocalDb(UserDB userDB) {
+        addInRoom(userDB);
+    }
+
+    @Override
+    public void onUserIdReceived(String id) {
+
     }
 }
 
