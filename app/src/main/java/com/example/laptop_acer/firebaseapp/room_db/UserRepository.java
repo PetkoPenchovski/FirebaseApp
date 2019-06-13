@@ -4,29 +4,36 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import com.example.laptop_acer.firebaseapp.model.User;
+
 import java.util.List;
 
 public class UserRepository {
 
     private UserRoomDBDAO mUserRoomDBDAO;
-    private LiveData<List<UserDB>> mAllUsers;
+    private LiveData<List<UserDb>> mAllUsers;
+    private LiveData<UserDb> userDbLiveData;
 
-    UserRepository(Application application) {
+    UserRepository(Application application, String id) {
         UserRoomDatabase db = UserRoomDatabase.getDatabase(application);
         mUserRoomDBDAO = db.userRoomDBDAO();
         mAllUsers = mUserRoomDBDAO.getAllUserRoomDB();
+        userDbLiveData = mUserRoomDBDAO.getUserById(id);
     }
 
-    LiveData<List<UserDB>> getAllUserRoomDB() {
+    LiveData<List<UserDb>> getAllUserRoomDB() {
         return mAllUsers;
     }
 
-
-    public void insert (UserDB userDB) {
-        new insertAsyncTask(mUserRoomDBDAO).execute(userDB);
+    public LiveData<UserDb> getUserById(String id) {
+        return userDbLiveData;
     }
 
-    private static class insertAsyncTask extends AsyncTask<UserDB, Void, Void> {
+    public void insert(UserDb userDb) {
+        new insertAsyncTask(mUserRoomDBDAO).execute(userDb);
+    }
+
+    private static class insertAsyncTask extends AsyncTask<UserDb, Void, Void> {
 
         private UserRoomDBDAO mAsyncTaskDao;
 
@@ -35,7 +42,7 @@ public class UserRepository {
         }
 
         @Override
-        protected Void doInBackground(final UserDB... params) {
+        protected Void doInBackground(final UserDb... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

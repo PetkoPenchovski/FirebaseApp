@@ -24,8 +24,6 @@ public interface UserAuthRepository {
 
     void checkForLoggedUser(CheckUserListener listener);
 
-    void getUserId(UserListener userListener);
-
     interface SignOutListener {
         void onUserInstanceReceived(FirebaseAuth mAuth);
     }

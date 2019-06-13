@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.laptop_acer.firebaseapp.model.User;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
-import com.example.laptop_acer.firebaseapp.room_db.UserDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 import com.google.firebase.database.DatabaseReference;
 
@@ -53,9 +53,9 @@ public class RegistrationUsecase {
         return new UserDataRepository.UserDataListener() {
             @Override
             public void saveSuccess() {
-                UserDB userDB = new UserDB(user.getUserId(), user.getUserName(), user.getUserEmail(),
+                UserDb userDb = new UserDb(user.getUserId(), user.getUserName(), user.getUserEmail(),
                         user.getUserPhoneNumber());
-                viewListener.addUserToLocalDb(userDB);
+                viewListener.addUserToLocalDb(userDb);
                 viewListener.showMainScreen(username);
             }
         };
@@ -137,7 +137,7 @@ public class RegistrationUsecase {
 
         void showPasswordMismatch();
 
-        void addUserToLocalDb(UserDB userDB);
+        void addUserToLocalDb(UserDb userDb);
 
         void onUserIdReceived(String id);
 

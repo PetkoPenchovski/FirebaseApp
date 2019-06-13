@@ -17,7 +17,7 @@ import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
 import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
-import com.example.laptop_acer.firebaseapp.room_db.UserDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private EditText edtTxtEmailAccount;
     private EditText edtTxtPhoneNumberAccount;
     private EditText edtTxtPasswordAccount;
-    private UserDB userDB;
+    private UserDb userDb;
 
     @Override
     protected void onViewCreated() {
@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         edtTxtPhoneNumberAccount = findViewById(R.id.edt_txt_phone_account);
         edtTxtPasswordAccount = findViewById(R.id.edt_txt_password_account);
 
-        userDB = (UserDB) getActivity().getIntent().getSerializableExtra("UserDB");
+        userDb = (UserDb) getActivity().getIntent().getSerializableExtra("UserDb");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getColor(R.color.colorPrimaryDark)));

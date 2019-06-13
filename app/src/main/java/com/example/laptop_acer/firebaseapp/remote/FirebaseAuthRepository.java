@@ -149,9 +149,8 @@ public class FirebaseAuthRepository implements UserAuthRepository {
         }
     }
 
-    @Override
-    public void getUserId(UserListener userListener) {
-        userListener.onUserIdReceived(firebaseAuth.getCurrentUser().getUid());
+    public String getUserId() {
+        return firebaseAuth.getCurrentUser().getUid();
     }
 
 

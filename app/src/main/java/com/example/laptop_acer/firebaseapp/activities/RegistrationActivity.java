@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.model.User;
-import com.example.laptop_acer.firebaseapp.room_db.UserDB;
+import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 import com.example.laptop_acer.firebaseapp.usecases.RegistrationUsecase;
 
@@ -32,7 +33,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     private Button btnRegistration;
     private UserViewModel userViewModel;
     private User userId;
-    private UserDB userDBId;
+    private UserDb userDbId;
     private MainActivity mainActivity;
 
     private RegistrationUsecase registrationUsecase;
@@ -92,12 +93,18 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     }
 
 
-    private void addInRoom(UserDB userDB) {
-        userViewModel.insert(userDB);
-        userViewModel.getAllUsers().observe(this, new Observer<List<UserDB>>() {
+    private void addInRoom(UserDb userDb) {
+        Log.e("PPP", "Add user in room");
+        userViewModel.insert(userDb);
+        userViewModel.getAllUsers().observe(this, new Observer<List<UserDb>>() {
+
             @Override
-            public void onChanged(@Nullable final List<UserDB> userDB) {
+            public void onChanged(@Nullable final List<UserDb> userDb) {
                 startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                for (int i = 0; i < userDb.size(); i++) {
+                    System.out.println("Users in Room" + userDb);
+                    System.out.println(i);
+                }
             }
         });
     }
@@ -170,8 +177,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     }
 
     @Override
-    public void addUserToLocalDb(UserDB userDB) {
-        addInRoom(userDB);
+    public void addUserToLocalDb(UserDb userDb) {
+        addInRoom(userDb);
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "user_table")
-public class UserDB {
+public class UserDb {
 
     @NonNull
     @PrimaryKey
@@ -22,7 +22,10 @@ public class UserDB {
     @ColumnInfo(name = "phoneNumber")
     private String phoneNumber;
 
-    public UserDB(@NonNull String id, String userName, String email, String phoneNumber) {
+    public UserDb() {
+    }
+
+    public UserDb(@NonNull String id, String userName, String email, String phoneNumber) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -61,5 +64,4 @@ public class UserDB {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
 }
