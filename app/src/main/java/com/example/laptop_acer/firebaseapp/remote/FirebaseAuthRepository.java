@@ -16,7 +16,6 @@ import static com.firebase.ui.auth.ui.email.CheckEmailFragment.TAG;
 
 public class FirebaseAuthRepository implements UserAuthRepository {
 
-    private static final String USERS_TABLE = "users";
     private static FirebaseAuthRepository instance;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authListener;
@@ -46,7 +45,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
 
     @Override
     public void loginUserByEmail(String email, final String password) {
-        Log.e("PPPPPP", "TAGgg");
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

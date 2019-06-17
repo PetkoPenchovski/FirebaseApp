@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public interface UserRoomDBDAO {
 
     @Insert
     void insert(UserDb userDb);
+
+    @Update
+    void update(UserDb userDb);
 
     @Query("DELETE FROM user_table")
     void deleteAll();

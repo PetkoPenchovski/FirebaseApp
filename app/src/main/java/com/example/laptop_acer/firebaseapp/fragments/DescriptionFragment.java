@@ -14,7 +14,6 @@ public class DescriptionFragment extends BaseFragment {
     private EditText inputTaskDescription;
     private Button btnCamera;
 
-
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_description;
@@ -39,7 +38,5 @@ public class DescriptionFragment extends BaseFragment {
                 }
             }
         });
-
     }
-
 }

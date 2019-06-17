@@ -12,14 +12,11 @@ import com.google.firebase.database.DatabaseReference;
 public class RegistrationUsecase {
 
     private static final String TAG = "LoginUsecase";
-
-    private DatabaseReference databaseReference;
     private UserAuthRepository userAuthRepository;
     private UserDataRepository userDataRepository;
     private ViewListener viewListener;
     private String username;
     private User user;
-
 
     public RegistrationUsecase() {
         userAuthRepository = FirebaseAuthRepository.getInstance();
@@ -47,7 +44,6 @@ public class RegistrationUsecase {
         user.setUserName(username);
         user.setUserPhoneNumber(phoneNumber);
     }
-
 
     private UserDataRepository.UserDataListener getUserDataListener() {
         return new UserDataRepository.UserDataListener() {

@@ -4,13 +4,13 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 
@@ -24,11 +24,7 @@ public class AccountFragment extends BaseFragment {
     private EditText edtTxtPhoneNumberAccount;
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
-    private boolean isEdited;
-
-    public static AccountFragment newInstance() {
-        return new AccountFragment();
-    }
+    private FirebaseDataRepository firebaseDataRepository;
 
     @Override
     protected int getLayoutRes() {
@@ -38,17 +34,19 @@ public class AccountFragment extends BaseFragment {
     @Override
     protected void onViewCreated() {
         initiateUserViewModel();
+
         progressBarAccount = view.findViewById(R.id.progressbar_account);
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
         edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
         floatButton = view.findViewById(R.id.float_btn);
         checkButton = view.findViewById(R.id.check_btn);
+        firebaseDataRepository = new FirebaseDataRepository();
 
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPenCLicked();
+                onFloatingBtnClicked();
 
             }
         });
@@ -56,40 +54,34 @@ public class AccountFragment extends BaseFragment {
         showUserInfo();
     }
 
+    public void onFloatingBtnClicked() {
+        String username = edtTxtNameAccount.getText().toString().trim();
+        String email = edtTxtEmailAccount.getText().toString().trim();
+        String phone = edtTxtPhoneNumberAccount.getText().toString().trim();
+
+        userDb = new UserDb(FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
+
+        firebaseDataRepository.updateUser(username, email, phone);
+        userViewModel.update(userDb);
+
+    }
+
     private void initiateUserViewModel() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
     }
 
-    private void onPenCLicked() {
-        if (isEdited) {
-            edtTxtNameAccount.setFocusableInTouchMode(true);
-            edtTxtEmailAccount.setFocusableInTouchMode(true);
-            edtTxtPhoneNumberAccount.setFocusableInTouchMode(true);
-        } else {
-            edtTxtNameAccount.setFocusableInTouchMode(false);
-            edtTxtEmailAccount.setFocusableInTouchMode(false);
-            edtTxtPhoneNumberAccount.setFocusableInTouchMode(false);
-        }
-        isEdited = !isEdited;
-    }
-
     private void showUserInfo() {
-        Log.e("LLL", FirebaseAuthRepository.getInstance().getUserId());
         userViewModel.getUserById(FirebaseAuthRepository.getInstance().getUserId()).observe(this,
                 new Observer<UserDb>() {
                     @Override
                     public void onChanged(@Nullable UserDb localUser) {
-                        edtTxtEmailAccount.setText(localUser.getEmail());
-                        edtTxtPhoneNumberAccount.setText(localUser.getPhoneNumber());
-                        edtTxtNameAccount.setText(localUser.getUserName());
+                        if (localUser != null) {
+                            edtTxtEmailAccount.setText(localUser.getEmail());
+                            edtTxtPhoneNumberAccount.setText(localUser.getPhoneNumber());
+                            edtTxtNameAccount.setText(localUser.getUserName());
+                        }
                     }
                 });
-    }
-
-    private void updateUser() {
-//        UserDb userDb = new UserDb(edtTxtNameAccount.getText().toString(),
-//                edtTxtEmailAccount.getText().toString(),
-//                edtTxtPhoneNumberAccount.getText().toString(),
     }
 }
 

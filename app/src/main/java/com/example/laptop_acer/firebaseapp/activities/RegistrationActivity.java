@@ -32,10 +32,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     private EditText edtTxtPhoneNumber;
     private Button btnRegistration;
     private UserViewModel userViewModel;
-    private User userId;
-    private UserDb userDbId;
-    private MainActivity mainActivity;
-
     private RegistrationUsecase registrationUsecase;
 
     @Override
@@ -68,19 +64,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
     }
 
-    private boolean isEmpty() { //Room method!
-        if (TextUtils.isEmpty(edtTxtName.getText().toString()) ||
-                TextUtils.isEmpty(edtTxtEmail.getText().toString()) ||
-                TextUtils.isEmpty(edtTxtPhoneNumber.getText().toString()) ||
-                TextUtils.isEmpty(edtTxtPassword.getText().toString()) ||
-                TextUtils.isEmpty(edtTxtConfirmPassword.getText().toString())
-                ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private void setupOnClick() {
         String username = edtTxtName.getText().toString().trim();
         String email = edtTxtEmail.getText().toString().trim();
@@ -91,7 +74,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         registrationUsecase.validateNewUserData(email, password, username, phoneNumber,
                 confirmPassword);
     }
-
 
     private void addInRoom(UserDb userDb) {
         Log.e("PPP", "Add user in room");

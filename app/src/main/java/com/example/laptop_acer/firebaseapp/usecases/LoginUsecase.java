@@ -18,13 +18,6 @@ public class LoginUsecase {
 
     private UserAuthRepository.SignInListener signInListener;
     private UserAuthRepository userAuthRepository;
-    private ProgressBar progressBar;
-    private FirebaseAuth firebaseAuth;
-    private ImageView imgViewLogin;
-    private EditText edtTxtPasswordLogin;
-    private EditText edtTxtEmailLogin;
-    private Button btnLogin;
-    private Button btnCreateRegistration;
     private ViewListener viewListener;
 
     public LoginUsecase() {
@@ -41,7 +34,6 @@ public class LoginUsecase {
         userAuthRepository.addSignInListener(getSignInListener());
         userAuthRepository.loginUserByEmail(email, password);
     }
-
 
     private UserAuthRepository.SignInListener getSignInListener() {
 
@@ -69,7 +61,6 @@ public class LoginUsecase {
             }
         };
     }
-
 
     public void checkForLoggedUser() {
         userAuthRepository.addCheckUserListener(new UserAuthRepository.CheckUserListener() {

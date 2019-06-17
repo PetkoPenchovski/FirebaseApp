@@ -29,6 +29,10 @@ public class UserViewModel extends AndroidViewModel {
         mUserRepository.insert(userDb);
     }
 
+    public void update(UserDb userDb) {
+        mUserRepository.update(userDb);
+    }
+
     public LiveData<UserDb> getUserById(String id) {
         return mUserRepository.getUserById(id);
     }

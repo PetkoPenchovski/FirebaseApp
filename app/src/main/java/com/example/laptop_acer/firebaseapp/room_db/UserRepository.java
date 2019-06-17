@@ -4,8 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.example.laptop_acer.firebaseapp.model.User;
-
 import java.util.List;
 
 public class UserRepository {
@@ -33,6 +31,10 @@ public class UserRepository {
         new insertAsyncTask(mUserRoomDBDAO).execute(userDb);
     }
 
+    public void update(UserDb userDb) {
+        new updateAsyncTask(mUserRoomDBDAO).execute(userDb);
+    }
+
     private static class insertAsyncTask extends AsyncTask<UserDb, Void, Void> {
 
         private UserRoomDBDAO mAsyncTaskDao;
@@ -44,6 +46,21 @@ public class UserRepository {
         @Override
         protected Void doInBackground(final UserDb... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<UserDb, Void, Void> {
+
+        private UserRoomDBDAO mAsyncTaskDao;
+
+        updateAsyncTask(UserRoomDBDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(UserDb... params) {
+            mAsyncTaskDao.update(params[0]);
             return null;
         }
     }

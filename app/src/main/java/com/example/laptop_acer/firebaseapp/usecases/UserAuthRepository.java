@@ -7,7 +7,6 @@ public interface UserAuthRepository {
 
     void loginUserByEmail(String email, String password);
 
-
     void addSignInListener(SignInListener signInListener);
 
     void addSignUpListener(SignUpListener signUpListener);
