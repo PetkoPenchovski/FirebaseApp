@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
 
-
     View view;
 
     @Override

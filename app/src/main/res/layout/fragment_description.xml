@@ -2,12 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_description_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Welcome!"
+        app:titleMarginStart="40dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:paddingLeft="15dp"
@@ -20,8 +30,8 @@
             android:fontFamily="sans-serif"
             android:hint="task"
             android:inputType="text"
-            android:textColor="@color/colorPrimary"
             android:paddingBottom="15dp"
+            android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorAccent" />
 
         <EditText
@@ -31,8 +41,8 @@
             android:fontFamily="sans-serif"
             android:hint="task description"
             android:inputType="text"
-            android:textColor="@color/colorPrimary"
             android:paddingBottom="15dp"
+            android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorAccent" />
 
         <android.support.design.button.MaterialButton
@@ -44,8 +54,7 @@
             android:text="@string/take_picture"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            app:rippleColor="@color/colorRipple"/>
-
+            app:rippleColor="@color/colorRipple" />
 
     </LinearLayout>
 </RelativeLayout>

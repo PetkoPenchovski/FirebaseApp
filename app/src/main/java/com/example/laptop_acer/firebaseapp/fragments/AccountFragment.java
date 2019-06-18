@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -14,7 +15,7 @@ import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 
-public class AccountFragment extends BaseFragment {
+public class AccountFragment extends BaseFragment implements View.OnClickListener {
 
     private UserViewModel userViewModel;
     private UserDb userDb;
@@ -25,6 +26,7 @@ public class AccountFragment extends BaseFragment {
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
     private FirebaseDataRepository firebaseDataRepository;
+    private Toolbar toolbar;
 
     @Override
     protected int getLayoutRes() {
@@ -33,25 +35,22 @@ public class AccountFragment extends BaseFragment {
 
     @Override
     protected void onViewCreated() {
+        firebaseDataRepository = new FirebaseDataRepository();
+        bindElements();
         initiateUserViewModel();
+        showUserInfo();
+    }
 
+    private void bindElements() {
         progressBarAccount = view.findViewById(R.id.progressbar_account);
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
         edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
         floatButton = view.findViewById(R.id.float_btn);
+        floatButton.setOnClickListener(this);
         checkButton = view.findViewById(R.id.check_btn);
-        firebaseDataRepository = new FirebaseDataRepository();
-
-        floatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFloatingBtnClicked();
-
-            }
-        });
-
-        showUserInfo();
+        checkButton.setOnClickListener(this);
+        toolbar = view.findViewById(R.id.toolbar_account_fragment);
     }
 
     public void onFloatingBtnClicked() {
@@ -64,6 +63,15 @@ public class AccountFragment extends BaseFragment {
         firebaseDataRepository.updateUser(username, email, phone);
         userViewModel.update(userDb);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.float_btn:
+                onFloatingBtnClicked();
+                break;
+        }
     }
 
     private void initiateUserViewModel() {
@@ -83,6 +91,7 @@ public class AccountFragment extends BaseFragment {
                     }
                 });
     }
+
 }
 
 

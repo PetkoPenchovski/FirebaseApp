@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context="com.example.laptop_acer.firebaseapp.activities.RegistrationActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="FirebaseApp"
+        app:titleMarginStart="40dp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
