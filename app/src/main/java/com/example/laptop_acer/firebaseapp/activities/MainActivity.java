@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,16 +19,18 @@ import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends BaseActivity implements MainUsecase.ViewListener,
-        BottomNavigationView.OnNavigationItemSelectedListener {
+        BottomNavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
     private BottomNavigationView bottomNavigationView;
     private MainUsecase mainUsecase = new MainUsecase();
     private UserDb userDb;
+    private Toolbar toolbar;
 
     @Override
     protected void onViewCreated() {
         mainUsecase.setViewListener(this);
         mainUsecase = new MainUsecase();
+        setSupportActionBar(toolbar);
         bindElements();
         setupRoomDb();
         openAccountFragment();
@@ -36,6 +39,9 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private void bindElements() {
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        toolbar = findViewById(R.id.toolbar_main);
+        toolbar.inflateMenu(R.menu.menu);
+        toolbar.setOnMenuItemClickListener(this);
     }
 
     private void setupRoomDb() {
@@ -45,27 +51,6 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private void openAccountFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new AccountFragment()).commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuSignOut:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                Toast.makeText(this, "You are sign out!", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return true;
     }
 
     @Override
@@ -92,6 +77,19 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
 
         return false;
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Toast.makeText(this, "You are sign out!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return false;
     }
 }
 

@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -26,7 +25,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private FloatingActionButton floatButton;
     private FloatingActionButton checkButton;
     private FirebaseDataRepository firebaseDataRepository;
-    private Toolbar toolbar;
 
     @Override
     protected int getLayoutRes() {
@@ -50,7 +48,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         floatButton.setOnClickListener(this);
         checkButton = view.findViewById(R.id.check_btn);
         checkButton.setOnClickListener(this);
-        toolbar = view.findViewById(R.id.toolbar_account_fragment);
     }
 
     public void onFloatingBtnClicked() {

@@ -2,7 +2,6 @@ package com.example.laptop_acer.firebaseapp.fragments;
 
 import android.content.Intent;
 import android.provider.MediaStore;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private EditText inputTask;
     private EditText inputTaskDescription;
     private Button btnCamera;
-    private Toolbar toolbar;
 
     @Override
     protected void onViewCreated() {
@@ -27,7 +25,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         inputTaskDescription = view.findViewById(R.id.edt_txt_task_description);
         btnCamera = view.findViewById(R.id.btn_camera);
         btnCamera.setOnClickListener(this);
-        toolbar = view.findViewById(R.id.toolbar_description_fragment);
     }
 
     private void openCamera() {
