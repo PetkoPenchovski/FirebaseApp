@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:paddingTop="?android:attr/actionBarSize">
 
         <LinearLayout
+            android:id="@+id/grp_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
@@ -40,19 +42,38 @@
                 android:paddingBottom="15dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorAccent" />
-
-            <android.support.design.button.MaterialButton
-                android:id="@+id/btn_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:background="@drawable/rounded_button_transparent"
-                android:text="@string/take_picture"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                app:rippleColor="@color/colorRipple" />
         </LinearLayout>
 
+        <android.support.design.button.MaterialButton
+            android:id="@+id/btn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grp_editable"
+            android:layout_gravity="left"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_button_transparent"
+            android:text="@string/take_picture"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:rippleColor="@color/colorRipple" />
 
+        <android.support.design.button.MaterialButton
+            android:id="@+id/btn_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/grp_editable"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_button_transparent"
+            android:text="@string/open_gallery"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:rippleColor="@color/colorRipple" />
+
+        <ImageView
+            android:id="@+id/img_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 </LinearLayout>
