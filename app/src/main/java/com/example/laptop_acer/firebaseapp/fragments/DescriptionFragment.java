@@ -20,6 +20,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private EditText inputTask;
     private EditText inputTaskDescription;
     private Button btnCamera;
+    private ImageView imgView;
+    private Uri imgUri;
+    private Button btnGallery;
 
     @Override
     protected void onViewCreated() {
@@ -32,6 +35,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         inputTaskDescription = view.findViewById(R.id.edt_txt_task_description);
         btnCamera = view.findViewById(R.id.btn_camera);
         btnCamera.setOnClickListener(this);
+        imgView = view.findViewById(R.id.img_gallery);
+        btnGallery = view.findViewById(R.id.btn_gallery);
+        btnGallery.setOnClickListener(this);
     }
 
     private void openCamera() {
@@ -45,14 +51,19 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void openGallery() {
-
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        }
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imgUri = data.getData();
+            imgView.setImageURI(imgUri);
+        }
+    }
+
 
     @Override
     protected int getLayoutRes() {
@@ -64,6 +75,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_camera:
                 openCamera();
+                break;
+            case R.id.btn_gallery:
+                openGallery();
                 break;
         }
     }
