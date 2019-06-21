@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
@@ -16,7 +17,10 @@ import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
+import com.example.laptop_acer.firebaseapp.utils.MarshmallowPermissions;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static android.support.v4.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
 
 public class MainActivity extends BaseActivity implements MainUsecase.ViewListener,
         BottomNavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
@@ -25,15 +29,18 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private MainUsecase mainUsecase = new MainUsecase();
     private UserDb userDb;
     private Toolbar toolbar;
+    private MarshmallowPermissions marshmallowPermissions;
 
     @Override
     protected void onViewCreated() {
+        marshmallowPermissions = new MarshmallowPermissions(MainActivity.this);
         mainUsecase.setViewListener(this);
         mainUsecase = new MainUsecase();
         setSupportActionBar(toolbar);
         bindElements();
         setupRoomDb();
         openAccountFragment();
+        checkPermissions();
     }
 
     private void bindElements() {
@@ -76,7 +83,6 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
                 selectedFragment).commit();
 
         return false;
-
     }
 
     @Override
@@ -90,6 +96,14 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
                 break;
         }
         return false;
+    }
+
+    private void checkPermissions() {
+        if (!marshmallowPermissions.checkPermissionForExternalStorage()) {
+            marshmallowPermissions.requestPermissionForExternalStorage();
+        } else if (!marshmallowPermissions.checkPermissionForCamera()) {
+            marshmallowPermissions.requestPermissionForCamera();
+        }
     }
 }
 

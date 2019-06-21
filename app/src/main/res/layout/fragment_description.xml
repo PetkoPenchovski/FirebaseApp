@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
         android:paddingTop="?android:attr/actionBarSize">
@@ -72,9 +72,10 @@
             app:rippleColor="@color/colorRipple" />
 
         <ImageView
-            android:layout_below="@+id/grp_editable"
-            android:id="@+id/img_gallery"
+            android:layout_centerInParent="true"
+            android:id="@+id/img_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 </LinearLayout>
