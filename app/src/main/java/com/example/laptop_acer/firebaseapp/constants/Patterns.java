@@ -17,7 +17,6 @@ public class Patterns {
     public static final String URL_PATTERN = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     public static final String NAME_PATTERN = "^[\\p{L} .'-]+$";
-    public static final String DATE_PATTERN = "mm-dd-yyyy";
-    public static final int CAMERA_REQUEST_CODE = 100;
-    public static final int GALLERY_REQUEST_CODE = 100;
+    public static final int WIDHT = 512;
+    public static final int LENGHT = 512;
 }

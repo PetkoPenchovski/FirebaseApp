@@ -2,8 +2,8 @@
     <string name="app_name">FirebaseApp</string>
     <string name="sign_in">Sign in</string>
     <string name="you_are_registered">You are registered!</string>
-    <string name="create_registration">Create Registration!</string>
-    <string name="registration">Registration!</string>
+    <string name="create_registration">Create Registration</string>
+    <string name="registration">Registration</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Wrong email or password!</string>
     <string name="wrong_email">Wrong email!</string>
@@ -16,8 +16,9 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
-    <string name="take_picture">Take Picture!</string>
-    <string name="open_gallery">Open Gallery!</string>
-    <string name="sign_out">Sign Out!</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="upload">Upload</string>
+    <string name="upload_success">Upload Success</string>
+    <string name="sign_out">Sign Out</string>
     <string name="empty_not_saved">Empty not saved!</string>
-</resources>
+    </resources>
