@@ -30,7 +30,6 @@ public class RegistrationUsecase {
 
 
     public void register(String email, String password, String username, String phoneNumber) {
-        Log.e(TAG, "Registered user " + email);
         viewListener.showProgress();
         userAuthRepository.addSignUpListener(getSignUpListener());
         userAuthRepository.registerUser(email, password, username, phoneNumber);
@@ -49,7 +48,10 @@ public class RegistrationUsecase {
         return new UserDataRepository.UserDataListener() {
             @Override
             public void saveSuccess() {
-                UserDb userDb = new UserDb(user.getUserId(), user.getUserName(), user.getUserEmail(),
+                UserDb userDb = new UserDb
+                        (user.getUserId(),
+                        user.getUserName(),
+                        user.getUserEmail(),
                         user.getUserPhoneNumber());
                 viewListener.addUserToLocalDb(userDb);
                 viewListener.showMainScreen(username);
@@ -81,7 +83,6 @@ public class RegistrationUsecase {
                 viewListener.hideProgress();
                 viewListener.showSingUpFailed();
             }
-
         };
     }
 

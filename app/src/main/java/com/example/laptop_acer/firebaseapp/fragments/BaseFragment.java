@@ -18,6 +18,7 @@ public abstract class BaseFragment extends Fragment {
         view = inflater.inflate(getLayoutRes(), container, false);
         onViewCreated();
         return view;
+
     }
 
     protected abstract int getLayoutRes();
@@ -27,5 +28,4 @@ public abstract class BaseFragment extends Fragment {
     protected View getLayoutView() {
         return view;
     }
-
 }

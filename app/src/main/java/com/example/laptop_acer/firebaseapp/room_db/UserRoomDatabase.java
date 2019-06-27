@@ -9,6 +9,7 @@ import android.content.Context;
 public abstract class UserRoomDatabase extends RoomDatabase {
 
     public abstract UserRoomDBDAO userRoomDBDAO();
+    private static final String ROOM_DB_NAME = "user_database";
 
     private static UserRoomDatabase INSTANCE;
 
@@ -17,7 +18,7 @@ public abstract class UserRoomDatabase extends RoomDatabase {
             synchronized (UserRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            UserRoomDatabase.class, "user_database")
+                            UserRoomDatabase.class, ROOM_DB_NAME)
                             .build();
                 }
             }

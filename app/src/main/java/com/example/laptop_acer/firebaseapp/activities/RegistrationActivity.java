@@ -19,6 +19,8 @@ import com.example.laptop_acer.firebaseapp.usecases.RegistrationUsecase;
 
 import java.util.List;
 
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE;
+
 public class RegistrationActivity extends BaseActivity implements RegistrationUsecase.ViewListener,
         View.OnClickListener {
 
@@ -45,6 +47,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
 
     private void bindElements() {
         toolbar = findViewById(R.id.toolbar_registration);
+        toolbar.setTitle(TOOLBAR_TITLE);
         imgViewReg = findViewById(R.id.img_vw_reg);
         edtTxtName = findViewById(R.id.edt_txt_name);
         edtTxtEmail = findViewById(R.id.edt_txt_email);
@@ -86,10 +89,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
             @Override
             public void onChanged(@Nullable final List<UserDb> userDb) {
                 startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                for (int i = 0; i < userDb.size(); i++) {
-                    System.out.println("Users in Room" + userDb);
-                    System.out.println(i);
-                }
+
             }
         });
     }

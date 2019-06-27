@@ -67,7 +67,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "onFailure: login");
                         signInListener.onSignInError();
                     }
                 });
@@ -111,7 +110,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d(TAG, "User signed-in or registered and signed in automatically:" + user.getUid());
                 } else if (signInListener != null) {
                     signInListener.onSignInSuccessful(firebaseAuth.getCurrentUser().getUid());
                 }

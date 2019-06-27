@@ -29,7 +29,6 @@ public class LoginUsecase {
     }
 
     public void signIn(String email, final String password) {
-        Log.e(TAG, "signIn: email: " + email);
         viewListener.showProgress();
         userAuthRepository.addSignInListener(getSignInListener());
         userAuthRepository.loginUserByEmail(email, password);

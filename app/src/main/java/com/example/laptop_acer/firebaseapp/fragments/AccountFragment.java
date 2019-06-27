@@ -2,17 +2,28 @@ package com.example.laptop_acer.firebaseapp.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.activities.LoginActivity;
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AccountFragment extends BaseFragment implements View.OnClickListener {
 
@@ -22,9 +33,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private EditText edtTxtNameAccount;
     private EditText edtTxtEmailAccount;
     private EditText edtTxtPhoneNumberAccount;
-    private FloatingActionButton floatButton;
-    private FloatingActionButton checkButton;
     private FirebaseDataRepository firebaseDataRepository;
+    private Toolbar toolbar;
+    private ImageButton edtBtn;
 
     @Override
     protected int getLayoutRes() {
@@ -34,9 +45,35 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void onViewCreated() {
         firebaseDataRepository = new FirebaseDataRepository();
+
         bindElements();
         initiateUserViewModel();
         showUserInfo();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuSignOut) {
+            FirebaseAuth.getInstance().signOut();
+            getActivity().finish();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            Toast.makeText(getActivity(), getString(R.string.you_are_sign_out), Toast.LENGTH_SHORT)
+                    .show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void bindElements() {
@@ -44,18 +81,21 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
         edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
         edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        floatButton = view.findViewById(R.id.float_btn);
-        floatButton.setOnClickListener(this);
-        checkButton = view.findViewById(R.id.check_btn);
-        checkButton.setOnClickListener(this);
+        edtBtn = view.findViewById(R.id.btn_edt);
+        edtBtn.setOnClickListener(this);
+        toolbar = view.findViewById(R.id.toolbar_account);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle("Welcome!");
+
     }
 
-    public void onFloatingBtnClicked() {
+    private void onFloatingBtnClicked() {
         String username = edtTxtNameAccount.getText().toString().trim();
         String email = edtTxtEmailAccount.getText().toString().trim();
         String phone = edtTxtPhoneNumberAccount.getText().toString().trim();
 
-        userDb = new UserDb(FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
+        userDb = new UserDb
+                (FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
 
         firebaseDataRepository.updateUser(username, email, phone);
         userViewModel.update(userDb);
@@ -65,7 +105,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.float_btn:
+            case R.id.btn_edt:
                 onFloatingBtnClicked();
                 break;
         }
@@ -76,7 +116,8 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void showUserInfo() {
-        userViewModel.getUserById(FirebaseAuthRepository.getInstance().getUserId()).observe(this,
+        userViewModel
+                .getUserById(FirebaseAuthRepository.getInstance().getUserId()).observe(this,
                 new Observer<UserDb>() {
                     @Override
                     public void onChanged(@Nullable UserDb localUser) {
@@ -88,7 +129,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                     }
                 });
     }
-
 }
 
 

@@ -17,7 +17,8 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        mUserRepository = new UserRepository(application, FirebaseAuthRepository.getInstance().getUserId());
+        mUserRepository = new UserRepository
+                (application, FirebaseAuthRepository.getInstance().getUserId());
         mAllUsers = mUserRepository.getAllUserRoomDB();
     }
 

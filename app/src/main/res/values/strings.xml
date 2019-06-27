@@ -21,4 +21,13 @@
     <string name="upload_success">Upload Success</string>
     <string name="sign_out">Sign Out</string>
     <string name="empty_not_saved">Empty not saved!</string>
-    </resources>
+    <string name="published">Published</string>
+    <string name="error_upload">Error Upload</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_are_sign_out">You are sign out</string>
+    <string name="missing_permission_title">Permission necessary</string>
+    <string name="missing_permission_message">External storage permission is necessary</string>
+
+</resources>

@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.usecases.LoginUsecase;
 
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE;
+
 
 public class LoginActivity extends BaseActivity implements LoginUsecase.ViewListener,
         View.OnClickListener {
@@ -36,6 +38,7 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
 
     private void bindElements() {
         toolbar = findViewById(R.id.toolbar_login);
+        toolbar.setTitle(TOOLBAR_TITLE);
         imgViewLogin = findViewById(R.id.img_vw_login);
         edtTxtPasswordLogin = findViewById(R.id.edt_txt_password_login);
         edtTxtEmailLogin = findViewById(R.id.edt_txt_email_login);

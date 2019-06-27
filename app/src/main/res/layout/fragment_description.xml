@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <!--<include-->
+        <!--android:id="@+id/toolbar_description"-->
+        <!--layout="@layout/toolbar" />-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,7 +49,7 @@
         </LinearLayout>
 
         <android.support.design.button.MaterialButton
-            android:id="@+id/btn_camera"
+            android:id="@+id/btn_take_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/grp_editable"
@@ -72,17 +76,17 @@
             app:rippleColor="@color/colorRipple" />
 
         <ImageView
-            android:layout_centerInParent="true"
             android:id="@+id/img_pic"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
 
         <EditText
-            android:hint="photo name"
-            android:layout_alignParentBottom="true"
             android:id="@+id/edt_name_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:hint="photo name" />
 
         <ProgressBar
             android:id="@+id/progressbar_description_fragment"

@@ -1,37 +1,53 @@
 package com.example.laptop_acer.firebaseapp.usecases;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-
-import com.example.laptop_acer.firebaseapp.utils.Utility;
-import com.google.firebase.storage.FirebaseStorage;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseImageRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseStorageSingleton;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 public class DescriptionUsecase {
+
+    private ViewListener viewListener;
+    private StorageReference storageReference;
+
+    public void setViewListener(ViewListener viewListener) {
+        storageReference = FirebaseStorageSingleton.getInstance();
+        this.viewListener = viewListener;
+    }
+
+    public void showProgressBar() {
+        viewListener.showProgress();
+    }
+
+    public void hideProgressBar() {
+        viewListener.hideProgress();
+    }
+
+    public void uploadImage(String name, byte[] bytes) {
+        showProgressBar();
+        new FirebaseImageRepository().uploadImage(bytes, name, new DataListener<Boolean>() {
+            @Override
+            public void onDataSuccess(Boolean data) {
+                hideProgressBar();
+                viewListener.uploadImageSuccess();
+            }
+
+            @Override
+            public void onDataError(String message) {
+                hideProgressBar();
+                viewListener.uploadImageError(message);
+            }
+        });
+    }
+
 
     public interface ViewListener {
         void showProgress();
 
         void hideProgress();
 
+        void uploadImageSuccess();
+
+        void uploadImageError(String message);
     }
 }
 
