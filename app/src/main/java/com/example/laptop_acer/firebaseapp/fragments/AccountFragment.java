@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +24,8 @@ import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENT;
+
 public class AccountFragment extends BaseFragment implements View.OnClickListener {
 
     private UserViewModel userViewModel;
@@ -36,19 +37,36 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private FirebaseDataRepository firebaseDataRepository;
     private Toolbar toolbar;
     private ImageButton edtBtn;
+    private ImageButton checkBtn;
+    private boolean isCheck = false;
 
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.fragment_account;
-    }
 
     @Override
     protected void onViewCreated() {
         firebaseDataRepository = new FirebaseDataRepository();
-
         bindElements();
         initiateUserViewModel();
         showUserInfo();
+    }
+
+    private void bindElements() {
+        progressBarAccount = view.findViewById(R.id.progressbar_account);
+        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+        edtBtn = view.findViewById(R.id.btn_edt);
+        edtBtn.setOnClickListener(this);
+        checkBtn = view.findViewById(R.id.btn_check);
+        checkBtn.setOnClickListener(this);
+        toolbar = view.findViewById(R.id.toolbar_account);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
+
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_account;
     }
 
     @Override
@@ -76,23 +94,12 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    private void bindElements() {
-        progressBarAccount = view.findViewById(R.id.progressbar_account);
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtBtn = view.findViewById(R.id.btn_edt);
-        edtBtn.setOnClickListener(this);
-        toolbar = view.findViewById(R.id.toolbar_account);
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("Welcome!");
-
-    }
-
-    private void onFloatingBtnClicked() {
+    private void onPenBtnClicked() {
         String username = edtTxtNameAccount.getText().toString().trim();
         String email = edtTxtEmailAccount.getText().toString().trim();
         String phone = edtTxtPhoneNumberAccount.getText().toString().trim();
+
+        edtTxtNameAccount.setEnabled(false);
 
         userDb = new UserDb
                 (FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
@@ -102,12 +109,32 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+    private void onCheckBtnClicked(String username, String email, String phone) {
+        firebaseDataRepository.updateUser(username, email, phone);
+        userViewModel.update(userDb);
+
+    }
+
+    private void onEdit() {
+        checkBtn.setVisibility(View.GONE);
+        edtBtn.setVisibility(View.VISIBLE);
+    }
+
+    private void onCheck() {
+        edtBtn.setVisibility(View.GONE);
+        checkBtn.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_edt:
-                onFloatingBtnClicked();
+                onPenBtnClicked();
+                onEdit();
                 break;
+            case R.id.btn_check:
+//                onCheckBtnClicked();
+                onCheck();
         }
     }
 

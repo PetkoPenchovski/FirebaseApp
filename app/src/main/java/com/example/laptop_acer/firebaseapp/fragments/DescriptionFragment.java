@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
 import com.example.laptop_acer.firebaseapp.usecases.DescriptionUsecase;
 import com.example.laptop_acer.firebaseapp.utils.PermissionUtilities;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,6 +25,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENT;
 
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener,
         DescriptionUsecase.ViewListener {
@@ -75,9 +78,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         descriptionUsecase = new DescriptionUsecase();
         descriptionUsecase.setViewListener(this);
 //Tuk dava bug
-//        toolbar = view.findViewById(R.id.toolbar_description);
-//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-//        toolbar.setTitle("Welcome!");
+        toolbar = view.findViewById(R.id.toolbar_description);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
     }
 
     @Override

@@ -6,8 +6,7 @@
     android:layout_height="?android:attr/actionBarSize"
     android:background="@color/colorPrimaryDark"
     android:elevation="4dp"
-    app:popupTheme="@style/MenuItemTheme"
-    app:title="Welcome!">
+    app:popupTheme="@style/MenuItemTheme">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,6 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="270dp"
             android:background="@null"
-            android:src="@drawable/ic_edit_black_24dp" />
+            android:src="@drawable/ic_edit_black_24dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="270dp"
+            android:background="@null"
+            android:src="@drawable/ic_check_black_24dp"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

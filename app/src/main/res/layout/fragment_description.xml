@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <!--<include-->
-        <!--android:id="@+id/toolbar_description"-->
-        <!--layout="@layout/toolbar" />-->
+    <include
+        android:id="@+id/toolbar_description"
+        layout="@layout/toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
