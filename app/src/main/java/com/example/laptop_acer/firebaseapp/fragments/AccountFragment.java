@@ -94,12 +94,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    private void onPenBtnClicked() {
+    private void onEditUserInfo() {
         String username = edtTxtNameAccount.getText().toString().trim();
         String email = edtTxtEmailAccount.getText().toString().trim();
         String phone = edtTxtPhoneNumberAccount.getText().toString().trim();
-
-        edtTxtNameAccount.setEnabled(false);
 
         userDb = new UserDb
                 (FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
@@ -108,19 +106,13 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         userViewModel.update(userDb);
 
     }
-
-    private void onCheckBtnClicked(String username, String email, String phone) {
-        firebaseDataRepository.updateUser(username, email, phone);
-        userViewModel.update(userDb);
-
-    }
-
-    private void onEdit() {
+    
+    private void onEditButtonVisible() {
         checkBtn.setVisibility(View.GONE);
         edtBtn.setVisibility(View.VISIBLE);
     }
 
-    private void onCheck() {
+    private void onCheckButtonVisible() {
         edtBtn.setVisibility(View.GONE);
         checkBtn.setVisibility(View.VISIBLE);
     }
@@ -129,12 +121,12 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_edt:
-                onPenBtnClicked();
-                onEdit();
+                onEditUserInfo();
+                onCheckButtonVisible();
                 break;
             case R.id.btn_check:
-//                onCheckBtnClicked();
-                onCheck();
+                onEditButtonVisible();
+                onEditUserInfo();
         }
     }
 

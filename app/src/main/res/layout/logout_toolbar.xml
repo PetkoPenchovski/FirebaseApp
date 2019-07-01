@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="270dp"
             android:background="@null"
-            android:src="@drawable/ic_edit_black_24dp"/>
+            android:src="@drawable/ic_edit_black_24dp"
+            android:visibility="visible"/>
 
         <ImageButton
             android:id="@+id/btn_check"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="270dp"
             android:background="@null"
-            android:src="@drawable/ic_check_black_24dp"/>
+            android:src="@drawable/ic_check_black_24dp"
+            android:visibility="gone"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
