@@ -4,16 +4,15 @@ import android.util.Log;
 
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseImageRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseStorageSingleton;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
+import com.google.android.gms.common.util.Strings;
 import com.google.firebase.storage.StorageReference;
-
-import static com.firebase.ui.auth.ui.email.RegisterEmailFragment.TAG;
 
 public class DescriptionUsecase {
 
-    private TaskAuthRepository taskAuthRepository;
     private ViewListener viewListener;
     private StorageReference storageReference;
     private TaskDataRepository taskDataRepository;
@@ -23,7 +22,8 @@ public class DescriptionUsecase {
 
     public DescriptionUsecase() {
         storageReference = FirebaseStorageSingleton.getInstance();
-        this.firebaseAuthRepository = FirebaseAuthRepository.getInstance();
+        firebaseAuthRepository = FirebaseAuthRepository.getInstance();
+        taskDataRepository = new FirebaseDataRepository();
     }
 
     public void setViewListener(ViewListener viewListener) {
@@ -38,32 +38,32 @@ public class DescriptionUsecase {
         viewListener.hideProgress();
     }
 
-    public void registerTask(String taskName, String taskDescription,
-                             String taskLocation, String time) {
+    public void registerTask(Task task) {
         viewListener.showProgress();
-        taskAuthRepository.addTaskSignUpListener(getSignTaskListener());
-        taskAuthRepository.registerTask(firebaseAuthRepository.getUserId(), taskName, taskDescription, taskLocation, time);
-        buildTask(firebaseAuthRepository.getUserId(), taskName, taskDescription, taskLocation, time);
-        this.taskName = taskName;
-    }
+        taskDataRepository.addTask(task, new DataListener<String>() {
+            @Override
+            public void onDataSuccess(String taskId) {
+                viewListener.showTaskSavedSuccess(taskId);
+            }
 
-    private void buildTask(String userId, String taskName, String taskDescription,
-                           String taskLocation, String time) {
-        task.setUserId(userId);
-        task.setTaskName(taskName);
-        task.setTaskDescription(taskDescription);
-        task.setTaskLocation(taskLocation);
-        task.setTime(time);
+            @Override
+            public void onDataError(String message) {
+                viewListener.showTaskSavedFailure();
+            }
+        });
     }
 
     public void uploadImage(final String name, byte[] bytes) {
         showProgressBar();
-        new FirebaseImageRepository().uploadImage(bytes, name, new DataListener<Boolean>() {
+        new FirebaseImageRepository().uploadImage(bytes, name, new DataListener<String>() {
             @Override
-            public void onDataSuccess(Boolean data) {
+            public void onDataSuccess(String downloadLink) {
                 hideProgressBar();
-                getImagePath(name);
-                viewListener.uploadImageSuccess();
+                if(!Strings.isEmptyOrWhitespace(downloadLink)) {
+                    viewListener.uploadImageSuccess(downloadLink);
+                } else {
+                    viewListener.uploadImageSuccess(null);
+                }
             }
 
             @Override
@@ -74,62 +74,20 @@ public class DescriptionUsecase {
         });
     }
 
-    private void getImagePath(String name) {
-        new FirebaseImageRepository().getImagePath(name, new ImageStorageRepository.ImageListener() {
-            @Override
-            public void onImageNameReceived(String name) {
-
-            }
-        });
-
-    }
-
-    private TaskAuthRepository.TaskListener getSignTaskListener() {
-        return new TaskAuthRepository.TaskListener() {
-            @Override
-            public void onSignUpSuccessful(String userId) {
-
-                Log.e(TAG, "onSignUpSuccessful:");
-                viewListener.hideProgress();
-                task.setUserId(userId);
-                addTask(task);
-            }
-
-            @Override
-            public void onSignUpError(String errorMessage) {
-                Log.e(TAG, "onSignUpError: ");
-                viewListener.hideProgress();
-                viewListener.showTaskSignUpFailed(errorMessage);
-            }
-
-            @Override
-            public void onSignUpError() {
-                Log.e(TAG, "onSignUpError: ");
-                viewListener.hideProgress();
-                viewListener.showTaskSingUpFailed();
-            }
-        };
-    }
-
-    public void addTask(Task task) {
-        taskDataRepository.addTask(task.getUserId(), task.getTaskName(), task.getTaskDescription(),
-                task.getTaskLocation(), task.getTime());
-    }
-
-    public void validateNewTaskData(String taskName, String taskDescription,
-                                    String taskLocation, String time) {
-        if (ValidatorUtils.validatePassword(taskName)
-                && ValidatorUtils.validateName(taskDescription)
-                && ValidatorUtils.validatePhone(taskLocation)
-                && ValidatorUtils.validatePhone(time)) {
-            registerTask(taskName, taskDescription, taskLocation, time);
-        } else if (!ValidatorUtils.validateText(taskName)) {
+    public void validateNewTaskData(Task task) {
+        if (ValidatorUtils.isValidateText(task.getTaskName())
+                && ValidatorUtils.isValidateText(task.getTaskDescription())
+                && ValidatorUtils.isValidateText(task.getTaskLocation())
+                && ValidatorUtils.isValidateText(task.getTime())
+                && ValidatorUtils.isValidateUrl(task.getUrlImage())) {
+            registerTask(task);
+        } else if (!ValidatorUtils.isValidateText(task.getTaskName())) {
             viewListener.showInvalidTaskName();
-        } else if (!ValidatorUtils.validateText(taskDescription)) {
+        } else if (!ValidatorUtils.isValidateText(task.getTaskDescription())) {
             viewListener.showInvalidTaskDescription();
-        } else if (!ValidatorUtils.validateText(taskLocation)) {
+        } else if (!ValidatorUtils.isValidateText(task.getTaskLocation())) {
             viewListener.showInvalidTaskLocation();
-        } else if (!ValidatorUtils.validateText(time)) {
+        } else if (!ValidatorUtils.isValidateText(task.getTime())) {
             viewListener.showInvalidTime();
         }
     }
@@ -148,17 +106,13 @@ public class DescriptionUsecase {
 
         void hideProgress();
 
-        void uploadImageSuccess();
+        void uploadImageSuccess(String downloadLink);
 
         void uploadImageError(String message);
 
-        void downloadImageSuccess();
+        void showTaskSavedSuccess(String taskId);
 
-        void downloadImageError(String message);
-
-        void showTaskSignUpFailed(String errorMessage);
-
-        void showTaskSingUpFailed();
+        void showTaskSavedFailure();
     }
 }
 

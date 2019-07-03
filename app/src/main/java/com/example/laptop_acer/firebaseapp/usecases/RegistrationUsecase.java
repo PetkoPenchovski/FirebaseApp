@@ -7,7 +7,6 @@ import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
-import com.google.firebase.database.DatabaseReference;
 
 public class RegistrationUsecase {
 
@@ -93,16 +92,16 @@ public class RegistrationUsecase {
     public void validateNewUserData(String email, String password, String username,
                                     String phoneNumber, String confirmPassword) {
         if (password.equals(confirmPassword)) {
-            if (ValidatorUtils.validateEmail(email) && ValidatorUtils.validatePassword(password)
-                    && ValidatorUtils.validateName(username) && ValidatorUtils.validatePhone(phoneNumber)) {
+            if (ValidatorUtils.isValidateEmail(email) && ValidatorUtils.isValidatePassword(password)
+                    && ValidatorUtils.isValidateName(username) && ValidatorUtils.isValidatePhone(phoneNumber)) {
                 register(email, password, username, phoneNumber);
-            } else if (!ValidatorUtils.validateText(username)) {
+            } else if (!ValidatorUtils.isValidateText(username)) {
                 viewListener.showInvalidRegUsername();
-            } else if (!ValidatorUtils.validateEmail(email)) {
+            } else if (!ValidatorUtils.isValidateEmail(email)) {
                 viewListener.showInvalidRegEmail();
-            } else if (!ValidatorUtils.validatePhone(phoneNumber)) {
+            } else if (!ValidatorUtils.isValidatePhone(phoneNumber)) {
                 viewListener.showInvalidRegPhoneNumber();
-            } else if (!ValidatorUtils.validatePassword(password)) {
+            } else if (!ValidatorUtils.isValidatePassword(password)) {
                 viewListener.showInvalidRegPassword();
             }
         } else {

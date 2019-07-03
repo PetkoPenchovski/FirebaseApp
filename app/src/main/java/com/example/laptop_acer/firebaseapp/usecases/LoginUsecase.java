@@ -28,7 +28,6 @@ public class LoginUsecase {
     }
 
     private UserAuthRepository.SignInListener getSignInListener() {
-
         return new UserAuthRepository.SignInListener() {
             @Override
             public void onSignInSuccessful(String userId) {
@@ -69,11 +68,11 @@ public class LoginUsecase {
     }
 
     public void validateUserData(String email, String password) {
-        if (ValidatorUtils.validateEmail(email) && ValidatorUtils.validatePassword(password)) {
+        if (ValidatorUtils.isValidateEmail(email) && ValidatorUtils.isValidatePassword(password)) {
             signIn(email, password);
-        } else if (!ValidatorUtils.validateEmail(email)) {
+        } else if (!ValidatorUtils.isValidateEmail(email)) {
             viewListener.showInvalidEmail();
-        } else if (!ValidatorUtils.validatePassword(password)) {
+        } else if (!ValidatorUtils.isValidatePassword(password)) {
             viewListener.showInvalidPassword();
 
         }

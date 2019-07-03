@@ -2,19 +2,34 @@ package com.example.laptop_acer.firebaseapp.model;
 
 public class Task {
 
+    private String taskId;
+    private String urlImage;
     private String userId;
     private String taskName;
     private String taskDescription;
     private String taskLocation;
     private String time;
 
-    public Task(String userId, String taskName, String taskDescription,
+    public Task() {
+
+    }
+
+    public Task(String urlImage, String userId, String taskName, String taskDescription,
                 String taskLocation, String time) {
+        this.urlImage = urlImage;
         this.userId = userId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskLocation = taskLocation;
         this.time = time;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public String getUserId() {
@@ -55,5 +70,13 @@ public class Task {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }

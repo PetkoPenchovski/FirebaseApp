@@ -2,19 +2,19 @@ package com.example.laptop_acer.firebaseapp.remote;
 
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.model.User;
+import com.example.laptop_acer.firebaseapp.usecases.DataListener;
 import com.example.laptop_acer.firebaseapp.usecases.TaskDataRepository;
 import com.example.laptop_acer.firebaseapp.usecases.UserDataRepository;
+import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseDataRepository implements UserDataRepository, TaskDataRepository {
 
-    private DatabaseReference databaseUsers;
-    private UserDataListener userDataListener;
-    private TaskDataListener taskDataListener;
-    //Napravi si klas RoomDBConstants
+    private static final String ERROR_TASK = "Error creating task node";
     private static final String FIREBASE_TABLE_USERS = "users";
     private static final String FIREBASE_TABLE_TASKS = "tasks";
+    private static final String GET_URL_IMAGE = "urlImage";
     private static final String USER_EMAIL = "userEmail";
     private static final String USER_NAME = "userName";
     private static final String USER_PHONE = "userPhoneNumber";
@@ -23,6 +23,11 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     private static final String TASK_DESCRIPTION = "taskDescription";
     private static final String TASK_LOCATION = "taskLocation";
     private static final String TASK_TIME = "taskTime";
+    //Napravi si klas RoomDBConstants
+    private DatabaseReference databaseUsers;
+    private UserDataListener userDataListener;
+    private TaskDataListener taskDataListener;
+
 
 
     public FirebaseDataRepository() {
@@ -38,14 +43,14 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
 
     }
 
-    public void updateTask(String userId, String taskName, String taskDescription,
-                           String taskLocation, String time) {
+    public void updateTask(Task task) {
         String idUser = FirebaseAuthRepository.getInstance().getUserId();
-        databaseUsers.child(idUser).child(USER_ID).setValue(userId);
-        databaseUsers.child(idUser).child(TASK_NAME).setValue(taskName);
-        databaseUsers.child(idUser).child(TASK_DESCRIPTION).setValue(taskDescription);
-        databaseUsers.child(idUser).child(TASK_LOCATION).setValue(taskLocation);
-        databaseUsers.child(idUser).child(TASK_TIME).setValue(time);
+        databaseUsers.child(idUser).child(GET_URL_IMAGE).setValue(task.getUrlImage());
+        databaseUsers.child(idUser).child(USER_ID).setValue(task.getUserId());
+        databaseUsers.child(idUser).child(TASK_NAME).setValue(task.getTime());
+        databaseUsers.child(idUser).child(TASK_DESCRIPTION).setValue(task.getTaskDescription());
+        databaseUsers.child(idUser).child(TASK_LOCATION).setValue(task.getTaskLocation());
+        databaseUsers.child(idUser).child(TASK_TIME).setValue(task.getTime());
     }
 
     @Override
@@ -56,11 +61,15 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     }
 
     @Override
-    public void addTask(String userId, String taskName, String taskDescription,
-                        String taskLocation, String time) {
-        Task task = new Task(userId, taskName, taskDescription, taskLocation, time);
-        databaseUsers.child(userId).setValue(task);
-        taskDataListener.saveTaskSuccess();
+    public void addTask(Task task, DataListener<String> listener) {
+        DatabaseReference ref = databaseUsers.child(task.getUserId());
+        String taskId = ref.push().getKey();
+        if(Strings.isEmptyOrWhitespace(taskId)) {
+            listener.onDataError(ERROR_TASK);
+        } else {
+            ref.setValue(task);
+            listener.onDataError(taskId);
+        }
     }
 
     @Override
