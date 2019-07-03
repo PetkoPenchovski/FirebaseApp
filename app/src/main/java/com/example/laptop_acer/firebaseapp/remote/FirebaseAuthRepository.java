@@ -3,6 +3,7 @@ package com.example.laptop_acer.firebaseapp.remote;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.laptop_acer.firebaseapp.usecases.TaskAuthRepository;
 import com.example.laptop_acer.firebaseapp.usecases.UserAuthRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static com.firebase.ui.auth.ui.email.CheckEmailFragment.TAG;
 
-public class FirebaseAuthRepository implements UserAuthRepository {
+public class FirebaseAuthRepository implements UserAuthRepository, TaskAuthRepository {
 
     private static FirebaseAuthRepository instance;
     private FirebaseAuth firebaseAuth;
@@ -149,7 +150,17 @@ public class FirebaseAuthRepository implements UserAuthRepository {
         return firebaseAuth.getCurrentUser().getUid();
     }
 
+    @Override
+    public void registerTask(String userId, String taskName, String taskDescription,
+                             String taskLocation, String time) {
+        //TODO check implement
+    }
 
+    @Override
+    public void addTaskSignUpListener(TaskListener signUpListener) {
+        //TODO check implement
+
+    }
 }
 
 

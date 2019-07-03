@@ -17,8 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.activities.MainActivity;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseStorageSingleton;
+import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.usecases.DescriptionUsecase;
+import com.example.laptop_acer.firebaseapp.usecases.TaskAuthRepository;
 import com.example.laptop_acer.firebaseapp.utils.PermissionUtilities;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,17 +30,18 @@ import com.google.firebase.storage.StorageReference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENT;
-
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener,
         DescriptionUsecase.ViewListener {
 
     private ProgressBar progressBar;
     private EditText edtPhotoName;
-    private EditText edtTask;
+    private EditText edtTaskName;
     private EditText edtTaskDescription;
+    private EditText edtLocation;
+    private EditText edtTime;
     private Button btnTakePic;
     private Button btnUpload;
+    private Button btnDownload;
     private ImageView imgView;
     private Bitmap imgBitmap;
     private Uri imgUri;
@@ -48,6 +53,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private Intent data;
     private Toolbar toolbar;
     private DescriptionUsecase descriptionUsecase;
+    private FirebaseDataRepository firebaseDataRepository;
+    private TaskAuthRepository taskAuthRepository;
+    private FirebaseAuthRepository firebaseAuthRepository;
     private String CAMERA;
     private String GALLERY;
     private String CANCEL;
@@ -56,31 +64,40 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private final static String IMAGE_FOLDER = "image/*";
     private final static int PICTURE_QUALITY = 90;
 
+    public DescriptionFragment() {
+        firebaseAuthRepository = FirebaseAuthRepository.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+    }
+
     @Override
     protected void onViewCreated() {
+        firebaseDataRepository = new FirebaseDataRepository();
         bindElements();
     }
 
     private void bindElements() {
         progressBar = view.findViewById(R.id.progressbar_description_fragment);
         edtPhotoName = view.findViewById(R.id.edt_name_photo);
-        edtTask = view.findViewById(R.id.edt_txt_task);
+        edtTaskName = view.findViewById(R.id.edt_txt_task);
         edtTaskDescription = view.findViewById(R.id.edt_txt_task_description);
+        edtLocation = view.findViewById(R.id.edt_location);
+        edtTime = view.findViewById(R.id.edt_time);
         btnTakePic = view.findViewById(R.id.btn_take_pic);
         btnTakePic.setOnClickListener(this);
         btnUpload = view.findViewById(R.id.btn_upload);
         btnUpload.setOnClickListener(this);
+        btnDownload = view.findViewById(R.id.btn_download);
+        btnDownload.setOnClickListener(this);
         imgView = view.findViewById(R.id.img_pic);
-        firebaseStorage = FirebaseStorage.getInstance();
         CAMERA = getString(R.string.camera);
         GALLERY = getString(R.string.gallery);
         CANCEL = getString(R.string.cancel);
         descriptionUsecase = new DescriptionUsecase();
         descriptionUsecase.setViewListener(this);
 //Tuk dava bug
-        toolbar = view.findViewById(R.id.toolbar_description);
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
+//        toolbar = view.findViewById(R.id.toolbar_description);
+//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+//        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
     }
 
     @Override
@@ -98,7 +115,8 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                     } else if (userChoosenTask.equals(GALLERY)) {
                         galleryIntent();
                     }
-                }break;
+                }
+                break;
         }
     }
 
@@ -177,6 +195,25 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         imgView.setImageBitmap(imgBitmap);
     }
 
+    private void onEditTaskInfo() {
+        String task = edtTaskName.getText().toString().trim();
+        String taskDescription = edtTaskDescription.getText().toString().trim();
+        String location = edtLocation.getText().toString().trim();
+        String time = edtTime.getText().toString().trim();
+
+        firebaseDataRepository.updateTask(firebaseAuthRepository.getUserId(),
+                task, taskDescription, location, time);
+    }
+
+    private void setupOnClick() {
+        String task = edtTaskName.getText().toString().trim();
+        String taskDescription = edtTaskDescription.getText().toString().trim();
+        String location = edtLocation.getText().toString().trim();
+        String time = edtTime.getText().toString().trim();
+
+        descriptionUsecase.validateNewTaskData(task, taskDescription, location, time);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -184,7 +221,11 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 selectImage();
                 break;
             case R.id.btn_upload:
-                upload();
+                setupOnClick();
+                //  upload();    //za sega ne uploadva
+                break;
+            case R.id.btn_download:
+                onEditTaskInfo();
                 break;
         }
     }
@@ -196,6 +237,35 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showInvalidTaskName() {
+        Toast.makeText(getActivity(), (getString(R.string.error_task_name)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showInvalidTaskDescription() {
+        Toast.makeText(getActivity(), (getString(R.string.error_task_description)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showInvalidTaskLocation() {
+        Toast.makeText(getActivity(), (getString(R.string.error_task_location)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showInvalidTime() {
+        Toast.makeText(getActivity(), (getString(R.string.error_task_time)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -211,7 +281,27 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+    public void downloadImageSuccess() {
+        Toast.makeText(getActivity(), (getString(R.string.downloaded)),
+                Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void downloadImageError(String message) {
+        Toast.makeText(getActivity(), (getString(R.string.error_download)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showTaskSignUpFailed(String errorMessage) {
+        Toast.makeText(getActivity(), (getString(R.string.task_success)),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showTaskSingUpFailed() {
+        Toast.makeText(getActivity(), (getString(R.string.error_task)),
+                Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -28,7 +28,6 @@ public class RegistrationUsecase {
         this.viewListener = viewListener;
     }
 
-
     public void register(String email, String password, String username, String phoneNumber) {
         viewListener.showProgress();
         userAuthRepository.addSignUpListener(getSignUpListener());

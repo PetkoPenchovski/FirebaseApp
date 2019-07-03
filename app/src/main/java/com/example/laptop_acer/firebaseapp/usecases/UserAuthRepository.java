@@ -3,6 +3,7 @@ package com.example.laptop_acer.firebaseapp.usecases;
 import com.google.firebase.auth.FirebaseAuth;
 
 public interface UserAuthRepository {
+
     void registerUser(String email, String password, String username, String phoneNumber);
 
     void loginUserByEmail(String email, String password);

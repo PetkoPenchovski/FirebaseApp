@@ -4,4 +4,10 @@ public interface ImageStorageRepository {
 
     void uploadImage(byte[] bytes, String name, DataListener<Boolean> listener);
 
+    void getImagePath(String name, ImageListener listener);
+
+    interface ImageListener {
+        void onImageNameReceived(String name);
+    }
+
 }

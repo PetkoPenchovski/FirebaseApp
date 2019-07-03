@@ -29,5 +29,14 @@
     <string name="you_are_sign_out">You are sign out</string>
     <string name="missing_permission_title">Permission necessary</string>
     <string name="missing_permission_message">External storage permission is necessary</string>
+    <string name="downloaded">Download Success</string>
+    <string name="error_download">Error Download</string>
+    <string name="task_success">Task Success</string>
+    <string name="error_task">Error Task</string>
+    <string name="error_task_name">Error Task Name</string>
+    <string name="error_task_description">Error Task Description</string>
+    <string name="error_task_location">Error Task Location</string>
+    <string name="error_task_time">Error Task Time</string>
+    <string name="download">Download</string>
 
 </resources>

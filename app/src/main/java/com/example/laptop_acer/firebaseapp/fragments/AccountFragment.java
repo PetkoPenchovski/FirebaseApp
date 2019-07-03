@@ -106,7 +106,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         userViewModel.update(userDb);
 
     }
-    
+
     private void onEditButtonVisible() {
         checkBtn.setVisibility(View.GONE);
         edtBtn.setVisibility(View.VISIBLE);

@@ -1,16 +1,9 @@
 package com.example.laptop_acer.firebaseapp.usecases;
 
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDBDAO;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDatabase;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginUsecase {
 

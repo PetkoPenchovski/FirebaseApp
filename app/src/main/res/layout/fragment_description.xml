@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <include
-        android:id="@+id/toolbar_description"
-        layout="@layout/toolbar" />
+    <!--<include-->
+    <!--android:id="@+id/toolbar_description"-->
+    <!--layout="@layout/toolbar" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
         android:paddingTop="?android:attr/actionBarSize">
@@ -46,6 +46,28 @@
                 android:paddingBottom="15dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/edt_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="location"
+                android:inputType="text"
+                android:paddingBottom="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/edt_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="time"
+                android:inputType="datetime"
+                android:paddingBottom="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorAccent" />
         </LinearLayout>
 
         <android.support.design.button.MaterialButton
@@ -71,6 +93,18 @@
             android:layout_margin="8dp"
             android:background="@drawable/rounded_button_transparent"
             android:text="@string/upload"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:rippleColor="@color/colorRipple" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/btn_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="bottom"
+            android:background="@drawable/rounded_button_transparent"
+            android:text="@string/download"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             app:rippleColor="@color/colorRipple" />
