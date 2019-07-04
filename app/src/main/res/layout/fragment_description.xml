@@ -97,18 +97,6 @@
             android:textColor="@color/colorPrimary"
             app:rippleColor="@color/colorRipple" />
 
-        <android.support.design.button.MaterialButton
-            android:id="@+id/btn_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="bottom"
-            android:background="@drawable/rounded_button_transparent"
-            android:text="@string/download"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            app:rippleColor="@color/colorRipple" />
-
         <ImageView
             android:id="@+id/img_pic"
             android:layout_width="wrap_content"

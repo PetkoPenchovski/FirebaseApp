@@ -1,7 +1,5 @@
 package com.example.laptop_acer.firebaseapp.usecases;
 
-import android.util.Log;
-
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
@@ -39,15 +37,17 @@ public class DescriptionUsecase {
     }
 
     public void registerTask(Task task) {
-        viewListener.showProgress();
+        showProgressBar();
         taskDataRepository.addTask(task, new DataListener<String>() {
             @Override
             public void onDataSuccess(String taskId) {
+                hideProgressBar();
                 viewListener.showTaskSavedSuccess(taskId);
             }
 
             @Override
             public void onDataError(String message) {
+                hideProgressBar();
                 viewListener.showTaskSavedFailure();
             }
         });
@@ -59,7 +59,7 @@ public class DescriptionUsecase {
             @Override
             public void onDataSuccess(String downloadLink) {
                 hideProgressBar();
-                if(!Strings.isEmptyOrWhitespace(downloadLink)) {
+                if (!Strings.isEmptyOrWhitespace(downloadLink)) {
                     viewListener.uploadImageSuccess(downloadLink);
                 } else {
                     viewListener.uploadImageSuccess(null);
@@ -75,11 +75,12 @@ public class DescriptionUsecase {
     }
 
     public void validateNewTaskData(Task task) {
-        if (ValidatorUtils.isValidateText(task.getTaskName())
+        if (ValidatorUtils.isValidateUrl(task.getUrlImage())
+                && ValidatorUtils.isValidateText(task.getTaskName())
                 && ValidatorUtils.isValidateText(task.getTaskDescription())
                 && ValidatorUtils.isValidateText(task.getTaskLocation())
                 && ValidatorUtils.isValidateText(task.getTime())
-                && ValidatorUtils.isValidateUrl(task.getUrlImage())) {
+                ) {
             registerTask(task);
         } else if (!ValidatorUtils.isValidateText(task.getTaskName())) {
             viewListener.showInvalidTaskName();

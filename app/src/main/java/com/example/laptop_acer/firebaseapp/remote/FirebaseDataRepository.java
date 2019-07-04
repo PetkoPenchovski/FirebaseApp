@@ -1,5 +1,7 @@
 package com.example.laptop_acer.firebaseapp.remote;
 
+import android.util.Log;
+
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.model.User;
 import com.example.laptop_acer.firebaseapp.usecases.DataListener;
@@ -25,14 +27,14 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     private static final String TASK_TIME = "taskTime";
     //Napravi si klas RoomDBConstants
     private DatabaseReference databaseUsers;
+    private DatabaseReference databaseTasks;
     private UserDataListener userDataListener;
-    private TaskDataListener taskDataListener;
 
 
 
     public FirebaseDataRepository() {
         databaseUsers = FirebaseDatabase.getInstance().getReference(FIREBASE_TABLE_USERS);
-        databaseUsers = FirebaseDatabase.getInstance().getReference(FIREBASE_TABLE_TASKS);
+        databaseTasks = FirebaseDatabase.getInstance().getReference(FIREBASE_TABLE_TASKS);
     }
 
     public void updateUser(String username, String email, String phone) {
@@ -62,13 +64,13 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
 
     @Override
     public void addTask(Task task, DataListener<String> listener) {
-        DatabaseReference ref = databaseUsers.child(task.getUserId());
-        String taskId = ref.push().getKey();
+        String taskId = databaseTasks.push().getKey();
+
         if(Strings.isEmptyOrWhitespace(taskId)) {
             listener.onDataError(ERROR_TASK);
         } else {
-            ref.setValue(task);
-            listener.onDataError(taskId);
+            databaseTasks.child(taskId).setValue(task);
+            listener.onDataSuccess(taskId);
         }
     }
 

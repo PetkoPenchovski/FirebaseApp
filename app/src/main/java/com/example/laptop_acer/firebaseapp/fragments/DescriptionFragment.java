@@ -48,7 +48,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private EditText edtTime;
     private Button btnTakePic;
     private Button btnUpload;
-    private Button btnDownload;
     private ImageView imgView;
     private Bitmap imgBitmap;
     private Uri imgUri;
@@ -57,7 +56,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private PermissionUtilities permissionUtilities;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private Intent data;
+//    private Intent data;
     private Toolbar toolbar;
     private DescriptionUsecase descriptionUsecase;
     private FirebaseDataRepository firebaseDataRepository;
@@ -87,8 +86,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         btnTakePic.setOnClickListener(this);
         btnUpload = view.findViewById(R.id.btn_upload);
         btnUpload.setOnClickListener(this);
-        btnDownload = view.findViewById(R.id.btn_download);
-        btnDownload.setOnClickListener(this);
         imgView = view.findViewById(R.id.img_pic);
         descriptionUsecase = new DescriptionUsecase();
         descriptionUsecase.setViewListener(this);
@@ -205,7 +202,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         task.setTaskDescription(edtTaskDescription.getText().toString().trim());
         task.setTaskName(edtTaskName.getText().toString().trim());
 
-//        firebaseDataRepository.updateTask(task);
         descriptionUsecase.validateNewTaskData(task);
     }
 
@@ -217,9 +213,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_upload:
                 upload();
-                break;
-            case R.id.btn_download:
-                onEditTaskInfo();
                 break;
         }
     }
@@ -265,8 +258,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void uploadImageSuccess(String downloadLink) {
         task.setUrlImage(downloadLink);
-        Toast.makeText(getActivity(), (getString(R.string.published)),
-                Toast.LENGTH_SHORT).show();
+        onEditTaskInfo();
     }
 
     @Override
