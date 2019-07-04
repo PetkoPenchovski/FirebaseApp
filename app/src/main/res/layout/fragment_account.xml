@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.laptop_acer.firebaseapp.activities.RegistrationActivity">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar_account"
-        layout="@layout/logout_toolbar"/>
+        layout="@layout/logout_toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:paddingTop="?android:attr/actionBarSize"
         android:background="@color/colorPrimary">
 
         <LinearLayout
+            android:id="@+id/grp_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

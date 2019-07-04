@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -15,9 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
@@ -28,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENT;
 
 public class DescriptionFragment extends BaseFragment implements View.OnClickListener,
         DescriptionUsecase.ViewListener {
@@ -56,7 +59,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private PermissionUtilities permissionUtilities;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-//    private Intent data;
     private Toolbar toolbar;
     private DescriptionUsecase descriptionUsecase;
     private FirebaseDataRepository firebaseDataRepository;
@@ -76,6 +78,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void bindElements() {
+        toolbar = view.findViewById(R.id.toolbar_description);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
         progressBar = view.findViewById(R.id.progressbar_description_fragment);
         edtPhotoName = view.findViewById(R.id.edt_name_photo);
         edtTaskName = view.findViewById(R.id.edt_txt_task);
@@ -92,10 +97,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         CAMERA = getString(R.string.camera);
         GALLERY = getString(R.string.gallery);
         CANCEL = getString(R.string.cancel);
-//Tuk dava bug
-//        toolbar = view.findViewById(R.id.toolbar_description);
-//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-//        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
     }
 
     @Override

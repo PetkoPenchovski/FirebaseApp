@@ -2,6 +2,7 @@ package com.example.laptop_acer.firebaseapp.fragments;
 
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.laptop_acer.firebaseapp.R;
 import com.example.laptop_acer.firebaseapp.activities.MainActivity;
@@ -26,5 +27,6 @@ public class HomeFragment extends BaseFragment {
         toolbar = view.findViewById(R.id.toolbar_home);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
+
     }
 }

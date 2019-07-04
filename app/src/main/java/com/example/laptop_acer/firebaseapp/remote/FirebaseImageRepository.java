@@ -30,8 +30,6 @@ public class FirebaseImageRepository implements ImageStorageRepository {
                 if (!task.isSuccessful()) {
                     throw task.getException();
                 }
-
-                // Continue with the task to get the download URL
                 return filepath.getDownloadUrl();
             }
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {

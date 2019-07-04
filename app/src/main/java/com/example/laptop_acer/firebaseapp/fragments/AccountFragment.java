@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
@@ -60,7 +61,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         checkBtn.setOnClickListener(this);
         toolbar = view.findViewById(R.id.toolbar_account);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(TOOLBAR_TITLE_FRAGMENT);
+        ((TextView)toolbar.findViewById(R.id.title)).setText(TOOLBAR_TITLE_FRAGMENT);
 
     }
 
