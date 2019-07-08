@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -59,31 +60,6 @@ public class AccountFragment extends BaseFragment{
         return R.layout.fragment_account;
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        setHasOptionsMenu(true);
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.menuSignOut) {
-//            FirebaseAuth.getInstance().signOut();
-//            getActivity().finish();
-//            startActivity(new Intent(getActivity(), LoginActivity.class));
-//            Toast.makeText(getActivity(), getString(R.string.you_are_sign_out), Toast.LENGTH_SHORT)
-//                    .show();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
     public static void onEditUserInfo() {
         String username = edtTxtNameAccount.getText().toString().trim();
         String email = edtTxtEmailAccount.getText().toString().trim();
@@ -96,29 +72,6 @@ public class AccountFragment extends BaseFragment{
         userViewModel.update(userDb);
 
     }
-
-//    private void onEditButtonVisible() {
-//        checkBtn.setVisibility(View.GONE);
-//        edtBtn.setVisibility(View.VISIBLE);
-//    }
-//
-//    private void onCheckButtonVisible() {
-//        edtBtn.setVisibility(View.GONE);
-//        checkBtn.setVisibility(View.VISIBLE);
-//    }
-//
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_edt:
-//                onEditUserInfo();
-//                onCheckButtonVisible();
-//                break;
-//            case R.id.btn_check:
-//                onEditButtonVisible();
-//                onEditUserInfo();
-//        }
-//    }
 
     private void initiateUserViewModel() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);

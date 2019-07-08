@@ -42,7 +42,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         registrationUsecase.setViewListener(this);
         setSupportActionBar(toolbar);
         bindElements();
-        initiateUserViewModel();
     }
 
     private void bindElements() {
@@ -84,6 +83,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     }
 
     private void addInRoom(UserDb userDb) {
+        initiateUserViewModel();
         userViewModel.insert(userDb);
         userViewModel.getAllUsers().observe(this, new Observer<List<UserDb>>() {
             @Override
