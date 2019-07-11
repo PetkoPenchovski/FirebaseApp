@@ -3,18 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:padding="10dp"
-    app:cardCornerRadius="25dp"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="8dp"
     app:cardElevation="3dp"
-    app:contentPadding="4dp">
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/linear_layout_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="16dp"
         android:orientation="vertical">
 
         <TextView

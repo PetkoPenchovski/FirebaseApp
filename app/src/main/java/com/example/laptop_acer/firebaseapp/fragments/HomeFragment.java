@@ -29,7 +29,6 @@ public class HomeFragment extends BaseFragment {
     private static final String TAG = "HomeFragment";
 
     private RecyclerView recyclerView;
-    //    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private String currentTaskID;
@@ -41,7 +40,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.home_fragment_recycler_view;
+        return R.layout.fragment_home;
     }
 
     private void bindElements() {
@@ -112,7 +111,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-//        loadTasks();
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {

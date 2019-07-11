@@ -11,7 +11,6 @@ public class Task {
     private String time;
 
     public Task() {
-
     }
 
     public String getUrlImage() {
