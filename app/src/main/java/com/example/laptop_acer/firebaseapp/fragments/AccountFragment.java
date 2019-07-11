@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -41,7 +43,7 @@ public class AccountFragment extends BaseFragment{
 
 
     @Override
-    protected void onViewCreated() {
+    protected void onFragmentViewCreated(View view, Bundle savedInstanceState) {
         firebaseDataRepository = new FirebaseDataRepository();
         bindElements();
         initiateUserViewModel();
@@ -49,10 +51,10 @@ public class AccountFragment extends BaseFragment{
     }
 
     private void bindElements() {
-        progressBarAccount = view.findViewById(R.id.progressbar_account);
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
+        progressBarAccount = getLayoutView().findViewById(R.id.progressbar_account);
+        edtTxtNameAccount = getLayoutView().findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = getLayoutView().findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = getLayoutView().findViewById(R.id.edt_txt_phone_account);
     }
 
     @Override
@@ -70,7 +72,6 @@ public class AccountFragment extends BaseFragment{
 
         firebaseDataRepository.updateUser(username, email, phone);
         userViewModel.update(userDb);
-
     }
 
     private void initiateUserViewModel() {

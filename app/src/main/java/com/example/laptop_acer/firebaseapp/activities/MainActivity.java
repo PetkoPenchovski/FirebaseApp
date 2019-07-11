@@ -16,17 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.adapter.TaskAdapter;
-import com.example.laptop_acer.firebaseapp.adapter.TaskPagerAdapter;
+
 import com.example.laptop_acer.firebaseapp.fragments.AccountFragment;
 import com.example.laptop_acer.firebaseapp.fragments.DescriptionFragment;
 import com.example.laptop_acer.firebaseapp.fragments.HomeFragment;
-import com.example.laptop_acer.firebaseapp.model.Task;
+
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.usecases.MainUsecase;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
 
 import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENTS;
 
@@ -65,10 +62,6 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         checkBtn = findViewById(R.id.btn_check);
         checkBtn.setOnClickListener(this);
     }
-
-
-
-
 
     private void setupRoomDb() {
         userDb = (UserDb) getActivity().getIntent().getSerializableExtra(USER_DB);

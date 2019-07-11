@@ -1,7 +1,5 @@
 package com.example.laptop_acer.firebaseapp.remote;
 
-import android.util.Log;
-
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.model.User;
 import com.example.laptop_acer.firebaseapp.usecases.DataListener;

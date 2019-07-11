@@ -50,17 +50,16 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     }
 
     private void openRegistrationActivity() {
+        showProgress();
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
     }
 
-    //MVP
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_login;
     }
 
-    //Opravi si progressbara
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
@@ -106,7 +105,6 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
         showProgress();
         loginUsecase.validateUserData(edtTxtEmailLogin.getText().toString().trim(),
                 edtTxtPasswordLogin.getText().toString().trim());
-        hideProgress();
     }
 
     @Override

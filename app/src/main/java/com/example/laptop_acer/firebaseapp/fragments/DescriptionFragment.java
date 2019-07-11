@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,23 +69,24 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
+
     @Override
-    protected void onViewCreated() {
+    protected void onFragmentViewCreated(View view, Bundle savedInstanceState) {
         bindElements();
     }
 
     private void bindElements() {
-        progressBar = view.findViewById(R.id.progressbar_description_fragment);
-        edtPhotoName = view.findViewById(R.id.edt_name_photo);
-        edtTaskName = view.findViewById(R.id.edt_txt_task);
-        edtTaskDescription = view.findViewById(R.id.edt_txt_task_description);
-        edtLocation = view.findViewById(R.id.edt_location);
-        edtTime = view.findViewById(R.id.edt_time);
-        btnTakePic = view.findViewById(R.id.btn_take_pic);
+        progressBar = getLayoutView().findViewById(R.id.progressbar_description_fragment);
+        edtPhotoName = getLayoutView().findViewById(R.id.edt_name_photo);
+        edtTaskName = getLayoutView().findViewById(R.id.edt_txt_task);
+        edtTaskDescription = getLayoutView().findViewById(R.id.edt_txt_task_description);
+        edtLocation = getLayoutView().findViewById(R.id.edt_location);
+        edtTime = getLayoutView().findViewById(R.id.edt_time);
+        btnTakePic = getLayoutView().findViewById(R.id.btn_take_pic);
         btnTakePic.setOnClickListener(this);
-        btnUpload = view.findViewById(R.id.btn_upload);
+        btnUpload = getLayoutView().findViewById(R.id.btn_upload);
         btnUpload.setOnClickListener(this);
-        imgView = view.findViewById(R.id.img_pic);
+        imgView = getLayoutView().findViewById(R.id.img_pic);
         descriptionUsecase = new DescriptionUsecase();
         descriptionUsecase.setViewListener(this);
         CAMERA = getString(R.string.camera);
@@ -111,6 +115,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void selectImage() {
+        showProgress();
         final CharSequence[] items = {CAMERA, GALLERY, CANCEL};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -154,7 +159,9 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
+
         }
+        hideProgress();
     }
 
     private void onCaptureImageResult(Intent data) {
