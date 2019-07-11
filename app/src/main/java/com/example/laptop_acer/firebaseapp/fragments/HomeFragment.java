@@ -108,11 +108,6 @@ public class HomeFragment extends BaseFragment {
         adapter.startListening();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView taskName;
         TextView taskDescription;

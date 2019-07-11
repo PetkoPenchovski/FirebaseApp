@@ -16,7 +16,7 @@
             android:id="@+id/grp_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
@@ -28,8 +28,8 @@
                 android:fontFamily="sans-serif"
                 android:hint="task"
                 android:inputType="text"
-                android:textColorHint="@color/colorAccent"
-                android:paddingBottom="15dp" />
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/edt_txt_task_description"
@@ -38,8 +38,8 @@
                 android:fontFamily="sans-serif"
                 android:hint="task description"
                 android:inputType="text"
-                android:textColorHint="@color/colorAccent"
-                android:paddingBottom="15dp" />
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/edt_location"
@@ -48,8 +48,8 @@
                 android:fontFamily="sans-serif"
                 android:hint="location"
                 android:inputType="text"
-                android:textColorHint="@color/colorAccent"
-                android:paddingBottom="15dp" />
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/edt_time"
@@ -58,8 +58,8 @@
                 android:fontFamily="sans-serif"
                 android:hint="time"
                 android:inputType="datetime"
-                android:textColorHint="@color/colorAccent"
-                android:paddingBottom="15dp" />
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
         </LinearLayout>
 
         <android.support.design.button.MaterialButton
@@ -91,17 +91,19 @@
 
         <ImageView
             android:id="@+id/img_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_width="800px"
+            android:layout_height="600px"
+            android:layout_below="@+id/btn_take_pic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp" />
 
         <EditText
             android:id="@+id/edt_name_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textColorHint="@color/colorAccent"
-            android:hint="photo name" />
+            android:hint="photo name"
+            android:textColorHint="@color/colorAccent" />
 
         <ProgressBar
             android:id="@+id/progressbar_description_fragment"
