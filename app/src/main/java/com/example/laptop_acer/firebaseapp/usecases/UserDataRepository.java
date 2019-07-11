@@ -2,11 +2,9 @@ package com.example.laptop_acer.firebaseapp.usecases;
 
 public interface UserDataRepository {
 
-    void addUser(String id, String username, String phone, String email);
+    void addUser(String id, String username, String phone, String email, DataListener<Void> listener);
 
-    void addUserDataListener(UserDataListener storeUserListener);
-
-    interface UserDataListener {
-        void saveSuccess();
-    }
+//    interface UserDataListener {
+//        void saveSuccess();
+//    }
 }

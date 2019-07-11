@@ -12,6 +12,7 @@ public class RegistrationUsecase {
 
     private static final String TAG = "LoginUsecase";
     private UserAuthRepository userAuthRepository;
+    private TaskDataRepository taskDataRepository;
     private UserDataRepository userDataRepository;
     private ViewListener viewListener;
     private String username;
@@ -19,6 +20,7 @@ public class RegistrationUsecase {
 
     public RegistrationUsecase() {
         userAuthRepository = FirebaseAuthRepository.getInstance();
+        taskDataRepository = new FirebaseDataRepository();
         userDataRepository = new FirebaseDataRepository();
         this.user = new User();
     }
@@ -33,28 +35,12 @@ public class RegistrationUsecase {
         userAuthRepository.registerUser(email, password, username, phoneNumber);
         buildUser(email, username, phoneNumber);
         this.username = username;
-        userDataRepository.addUserDataListener(getUserDataListener());
     }
 
     private void buildUser(String email, String username, String phoneNumber) {
         user.setUserEmail(email);
         user.setUserName(username);
         user.setUserPhoneNumber(phoneNumber);
-    }
-
-    private UserDataRepository.UserDataListener getUserDataListener() {
-        return new UserDataRepository.UserDataListener() {
-            @Override
-            public void saveSuccess() {
-                UserDb userDb = new UserDb
-                        (user.getUserId(),
-                        user.getUserName(),
-                        user.getUserEmail(),
-                        user.getUserPhoneNumber());
-                viewListener.addUserToLocalDb(userDb);
-                viewListener.showMainScreen(username);
-            }
-        };
     }
 
     private UserAuthRepository.SignUpListener getSignUpListener() {
@@ -84,9 +70,24 @@ public class RegistrationUsecase {
         };
     }
 
-    public void addUser(User user) {
+    public void addUser(final User user) {
         userDataRepository.addUser(user.getUserId(), user.getUserName(), user.getUserPhoneNumber(),
-                user.getUserEmail());
+                user.getUserEmail(), new DataListener<Void>() {
+                    @Override
+                    public void onDataSuccess(Void data) {
+                        UserDb userDb = new UserDb(user.getUserId(), user.getUserName(),
+                                user.getUserEmail(), user.getUserPhoneNumber());
+                        viewListener.addUserToLocalDb(userDb);
+                        viewListener.showMainScreen(username);
+                    }
+
+                    @Override
+                    public void onDataError(String message) {
+                        Log.e(TAG, "onDataError: Saving user with username: " + username
+                                + " remotely failed");
+                        viewListener.showMainScreen(username);
+                    }
+                });
     }
 
     public void validateNewUserData(String email, String password, String username,

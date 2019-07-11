@@ -1,13 +1,21 @@
 package com.example.laptop_acer.firebaseapp.remote;
 
+import android.support.annotation.NonNull;
+
 import com.example.laptop_acer.firebaseapp.model.Task;
 import com.example.laptop_acer.firebaseapp.model.User;
 import com.example.laptop_acer.firebaseapp.usecases.DataListener;
 import com.example.laptop_acer.firebaseapp.usecases.TaskDataRepository;
 import com.example.laptop_acer.firebaseapp.usecases.UserDataRepository;
 import com.google.android.gms.common.util.Strings;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseDataRepository implements UserDataRepository, TaskDataRepository {
 
@@ -26,8 +34,6 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     //Napravi si klas RoomDBConstants
     private DatabaseReference databaseUsers;
     private DatabaseReference databaseTasks;
-    private UserDataListener userDataListener;
-
 
 
     public FirebaseDataRepository() {
@@ -54,17 +60,18 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     }
 
     @Override
-    public void addUser(String id, String username, String phone, String email) {
+    public void addUser(String id, String username, String phone, String email,
+                        DataListener<Void> listener) {
         User user = new User(id, username, phone, email);
         databaseUsers.child(id).setValue(user);
-        userDataListener.saveSuccess();
+        listener.onDataSuccess(null);
     }
 
     @Override
     public void addTask(Task task, DataListener<String> listener) {
         String taskId = databaseTasks.push().getKey();
 
-        if(Strings.isEmptyOrWhitespace(taskId)) {
+        if (Strings.isEmptyOrWhitespace(taskId)) {
             listener.onDataError(ERROR_TASK);
         } else {
             databaseTasks.child(taskId).setValue(task);
@@ -73,7 +80,26 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
     }
 
     @Override
-    public void addUserDataListener(UserDataListener userDataListener) {
-        this.userDataListener = userDataListener;
+    public void getTasks(final DataListener<List<Task>> listener) {
+        databaseTasks.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Task> tasks = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Task task;
+                    task = ds.getValue(Task.class);
+                    task.setTaskId(ds.getKey());
+                    tasks.add(task);
+                }
+
+                listener.onDataSuccess(tasks);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
