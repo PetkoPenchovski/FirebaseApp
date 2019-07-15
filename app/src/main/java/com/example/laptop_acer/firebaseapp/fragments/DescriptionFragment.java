@@ -54,7 +54,6 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     private String userChoosenTask;
     private PermissionUtilities permissionUtilities;
     private FirebaseStorage firebaseStorage;
-    private StorageReference storageReference;
     private DescriptionUsecase descriptionUsecase;
     private FirebaseDataRepository firebaseDataRepository;
     private FirebaseAuthRepository firebaseAuthRepository;
@@ -169,11 +168,15 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void upload() {
-        Bitmap thumbnail = imgBitmap;
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, PICTURE_QUALITY, bytes);
-        byte[] bytesData = bytes.toByteArray();
-        uploadImage(bytesData);
+        if (imgBitmap != null) {
+            Bitmap thumbnail = imgBitmap;
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, PICTURE_QUALITY, bytes);
+            byte[] bytesData = bytes.toByteArray();
+            uploadImage(bytesData);
+        } else {
+            showTaskSavedFailure();
+        }
     }
 
     private void onSelectFromGalleryResult(Intent data) {
@@ -190,7 +193,7 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onEditTaskInfo() {
-        if(task == null) {
+        if (task == null) {
             task = new Task();
         }
         task.setUserId(firebaseAuthRepository.getUserId());

@@ -3,8 +3,6 @@ package com.example.laptop_acer.firebaseapp.constants;
 import java.util.regex.Pattern;
 
 public class Patterns {
-    public static final String EMAIL_BODY_PATTERN = "I want to request new beacon, " +
-            "here is my details: %n%nName: %s %nEmail: %s %nPhone: %s %nAddress: %s";
     public static final Pattern EMAIL_ADDRESS_PATTERNS = Pattern.compile(
             "[a-zA-Z0-9\\+\\._%\\-]{1,256}" +
                     "@" +

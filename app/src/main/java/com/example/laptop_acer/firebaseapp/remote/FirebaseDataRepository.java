@@ -17,21 +17,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.laptop_acer.firebaseapp.constants.Constants.ERROR_TASK;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.FIREBASE_TABLE_TASKS;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.FIREBASE_TABLE_USERS;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.GET_URL_IMAGE;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TASK_DESCRIPTION;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TASK_LOCATION;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TASK_NAME;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TASK_TIME;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.USER_EMAIL;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.USER_ID;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.USER_NAME;
+import static com.example.laptop_acer.firebaseapp.constants.Constants.USER_PHONE;
+
 public class FirebaseDataRepository implements UserDataRepository, TaskDataRepository {
 
-    private static final String ERROR_TASK = "Error creating task node";
-    private static final String FIREBASE_TABLE_USERS = "users";
-    private static final String FIREBASE_TABLE_TASKS = "tasks";
-    private static final String GET_URL_IMAGE = "urlImage";
-    private static final String USER_EMAIL = "userEmail";
-    private static final String USER_NAME = "userName";
-    private static final String USER_PHONE = "userPhoneNumber";
-    private static final String USER_ID = "userId";
-    private static final String TASK_NAME = "taskName";
-    private static final String TASK_DESCRIPTION = "taskDescription";
-    private static final String TASK_LOCATION = "taskLocation";
-    private static final String TASK_TIME = "taskTime";
-    //Napravi si klas RoomDBConstants
+
     private DatabaseReference databaseUsers;
     private DatabaseReference databaseTasks;
 
@@ -49,15 +50,15 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
 
     }
 
-    public void updateTask(Task task) {
-        String idUser = FirebaseAuthRepository.getInstance().getUserId();
-        databaseUsers.child(idUser).child(GET_URL_IMAGE).setValue(task.getUrlImage());
-        databaseUsers.child(idUser).child(USER_ID).setValue(task.getUserId());
-        databaseUsers.child(idUser).child(TASK_NAME).setValue(task.getTime());
-        databaseUsers.child(idUser).child(TASK_DESCRIPTION).setValue(task.getTaskDescription());
-        databaseUsers.child(idUser).child(TASK_LOCATION).setValue(task.getTaskLocation());
-        databaseUsers.child(idUser).child(TASK_TIME).setValue(task.getTime());
-    }
+//    public void updateTask(Task task) {
+//        String idUser = FirebaseAuthRepository.getInstance().getUserId();
+//        databaseUsers.child(idUser).child(GET_URL_IMAGE).setValue(task.getUrlImage());
+//        databaseUsers.child(idUser).child(USER_ID).setValue(task.getUserId());
+//        databaseUsers.child(idUser).child(TASK_NAME).setValue(task.getTime());
+//        databaseUsers.child(idUser).child(TASK_DESCRIPTION).setValue(task.getTaskDescription());
+//        databaseUsers.child(idUser).child(TASK_LOCATION).setValue(task.getTaskLocation());
+//        databaseUsers.child(idUser).child(TASK_TIME).setValue(task.getTime());
+//    }
 
     @Override
     public void addUser(String id, String username, String phone, String email,

@@ -39,8 +39,6 @@ public class AccountFragment extends BaseFragment{
     private static EditText edtTxtEmailAccount;
     private static EditText edtTxtPhoneNumberAccount;
     private static FirebaseDataRepository firebaseDataRepository;
-    private boolean isCheck = false;
-
 
     @Override
     protected void onFragmentViewCreated(View view, Bundle savedInstanceState) {

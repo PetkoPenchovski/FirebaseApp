@@ -15,15 +15,6 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(String urlImage, String taskName, String taskDescription,
-                String taskLocation, String time) {
-        this.urlImage = urlImage;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.taskLocation = taskLocation;
-        this.time = time;
-    }
-
     public String getUrlImage() {
         return urlImage;
     }
