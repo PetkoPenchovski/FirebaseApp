@@ -38,5 +38,7 @@
     <string name="error_task_location">Error Task Location</string>
     <string name="error_task_time">Error Task Time</string>
     <string name="download">Download</string>
+    <string name="item_clicked"> Item clicked</string>
+
 
 </resources>

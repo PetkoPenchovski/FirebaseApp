@@ -2,11 +2,11 @@ package com.example.laptop_acer.firebaseapp.remote;
 
 import android.support.annotation.NonNull;
 
-import com.example.laptop_acer.firebaseapp.model.Task;
-import com.example.laptop_acer.firebaseapp.model.User;
+import com.example.laptop_acer.firebaseapp.models.Task;
+import com.example.laptop_acer.firebaseapp.models.User;
 import com.example.laptop_acer.firebaseapp.usecases.DataListener;
-import com.example.laptop_acer.firebaseapp.usecases.TaskDataRepository;
-import com.example.laptop_acer.firebaseapp.usecases.UserDataRepository;
+import com.example.laptop_acer.firebaseapp.repositories.TaskDataRepository;
+import com.example.laptop_acer.firebaseapp.repositories.UserDataRepository;
 import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

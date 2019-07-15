@@ -3,6 +3,7 @@ package com.example.laptop_acer.firebaseapp.usecases;
 import android.util.Log;
 
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.repositories.UserAuthRepository;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 
 public class LoginUsecase {

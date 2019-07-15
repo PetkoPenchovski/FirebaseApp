@@ -1,17 +1,19 @@
 package com.example.laptop_acer.firebaseapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
+import com.example.laptop_acer.firebaseapp.activities.ImageActivity;
 import com.example.laptop_acer.firebaseapp.adapters.TasksAdapter;
-import com.example.laptop_acer.firebaseapp.model.Task;
+import com.example.laptop_acer.firebaseapp.constants.Constants;
+import com.example.laptop_acer.firebaseapp.models.Task;
 import com.example.laptop_acer.firebaseapp.usecases.HomeUsecase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
@@ -58,7 +60,11 @@ public class HomeFragment extends BaseFragment implements HomeUsecase.ViewListen
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(getContext(), "Item clicked", Toast.LENGTH_LONG).show();
+    public void onItemClick(Task task) {
+        Intent intent = new Intent(getActivity(), ImageActivity.class);
+        intent.putExtra(Constants.EXTRA_TASK, task);
+        startActivity(intent);
+        Toast.makeText(getContext(), getString(R.string.item_clicked),
+                Toast.LENGTH_LONG).show();
     }
 }

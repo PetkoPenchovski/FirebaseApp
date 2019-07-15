@@ -1,6 +1,7 @@
-package com.example.laptop_acer.firebaseapp.usecases;
+package com.example.laptop_acer.firebaseapp.repositories;
 
-import com.example.laptop_acer.firebaseapp.model.Task;
+import com.example.laptop_acer.firebaseapp.models.Task;
+import com.example.laptop_acer.firebaseapp.usecases.DataListener;
 
 import java.util.List;
 

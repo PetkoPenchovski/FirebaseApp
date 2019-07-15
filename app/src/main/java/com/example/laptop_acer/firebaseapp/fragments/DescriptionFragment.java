@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.model.Task;
+import com.example.laptop_acer.firebaseapp.models.Task;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.usecases.DescriptionUsecase;

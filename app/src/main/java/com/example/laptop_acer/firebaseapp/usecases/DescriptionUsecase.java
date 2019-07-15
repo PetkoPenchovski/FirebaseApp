@@ -1,10 +1,11 @@
 package com.example.laptop_acer.firebaseapp.usecases;
 
-import com.example.laptop_acer.firebaseapp.model.Task;
+import com.example.laptop_acer.firebaseapp.models.Task;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseImageRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseStorageSingleton;
+import com.example.laptop_acer.firebaseapp.repositories.TaskDataRepository;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 import com.google.android.gms.common.util.Strings;
 import com.google.firebase.storage.StorageReference;

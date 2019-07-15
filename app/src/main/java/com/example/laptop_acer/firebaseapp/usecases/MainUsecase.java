@@ -1,6 +1,7 @@
 package com.example.laptop_acer.firebaseapp.usecases;
 
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.repositories.UserAuthRepository;
 
 public class MainUsecase {
 

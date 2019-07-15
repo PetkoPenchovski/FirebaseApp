@@ -1,6 +1,8 @@
-package com.example.laptop_acer.firebaseapp.model;
+package com.example.laptop_acer.firebaseapp.models;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
 
     private String taskId;
     private String urlImage;
@@ -11,6 +13,15 @@ public class Task {
     private String time;
 
     public Task() {
+    }
+
+    public Task(String urlImage, String taskName, String taskDescription,
+                String taskLocation, String time) {
+        this.urlImage = urlImage;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskLocation = taskLocation;
+        this.time = time;
     }
 
     public String getUrlImage() {

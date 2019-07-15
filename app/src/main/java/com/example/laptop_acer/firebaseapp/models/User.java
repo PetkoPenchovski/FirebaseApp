@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp.model;
+package com.example.laptop_acer.firebaseapp.models;
 
 public class User {
 

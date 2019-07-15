@@ -2,9 +2,12 @@ package com.example.laptop_acer.firebaseapp.usecases;
 
 import android.util.Log;
 
-import com.example.laptop_acer.firebaseapp.model.User;
+import com.example.laptop_acer.firebaseapp.models.User;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
 import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
+import com.example.laptop_acer.firebaseapp.repositories.TaskDataRepository;
+import com.example.laptop_acer.firebaseapp.repositories.UserAuthRepository;
+import com.example.laptop_acer.firebaseapp.repositories.UserDataRepository;
 import com.example.laptop_acer.firebaseapp.room_db.UserDb;
 import com.example.laptop_acer.firebaseapp.utils.ValidatorUtils;
 

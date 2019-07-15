@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.example.laptop_acer.firebaseapp.usecases.DataListener;
-import com.example.laptop_acer.firebaseapp.usecases.ImageStorageRepository;
+import com.example.laptop_acer.firebaseapp.repositories.ImageStorageRepository;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

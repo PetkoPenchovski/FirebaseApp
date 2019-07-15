@@ -27,8 +27,6 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
     private BottomNavigationView bottomNavigationView;
     private MainUsecase mainUsecase;
     private Toolbar toolbar;
-    private ImageButton imgBtnPen;
-    private ImageButton imgBtnCheck;
     private ImageButton edtBtn;
     private ImageButton checkBtn;
 
@@ -44,8 +42,6 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ((TextView) toolbar.findViewById(R.id.title)).setText(TOOLBAR_TITLE_FRAGMENTS);
-        imgBtnPen = findViewById(R.id.btn_edt);
-        imgBtnCheck = findViewById(R.id.btn_check);
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         edtBtn = findViewById(R.id.btn_edt);
@@ -70,18 +66,18 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 selectedFragment = new HomeFragment();
-                imgBtnPen.setVisibility(View.GONE);
-                imgBtnCheck.setVisibility(View.GONE);
+                edtBtn.setVisibility(View.GONE);
+                checkBtn.setVisibility(View.GONE);
                 break;
             case R.id.nav_description:
                 selectedFragment = new DescriptionFragment();
-                imgBtnPen.setVisibility(View.GONE);
-                imgBtnCheck.setVisibility(View.GONE);
+                edtBtn.setVisibility(View.GONE);
+                checkBtn.setVisibility(View.GONE);
                 break;
             case R.id.nav_account:
                 selectedFragment = new AccountFragment();
-                imgBtnPen.setVisibility(View.VISIBLE);
-                imgBtnCheck.setVisibility(View.VISIBLE);
+                edtBtn.setVisibility(View.VISIBLE);
+                checkBtn.setVisibility(View.VISIBLE);
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

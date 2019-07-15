@@ -5,5 +5,6 @@ public class Constants {
     public static final String IMAGE_FOLDER = "images";
     public static final String TOOLBAR_TITLE = "FirebaseApp";
     public static final String TOOLBAR_TITLE_FRAGMENTS = "Welcome!";
+    public static final String EXTRA_TASK = "Image";
 
 }

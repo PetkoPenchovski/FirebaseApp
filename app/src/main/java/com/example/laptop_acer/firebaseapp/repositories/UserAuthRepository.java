@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp.usecases;
+package com.example.laptop_acer.firebaseapp.repositories;
 
 import com.google.firebase.auth.FirebaseAuth;
 
