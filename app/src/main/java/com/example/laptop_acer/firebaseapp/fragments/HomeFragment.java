@@ -61,9 +61,7 @@ public class HomeFragment extends BaseFragment implements HomeUsecase.ViewListen
 
     @Override
     public void onItemClick(Task task) {
-        Intent intent = new Intent(getActivity(), ImageActivity.class);
-        intent.putExtra(Constants.EXTRA_TASK, task);
-        startActivity(intent);
+        startActivity(ImageActivity.getIntent(getContext(), task));
         Toast.makeText(getContext(), getString(R.string.item_clicked),
                 Toast.LENGTH_LONG).show();
     }

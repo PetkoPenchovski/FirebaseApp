@@ -3,19 +3,19 @@ package com.example.laptop_acer.firebaseapp.remote;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.example.laptop_acer.firebaseapp.usecases.DataListener;
 import com.example.laptop_acer.firebaseapp.repositories.ImageStorageRepository;
+import com.example.laptop_acer.firebaseapp.usecases.DataListener;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import static com.example.laptop_acer.firebaseapp.constants.Constants.UPLOAD_IMAGE_ERROR;
+
 public class FirebaseImageRepository implements ImageStorageRepository {
 
-    private static final String UPLOAD_IMAGE_ERROR = "Not Image Found";
     private StorageReference storageReference;
-
     public FirebaseImageRepository() {
         this.storageReference = FirebaseStorageSingleton.getInstance();
     }
@@ -45,3 +45,4 @@ public class FirebaseImageRepository implements ImageStorageRepository {
         });
     }
 }
+

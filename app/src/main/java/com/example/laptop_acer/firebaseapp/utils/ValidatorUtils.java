@@ -39,10 +39,6 @@ public class ValidatorUtils {
         return !isEmptyField(email) && Patterns.EMAIL_ADDRESS_PATTERNS.matcher(email).matches();
     }
 
-    public static boolean isValidateAddress(String address) {
-        return !isEmptyField(address);
-    }
-
     public static boolean isValidatePhone(String phone) {
         return !isEmptyField(phone);
     }

@@ -1,5 +1,6 @@
 package com.example.laptop_acer.firebaseapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.example.laptop_acer.firebaseapp.usecases.LoginUsecase;
 
 import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE;
 
-
 public class LoginActivity extends BaseActivity implements LoginUsecase.ViewListener,
         View.OnClickListener {
 
@@ -26,6 +26,11 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     private Button btnCreateRegistration;
     private LoginUsecase loginUsecase;
     private Toolbar toolbar;
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_login;
+    }
 
     @Override
     protected void onViewCreated() {
@@ -51,13 +56,18 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
 
     private void openRegistrationActivity() {
         showProgress();
-        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-        startActivity(intent);
+        startActivity(RegistrationActivity.getIntent(LoginActivity.this));
     }
 
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_login;
+    private void btnLoginClicked() {
+        showProgress();
+        loginUsecase.validateUserData(edtTxtEmailLogin.getText().toString().trim(),
+                edtTxtPasswordLogin.getText().toString().trim());
+    }
+
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        return intent;
     }
 
     @Override
@@ -71,15 +81,15 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
+    public void showLoginSuccess() {
+        startActivity(MainActivity.getIntent(LoginActivity.this));
+        finish();
     }
 
     @Override
-    public void showLoginFailed() {
-        Toast.makeText(this, (getString(R.string.wrong_pass)),
-                Toast.LENGTH_SHORT).show();
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -92,19 +102,6 @@ public class LoginActivity extends BaseActivity implements LoginUsecase.ViewList
     public void showInvalidPassword() {
         Toast.makeText(this, (getString(R.string.invalid_pass)),
                 Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showLoginSuccess() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
-
-    }
-
-    private void btnLoginClicked() {
-        showProgress();
-        loginUsecase.validateUserData(edtTxtEmailLogin.getText().toString().trim(),
-                edtTxtPasswordLogin.getText().toString().trim());
     }
 
     @Override

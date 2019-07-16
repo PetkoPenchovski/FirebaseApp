@@ -63,7 +63,6 @@ public class LoginUsecase {
 
             @Override
             public void userLoggedError() {
-                // user is not logged
             }
         });
     }
@@ -86,7 +85,7 @@ public class LoginUsecase {
 
         void showProgress();
 
-        void showLoginFailed();
+//        void showLoginFailed();
 
         void showInvalidEmail();
 

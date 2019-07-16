@@ -50,16 +50,6 @@ public class FirebaseDataRepository implements UserDataRepository, TaskDataRepos
 
     }
 
-//    public void updateTask(Task task) {
-//        String idUser = FirebaseAuthRepository.getInstance().getUserId();
-//        databaseUsers.child(idUser).child(GET_URL_IMAGE).setValue(task.getUrlImage());
-//        databaseUsers.child(idUser).child(USER_ID).setValue(task.getUserId());
-//        databaseUsers.child(idUser).child(TASK_NAME).setValue(task.getTime());
-//        databaseUsers.child(idUser).child(TASK_DESCRIPTION).setValue(task.getTaskDescription());
-//        databaseUsers.child(idUser).child(TASK_LOCATION).setValue(task.getTaskLocation());
-//        databaseUsers.child(idUser).child(TASK_TIME).setValue(task.getTime());
-//    }
-
     @Override
     public void addUser(String id, String username, String phone, String email,
                         DataListener<Void> listener) {

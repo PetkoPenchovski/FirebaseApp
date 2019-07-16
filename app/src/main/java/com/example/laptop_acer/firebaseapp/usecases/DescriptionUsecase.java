@@ -16,8 +16,6 @@ public class DescriptionUsecase {
     private StorageReference storageReference;
     private TaskDataRepository taskDataRepository;
     private FirebaseAuthRepository firebaseAuthRepository;
-    private Task task;
-    private String taskName;
 
     public DescriptionUsecase() {
         storageReference = FirebaseStorageSingleton.getInstance();

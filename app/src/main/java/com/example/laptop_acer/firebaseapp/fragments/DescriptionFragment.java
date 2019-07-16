@@ -193,16 +193,13 @@ public class DescriptionFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onEditTaskInfo() {
-        if (task == null) {
-            task = new Task();
-        }
         task.setUserId(firebaseAuthRepository.getUserId());
         task.setTime(edtTime.getText().toString().trim());
         task.setTaskLocation(edtLocation.getText().toString().trim());
         task.setTaskDescription(edtTaskDescription.getText().toString().trim());
         task.setTaskName(edtTaskName.getText().toString().trim());
-
         descriptionUsecase.validateNewTaskData(task);
+
     }
 
     @Override

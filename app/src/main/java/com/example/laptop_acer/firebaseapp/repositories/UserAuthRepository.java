@@ -1,7 +1,5 @@
 package com.example.laptop_acer.firebaseapp.repositories;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public interface UserAuthRepository {
 
     void registerUser(String email, String password, String username, String phoneNumber);
@@ -12,21 +10,7 @@ public interface UserAuthRepository {
 
     void addSignUpListener(SignUpListener signUpListener);
 
-    void getCurrentUser(SignOutListener signOutListener);
-
-    void signOut();
-
-    void resetPassword(String email);
-
-    void addResetPasswordListener(ResetPasswordListener resetPasswordListener);
-
     void addCheckUserListener(CheckUserListener checkUserListener);
-
-    void checkForLoggedUser(CheckUserListener listener);
-
-    interface SignOutListener {
-        void onUserInstanceReceived(FirebaseAuth mAuth);
-    }
 
     interface SignInListener {
         void onSignInSuccessful(String userId);
@@ -44,21 +28,9 @@ public interface UserAuthRepository {
         void onSignUpError();
     }
 
-    interface ResetPasswordListener {
-
-        void onResetSuccess();
-
-        void onResetError();
-    }
-
     interface CheckUserListener {
         void userLoggedSuccessful();
 
         void userLoggedError();
     }
-
-    interface UserListener {
-        void onUserIdReceived(String id);
-    }
-
 }

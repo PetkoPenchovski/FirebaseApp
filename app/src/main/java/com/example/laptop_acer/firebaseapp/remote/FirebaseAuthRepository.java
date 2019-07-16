@@ -116,33 +116,6 @@ public class FirebaseAuthRepository implements UserAuthRepository {
         };
     }
 
-    @Override
-    public void getCurrentUser(SignOutListener listener) {
-        listener.onUserInstanceReceived(firebaseAuth);
-    }
-
-    @Override
-    public void signOut() {
-
-    }
-
-    @Override
-    public void resetPassword(String email) {
-
-    }
-
-    @Override
-    public void addResetPasswordListener(ResetPasswordListener resetPasswordListener) {
-    }
-
-    @Override
-    public void checkForLoggedUser(CheckUserListener listener) {
-        if (firebaseAuth.getCurrentUser() != null) {
-            listener.userLoggedSuccessful();
-        } else {
-            listener.userLoggedError();
-        }
-    }
 
     public String getUserId() {
         return firebaseAuth.getCurrentUser().getUid();

@@ -2,6 +2,7 @@ package com.example.laptop_acer.firebaseapp.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -67,6 +68,11 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         }
     }
 
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, RegistrationActivity.class);
+        return intent;
+    }
+
     private void initiateUserViewModel() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
     }
@@ -100,8 +106,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
     }
 
     private void openMainActivity() {
-        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
-        startActivity(intent);
+        startActivity(MainActivity.getIntent(RegistrationActivity.this));
     }
 
     @Override
@@ -166,10 +171,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationUs
         addInRoom(userDb);
     }
 
-    @Override
-    public void onUserIdReceived(String id) {
-
-    }
+//    @Override
+//    public void onUserIdReceived(String id) {
+//
+//    }
 }
 
 

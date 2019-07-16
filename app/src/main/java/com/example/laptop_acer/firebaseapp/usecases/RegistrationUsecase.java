@@ -137,8 +137,5 @@ public class RegistrationUsecase {
         void showPasswordMismatch();
 
         void addUserToLocalDb(UserDb userDb);
-
-        void onUserIdReceived(String id);
-
     }
 }

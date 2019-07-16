@@ -1,5 +1,6 @@
 package com.example.laptop_acer.firebaseapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
         if (id == R.id.menuSignOut)
             FirebaseAuth.getInstance().signOut();
         finish();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        startActivity(LoginActivity.getIntent(MainActivity.this));
         Toast.makeText(this, getString(R.string.you_are_sign_out), Toast.LENGTH_SHORT)
                 .show();
         return super.onOptionsItemSelected(item);
@@ -125,6 +126,11 @@ public class MainActivity extends BaseActivity implements MainUsecase.ViewListen
                 onEditButtonVisible();
                 AccountFragment.onEditUserInfo();
         }
+    }
+
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
     }
 }
 
