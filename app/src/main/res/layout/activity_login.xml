@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    //Missing this line in linearLayout   ->tools:context="net.simplifiedlearning.firebaseauth.SignUpActivity"
+    android:orientation="vertical"
+    tools:context="com.example.laptop_acer.firebaseapp.LoginActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorAccent">
 
         <ImageView
+            android:id="@+id/img_vw_login"
             android:layout_width="85dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
@@ -35,7 +40,7 @@
             android:paddingRight="15dp">
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/edt_txt_email_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -45,7 +50,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/edt_txt_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -54,32 +59,35 @@
                 android:paddingBottom="15dp"
                 android:textColorHint="@color/colorAccent" />
 
-            <Button
-                android:id="@+id/buttonSignUp"
+            <android.support.design.button.MaterialButton
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
                 android:background="@drawable/rounded_button_transparent"
-                android:text="Sign Up"
+                android:text="@string/sign_in"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorPrimary"
+                app:rippleColor="@color/colorRipple" />
 
-            <TextView
-                android:id="@+id/textViewLogin"
+            <android.support.design.button.MaterialButton
+                android:id="@+id/btn_create_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Already have an account? Login"
-                android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorAccent" />
+                android:layout_gravity="center"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="@string/create_registration"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                app:rippleColor="@color/colorRipple" />
 
 
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/progressbar"
+            android:id="@+id/progressbar_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
