@@ -1,93 +1,99 @@
 package com.example.laptop_acer.firebaseapp.fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.laptop_acer.firebaseapp.R;
-import com.example.laptop_acer.firebaseapp.room_db.UserRoomDB;
+import com.example.laptop_acer.firebaseapp.activities.LoginActivity;
+import com.example.laptop_acer.firebaseapp.activities.MainActivity;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseAuthRepository;
+import com.example.laptop_acer.firebaseapp.remote.FirebaseDataRepository;
+import com.example.laptop_acer.firebaseapp.room_db.UserDb;
+import com.example.laptop_acer.firebaseapp.room_db.UserViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class AccountFragment extends Fragment {
+import static com.example.laptop_acer.firebaseapp.constants.Constants.TOOLBAR_TITLE_FRAGMENTS;
 
-    private UserRoomDB userRoomDB;
+public class AccountFragment extends BaseFragment{
+
+    private static UserViewModel userViewModel;
+    private static UserDb userDb;
     private ProgressBar progressBarAccount;
-    private EditText edtTxtNameAccount;
-    private EditText edtTxtEmailAccount;
-    private EditText edtTxtPhoneNumberAccount;
-    private EditText edtTxtPasswordAccount;
-    private FloatingActionButton floatButton;
-    private FloatingActionButton checkButton;
-    private boolean isEdited;
+    private static EditText edtTxtNameAccount;
+    private static EditText edtTxtEmailAccount;
+    private static EditText edtTxtPhoneNumberAccount;
+    private static FirebaseDataRepository firebaseDataRepository;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-
-        progressBarAccount = view.findViewById(R.id.progressbar_account);
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
-        floatButton = view.findViewById(R.id.float_btn);
-        checkButton = view.findViewById(R.id.check_btn);
-
-        floatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPenCLicked();
-
-            }
-        });
-
-        userRoomDB = (UserRoomDB) getActivity().getIntent().getSerializableExtra("UserRoomDB");
-
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
-
-        if (userRoomDB != null) {
-            edtTxtNameAccount.setText(userRoomDB.getUserName().toString());
-            edtTxtEmailAccount.setText(userRoomDB.getEmail().toString());
-            edtTxtPhoneNumberAccount.setText(userRoomDB.getPhoneNumber().toString());
-            edtTxtPasswordAccount.setText(userRoomDB.getPassword().toString());
-
-        }
-
-        edtTxtNameAccount = view.findViewById(R.id.edt_txt_name_account);
-        edtTxtEmailAccount = view.findViewById(R.id.edt_txt_email_account);
-        edtTxtPhoneNumberAccount = view.findViewById(R.id.edt_txt_phone_account);
-        edtTxtPasswordAccount = view.findViewById(R.id.edt_txt_password_account);
-
-        return view;
+    protected void onFragmentViewCreated(View view, Bundle savedInstanceState) {
+        firebaseDataRepository = new FirebaseDataRepository();
+        bindElements();
+        initiateUserViewModel();
+        showUserInfo();
     }
 
-    private void onPenCLicked() {
-        if (isEdited) {
-            edtTxtNameAccount.setFocusableInTouchMode(true);
-            edtTxtEmailAccount.setFocusableInTouchMode(true);
-            edtTxtPhoneNumberAccount.setFocusableInTouchMode(true);
-            edtTxtPasswordAccount.setFocusableInTouchMode(true);
-
-        } else {
-            edtTxtNameAccount.setFocusableInTouchMode(false);
-            edtTxtEmailAccount.setFocusableInTouchMode(false);
-            edtTxtPhoneNumberAccount.setFocusableInTouchMode(false);
-            edtTxtPasswordAccount.setFocusableInTouchMode(false);
-
-        }
-        isEdited = !isEdited;
+    private void bindElements() {
+        progressBarAccount = getLayoutView().findViewById(R.id.progressbar_account);
+        edtTxtNameAccount = getLayoutView().findViewById(R.id.edt_txt_name_account);
+        edtTxtEmailAccount = getLayoutView().findViewById(R.id.edt_txt_email_account);
+        edtTxtPhoneNumberAccount = getLayoutView().findViewById(R.id.edt_txt_phone_account);
     }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_account;
+    }
+
+    public static void onEditUserInfo() {
+        String username = edtTxtNameAccount.getText().toString().trim();
+        String email = edtTxtEmailAccount.getText().toString().trim();
+        String phone = edtTxtPhoneNumberAccount.getText().toString().trim();
+
+        userDb = new UserDb
+                (FirebaseAuthRepository.getInstance().getUserId(), username, email, phone);
+
+        firebaseDataRepository.updateUser(username, email, phone);
+        userViewModel.update(userDb);
+    }
+
+    private void initiateUserViewModel() {
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+    }
+
+    private void showUserInfo() {
+        userViewModel
+                .getUserById(FirebaseAuthRepository.getInstance().getUserId()).observe(this,
+                new Observer<UserDb>() {
+                    @Override
+                    public void onChanged(@Nullable UserDb localUser) {
+                        if (localUser != null) {
+                            edtTxtEmailAccount.setText(localUser.getEmail());
+                            edtTxtPhoneNumberAccount.setText(localUser.getPhoneNumber());
+                            edtTxtNameAccount.setText(localUser.getUserName());
+                        }
+                    }
+                });
+    }
 }
+
+
+
 
 
 

@@ -1,13 +1,44 @@
 <resources>
     <string name="app_name">FirebaseApp</string>
     <string name="sign_in">Sign in</string>
-    <string name="create_registration">Create Registration!</string>
-    <string name="registration">Registration!</string>
+    <string name="you_are_registered">You are registered!</string>
+    <string name="create_registration">Create Registration</string>
+    <string name="registration">Registration</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Wrong email or password!</string>
+    <string name="wrong_email">Wrong email!</string>
+    <string name="invalid_email">Invalid email!</string>
+    <string name="invalid_pass">Invalid password!</string>
+    <string name="mismatch_pass">Mismatch Password!</string>
+    <string name="invalid_username">Invalid username!</string>
+    <string name="invalid_phone_number">Invalid phone number!</string>
+    <string name="wrong_pass">Wrong password!</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
-    <string name="take_picture">Take Picture!</string>
-    <string name="sign_out">Sign Out!</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="upload">Upload</string>
+    <string name="upload_success">Upload Success</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="empty_not_saved">Empty not saved!</string>
+    <string name="published">Published</string>
+    <string name="error_upload">Error Upload</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_are_sign_out">You are sign out</string>
+    <string name="missing_permission_title">Permission necessary</string>
+    <string name="missing_permission_message">External storage permission is necessary</string>
+    <string name="downloaded">Download Success</string>
+    <string name="error_download">Error Download</string>
+    <string name="task_success">Task Success</string>
+    <string name="error_task">Error Task</string>
+    <string name="error_task_name">Error Task Name</string>
+    <string name="error_task_description">Error Task Description</string>
+    <string name="error_task_location">Error Task Location</string>
+    <string name="error_task_time">Error Task Time</string>
+    <string name="download">Download</string>
+    <string name="item_clicked"> Item clicked</string>
+
+
 </resources>

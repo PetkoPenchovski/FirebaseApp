@@ -1,4 +1,4 @@
-package com.example.laptop_acer.firebaseapp.user;
+package com.example.laptop_acer.firebaseapp.models;
 
 public class User {
 
@@ -6,15 +6,24 @@ public class User {
     private String userName;
     private String userEmail;
     private String userPhoneNumber;
-    private String userPassword;
 
-    public User(String userId, String userName, String userEmail, String userPhoneNumber
-            , String userPassword) {
+    public User() {
+    }
+
+    public User(String userId, String userName, String userEmail, String userPhoneNumber) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhoneNumber = userPhoneNumber;
-        this.userPassword = userPassword;
+
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -41,11 +50,4 @@ public class User {
         this.userPhoneNumber = userPhoneNumber;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
 }
